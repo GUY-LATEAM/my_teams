@@ -47,6 +47,7 @@ typedef struct team_s {
     char uuid[MAX_UUID_LENGTH];
     char name[MAX_NAME_LENGTH + 1];
     char description[MAX_DESCRIPTION_LENGTH + 1];
+    list_ptr_t *subscribed_users;
     list_ptr_t *channels;
 } team_t;
 
