@@ -1,0 +1,4 @@
+./src/libs/list_lib/tests/tests.c:13: MINOR:C-L4
+./src/libs/list_lib/tests/tests.c:25: MINOR:C-L4
+./src/libs/list_lib/tests/tests.c:37: MINOR:C-L4
+./src/libs/list_lib/tests/tests.c:50: MINOR:C-L4
