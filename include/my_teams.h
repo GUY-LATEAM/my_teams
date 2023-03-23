@@ -11,7 +11,7 @@
 
 #include <sys/select.h> // Pour les fd_set
 #include <netinet/in.h> // Pour les strucs sockaddr
-#include "list_lib.h"
+#include "list_lib.h" // Pour la lib list
 
 #define MAX_NAME_LENGTH 32
 #define MAX_UUID_LENGTH 37
