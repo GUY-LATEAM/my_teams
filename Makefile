@@ -18,6 +18,8 @@ CFLAGS	=	-Wall -Wextra -pedantic -I./include
 
 RULE = $(filter-out $@,$(MAKECMDGOALS))
 
+LIBRARY_PATHS = $(addprefix ./src/, list_lib)
+
 # ------------------------------------------------------------------
 
 OBJ = $(SRC:.c=.o)
@@ -26,7 +28,7 @@ OBJ = $(SRC:.c=.o)
 	@$(CC) -c -o $@ $< $(CFLAGS)
 	@printf "[\033[0;32mcompiled\033[0m] % 29s\n" $< |  tr ' ' '.'
 
-all: $(COMPILATION)
+all: make_library $(COMPILATION)
 ifneq (,$(wildcard $(COMPILATION)))
 ifneq ($(RULE), re)
 	@printf "[\033[1;32mAlready up to date\033[0m]\n"
@@ -39,7 +41,10 @@ $(COMPILATION): $(OBJ)
 	@printf "[\033[1;93mBinary \033[1;32mcreated\
 	\033[0m] % 23s\n" $(COMPILATION) | tr ' ' '.'
 
-clean:
+make_library:
+	@make $(RULE) -C $(LIBRARY_PATHS)
+
+clean: make_library
 	@$(RM) -f *~ *.gcno *.gcda *.gcda *.swn *.swo *.c.swp
 	@$(RM) -f 'a.out'
 	@$(RM) -f 'unit_tests'
@@ -50,7 +55,7 @@ else
 	@printf "[\033[1;36mOBJ \033[1;32malready deleted\033[0m]\n"
 endif
 
-fclean : clean
+fclean : make_library clean
 ifneq (,$(wildcard ./$(COMPILATION)))
 	@rm -f $(COMPILATION)
 	@printf "[\033[1;93mBinary \033[1;31mdeleted\
@@ -59,15 +64,16 @@ else
 	@printf "[\033[1;93mBinary \033[1;32malready deleted\033[0m]\n"
 endif
 
-re: fclean all
+re: make_library fclean all
 
 debug: CFLAGS += -g3
 debug: RULE = re
-debug:	re
+debug:	make_library re
 
 noice: RULE = re
-noice: re
+noice: make_library re
 	$(MAKE) clean
+	@make -C $(LIBRARY_PATHS) clean
 
 tests_run:	fclean
 	gcc -o unit_tests $(SRC_TEST) $(TEST) --coverage -lcriterion $(CFLAGS)
