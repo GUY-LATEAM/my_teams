@@ -14,18 +14,20 @@ SRC_TEST	=	$(filter-out main.c,$(SRC))
 
 TEST	=	tests/test.c
 
-CFLAGS	=	-Wall -Wextra -pedantic -I./include
+CFLAGS	=	-Wall -Wextra -pedantic -I./include -I./src/libs/list_lib/include
+
+LDFLAGS	=	-L ./src/libs/list_lib -l list
 
 RULE = $(filter-out $@,$(MAKECMDGOALS))
 
-LIBRARY_PATHS = $(addprefix ./src/, list_lib)
+LIBRARY_PATHS = $(addprefix ./src/libs/, list_lib)
 
 # ------------------------------------------------------------------
 
 OBJ = $(SRC:.c=.o)
 
 %.o:		%.c
-	@$(CC) -c -o $@ $< $(CFLAGS)
+	@$(CC) -c -o $@ $< $(CFLAGS) $(LDFLAGS)
 	@printf "[\033[0;32mcompiled\033[0m] % 29s\n" $< |  tr ' ' '.'
 
 all: make_library $(COMPILATION)
