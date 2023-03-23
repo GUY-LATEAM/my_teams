@@ -48,6 +48,12 @@ typedef struct team_s {
     list_ptr_t *channels;
 } team_t;
 
+typedef struct context_s {
+    char team_uuid[MAX_UUID_LENGTH];
+    char channel_uuid[MAX_UUID_LENGTH];
+    char thread_uuid[MAX_UUID_LENGTH];
+} context_t;
+
 typedef struct server_s {
     int fd_server;
     int port;
@@ -58,6 +64,18 @@ typedef struct server_s {
     list_ptr_t *users;
     list_ptr_t *teams;
 } server_t;
+
+typedef struct client_s {
+    int socket_fd;
+    struct sockaddr_in addr;
+    user_t *user;//(NULL si non connecté)
+    context_t context;// Le contexte actuel du client pour les commandes en gros /use
+} client_t;
+
+typedef struct app_s { // honnetement je sais pas si c'est utile
+    server_t server;
+    list_ptr_t *clients;
+} app_t;
 
 
 #endif /* !MY_TEAMS_H_ */
