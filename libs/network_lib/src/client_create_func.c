@@ -12,10 +12,14 @@
 bool create_network_client(network_server_t* server, int buff_size, char *pattern)
 {
     network_client_t *client = malloc(sizeof(network_client_t));
+
     client->read_buffer = create_circular_buffer(buff_size, pattern);
     client->write_buffer = create_circular_buffer(buff_size, pattern);
     client->socket = accept_socket(server->socket);
-
+    client->on_connect = NULL;
+    client->on_disconnect = NULL;
+    client->send = NULL;
+    client->receive = NULL;
     if (client->socket == -1) {
         destroy_network_client(client);
         return false;
