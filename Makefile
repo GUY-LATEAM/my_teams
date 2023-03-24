@@ -12,9 +12,9 @@ SRC		:= $(addprefix src/, $(SRC))
 
 SRC_TEST	=	$(filter-out main.c,$(SRC))
 
-TEST	=	tests/test.c
+CFLAGS	=	-Wall -Wextra -pedantic -I./include -I./libs/list_lib/include -I./libs/network_lib/include
 
-CFLAGS	=	-Wall -Wextra -pedantic -I./include
+LDFLAGS	=	-L ./libs/list_lib -l list -L ./libs/network_lib -l network
 
 RULE = $(filter-out $@,$(MAKECMDGOALS))
 
@@ -25,7 +25,7 @@ LIBRARY_PATHS = $(addprefix ./libs/, list_lib network_lib circular_buffer_lib)
 OBJ = $(SRC:.c=.o)
 
 %.o:		%.c
-	@$(CC) -c -o $@ $< $(CFLAGS)
+	@$(CC) -c -o $@ $< $(CFLAGS) $(LDFLAGS)
 	@printf "[\033[0;32mcompiled\033[0m] % 29s\n" $< |  tr ' ' '.'
 
 all: make_library $(COMPILATION)
@@ -74,9 +74,3 @@ noice: RULE = re
 noice: make_library re
 	$(MAKE) clean
 	@make -C $(LIBRARY_PATHS) clean
-
-tests_run:	fclean
-	gcc -o unit_tests $(SRC_TEST) $(TEST) --coverage -lcriterion $(CFLAGS)
-	./unit_tests
-gcovr:
-	gcovr --exclude tests --branch

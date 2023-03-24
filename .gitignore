@@ -57,7 +57,5 @@ dkms.conf
 
 # End of https://www.toptal.com/developers/gitignore/api/c
 
-.vscode/
-*.gcd*
-*.gcn*
-unit_tests
+vscode/
+my_teams
