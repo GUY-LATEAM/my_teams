@@ -55,7 +55,10 @@ SRC	:=	$(addprefix src/,$(SRC))
 SRC_TEST	:=	$(filter-out main.c,$(SRC))	\
 				tests/tests.c
 
-CFLAGS	=	-Wall -Wextra -Wpedantic -I./include/ -I ../circular_buffer_lib/include/ -I ../list_lib/include/ -I ../string_lib/include/ -I ../utils_lib/include/ -I ../vector_lib/include/
+CFLAGS	=	-Wall -Wextra -Wpedantic -I./include/ \
+-I ../circular_buffer_lib/include/ -I ../list_lib/include/ \
+-I ../string_lib/include/ \
+-I ../utils_lib/include/ -I ../vector_lib/include/
 
 
 RM_ARRAY	=	$(OBJ) *~ a.out *.gcno *.gcda unit_tests *\# \#*
@@ -81,7 +84,7 @@ $(COMPILATION):	$(OBJ)
 
 all: $(COMPILATION)
 
-fclean:
+fclean: clean
 ifneq (,$(wildcard $(FRM_ARRAY)))
 	@$(call delete,$(FRM_ARRAY))
 else

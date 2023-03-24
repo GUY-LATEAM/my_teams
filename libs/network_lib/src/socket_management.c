@@ -23,7 +23,8 @@ void do_socket_write(network_client_t *client, fd_set *write_fds)
     }
 }
 
-void do_socket_except(network_client_t *client, fd_set *except_fds, network_server_t *server)
+void do_socket_except(network_client_t *client, fd_set *except_fds,
+network_server_t *server)
 {
     if (FD_ISSET(client->socket, except_fds)) {
         client->on_disconnect(client->user_data, SOCKET_ERROR);
