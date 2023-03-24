@@ -21,8 +21,20 @@
     typedef struct user_s {
         char uuid[MAX_UUID_LENGTH];
         char name[MAX_NAME_LENGTH + 1]; // +1 for the null terminator
+        list_ptr_t *conversations
         int socket_fd;
     } user_t;
+
+    typedef struct conversation_s {
+        char uuid[MAX_UUID_LENGTH]; // UUID de l'user à qui on discute
+        char name[MAX_NAME_LENGTH + 1]; // Name
+        list_ptr_t *messages; // Liste de messages
+    } conversation_t;
+
+    typedef struct message_s {
+        char content[MAX_BODY_LENGTH + 1];
+        char uuid[MAX_UUID_LENGTH]; // uid de l'user qui a envoyé le message
+    } message_t;
 
     typedef struct reply_s {
         char uuid[MAX_UUID_LENGTH];
