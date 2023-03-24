@@ -20,7 +20,7 @@ LDFLAGS	=	-L ./src/libs/list_lib -l list
 
 RULE = $(filter-out $@,$(MAKECMDGOALS))
 
-LIBRARY_PATHS = $(addprefix ./src/libs/, list_lib)
+LIBRARY_PATHS = $(addprefix ./libs/, list_lib network_lib)
 
 # ------------------------------------------------------------------
 
