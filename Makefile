@@ -18,7 +18,7 @@ CFLAGS	=	-Wall -Wextra -pedantic -I./include
 
 RULE = $(filter-out $@,$(MAKECMDGOALS))
 
-LIBRARY_PATHS = $(addprefix ./src/, list_lib)
+LIBRARY_PATHS = $(addprefix ./libs/, list_lib network_lib)
 
 # ------------------------------------------------------------------
 
