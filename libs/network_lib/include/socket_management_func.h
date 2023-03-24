@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2023
-** bs_teams
+** Network_Lib
 ** File description:
 ** socket_management_func
 */
