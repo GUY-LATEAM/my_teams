@@ -9,7 +9,7 @@
     #define SELECT_FUNC_H_
 
     #include <sys/socket.h>
-    #include "list.h"
+    #include "list_lib.h"
 
     void update_max_fd(int *max_fd, int new_socket);
     void find_new_max_fd(int *max_fd, list_t *clients);

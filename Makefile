@@ -12,13 +12,13 @@ SRC		:= $(addprefix src/, $(SRC))
 
 SRC_TEST	=	$(filter-out main.c,$(SRC))
 
-CFLAGS	=	-Wall -Wextra -pedantic -I./include -I./libs/list_lib/include -I./libs/network_lib/include
+CFLAGS	=	-Wall -Wextra -pedantic -I./include -I./libs/list_lib/include -I./libs/network_lib/include -I./libs/circular_buffer_lib/include
 
-LDFLAGS	=	-L ./libs/list_lib -l list -L ./libs/network_lib -l network
+LDFLAGS	=	-L ./libs/list_lib -l list -L ./libs/network_lib -l network -L ./libs/circular_buffer_lib -l circular_buffer
 
 RULE = $(filter-out $@,$(MAKECMDGOALS))
 
-LIBRARY_PATHS = $(addprefix ./libs/, list_lib network_lib)
+LIBRARY_PATHS = $(addprefix ./libs/, list_lib network_lib circular_buffer_lib)
 
 # ------------------------------------------------------------------
 
@@ -42,7 +42,7 @@ $(COMPILATION): $(OBJ)
 	\033[0m] % 23s\n" $(COMPILATION) | tr ' ' '.'
 
 make_library:
-	@make $(RULE) -C $(LIBRARY_PATHS)
+	@$(shell $(foreach lib, $(LIBRARY_PATHS), make $(RULE) -C $(lib) &&) true)
 
 clean: make_library
 	@$(RM) -f *~ *.gcno *.gcda *.gcda *.swn *.swo *.c.swp
