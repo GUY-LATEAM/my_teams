@@ -77,7 +77,7 @@ $(COMPILATION):	$(OBJ)
 
 all: $(COMPILATION)
 
-fclean:
+fclean: clean
 ifneq (,$(wildcard $(FRM_ARRAY)))
 	@$(call delete,$(FRM_ARRAY))
 else

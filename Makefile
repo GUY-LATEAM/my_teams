@@ -12,9 +12,11 @@ SRC		:= $(addprefix src/, $(SRC))
 
 SRC_TEST	=	$(filter-out main.c,$(SRC))
 
-CFLAGS	=	-Wall -Wextra -pedantic -I./include -I./libs/list_lib/include -I./libs/network_lib/include -I./libs/circular_buffer_lib/include
+CFLAGS	=	-Wall -Wextra -pedantic -I./include -I./libs/list_lib/include \
+ -I./libs/network_lib/include -I./libs/circular_buffer_lib/include
 
-LDFLAGS	=	-L ./libs/list_lib -l list -L ./libs/network_lib -l network -L ./libs/circular_buffer_lib -l circular_buffer
+LDFLAGS	=	-L ./libs/list_lib -l list -L ./libs/network_lib -l network \
+ -L ./libs/circular_buffer_lib -l circular_buffer
 
 RULE = $(filter-out $@,$(MAKECMDGOALS))
 
@@ -38,7 +40,8 @@ endif
 $(COMPILATION): $(OBJ)
 	@$(CC) $(OBJ) -o $(COMPILATION)
 	@echo -e "[\033[0;36mbuilt\033[0m] `printf '% 32s' $(OBJ)`"
-		@echo -e "[\033[1;93mBinary \033[1;32mcreated\033[0m] `printf '% 23s' $(COMPILATION)`" | tr ' ' '.'
+		@echo -e "[\033[1;93mBinary \033[1;32mcreated\033[0m] \
+		 `printf '% 23s' $(COMPILATION)`" | tr ' ' '.'
 
 make_library:
 	@$(foreach lib, $(LIBRARY_PATHS), make -s -C $(lib);)
@@ -57,7 +60,8 @@ endif
 fclean : make_library clean
 ifneq (,$(wildcard ./$(COMPILATION)))
 	@rm -f $(COMPILATION)
-	@echo -e "[\033[1;93mBinary \033[1;31mdeleted\033[0m] `printf '% 25s' $(COMPILATION)`" | tr ' ' '.'
+	@echo -e "[\033[1;93mBinary \033[1;31mdeleted\033[0m] \
+	 `printf '% 25s' $(COMPILATION)`" | tr ' ' '.'
 else
 	@echo -e "[\033[1;93mBinary \033[1;32malready deleted\033[0m]"
 endif
