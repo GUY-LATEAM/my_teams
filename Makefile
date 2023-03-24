@@ -18,7 +18,7 @@ LDFLAGS	=	-L ./libs/list_lib -l list -L ./libs/network_lib -l network
 
 RULE = $(filter-out $@,$(MAKECMDGOALS))
 
-LIBRARY_PATHS = $(addprefix ./libs/, list_lib network_lib)
+LIBRARY_PATHS = $(addprefix ./libs/, list_lib network_lib circular_buffer_lib)
 
 # ------------------------------------------------------------------
 

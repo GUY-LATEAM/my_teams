@@ -5,6 +5,7 @@
 ** client_func
 */
 
+#include "list_lib.h"
 #include "circular_buffer.h"
 #include "client_func.h"
 #include "socket_basic_func.h"
@@ -24,7 +25,7 @@ bool create_network_client(network_server_t* server, int buff_size, char *patter
         destroy_network_client(client);
         return false;
     }
-    list_add(server->clients, client);
+    list_add_last(server->clients, client);
     return true;
 }
 

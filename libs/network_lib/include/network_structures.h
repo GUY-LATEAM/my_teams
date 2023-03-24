@@ -10,7 +10,7 @@
 
     #include <sys/select.h>
     #include "circular_buffer.h"
-    #include "list.h"
+    #include "struct_list_lib.h"
 
     typedef enum on_disconnect_error_e {
         DISCONNECTED,
@@ -24,7 +24,7 @@
         fd_set read_fds;
         fd_set write_fds;
         fd_set except_fds;
-        list_t *clients;
+        list_ptr_t *clients;
     } network_server_t;
 
     typedef struct network_client_s {

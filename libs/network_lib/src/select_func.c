@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include "list_lib.h"
 #include "select_func.h"
 #include "network_structures.h"
 
@@ -16,17 +17,13 @@ void update_max_fd(int *max_fd, int new_socket)
         *max_fd = new_socket;
 }
 
-void find_new_max_fd(int *max_fd, list_t *clients)
+void find_new_max_fd(int *max_fd, list_ptr_t *clients)
 {
-    list_t *tmp = clients;
     network_client_t *client = NULL;
 
-    while (tmp) {
-        if (tmp->data) {
-            client = tmp->data;
-            update_max_fd(max_fd, client->socket);
-        }
-        tmp = tmp->next;
+    for (int i = 0; i < clients->len; i++) {
+        client = get_list_i_data(clients, i);
+        update_max_fd(max_fd, client->socket);
     }
 }
 
