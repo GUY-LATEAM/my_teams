@@ -39,7 +39,7 @@ endef
 
 # ---------------------------------------------------------------------
 
-COMPILATION	=	liblist.a
+COMPILATION	=	libnetwork.a
 
 SRC	:=	client_create_func.c				\
 		client_destroy_func.c				\
