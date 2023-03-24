@@ -39,23 +39,18 @@ endef
 
 # ---------------------------------------------------------------------
 
-COMPILATION	=	libnet.a
+COMPILATION	=	libbuff.a
 
-SRC	:=	client_create_func.c				\
-		client_destroy_func.c				\
-		select_func.c						\
-		server_create_func.c				\
-		server_destroy_func.c               \
-        server_misc_func.c                  \
-        socket_basic_func.c                 \
-        socket_management.c                 \
+SRC	:=	cbuff_create.c						\
+		cbuff_destroy.c						\
+		cbuff_misc.c						\
 
 SRC	:=	$(addprefix src/,$(SRC))
 
 SRC_TEST	:=	$(filter-out main.c,$(SRC))	\
 				tests/tests.c
 
-CFLAGS	=	-Wall -Wextra -Wpedantic -I./include/ -I ../circular_buffer_lib/include/ -I ../list_lib/include/ -I ../string_lib/include/ -I ../utils_lib/include/ -I ../vector_lib/include/
+CFLAGS	=	-Wall -Wextra -Wpedantic -I./include/
 
 
 RM_ARRAY	=	$(OBJ) *~ a.out *.gcno *.gcda unit_tests *\# \#*
