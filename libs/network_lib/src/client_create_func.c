@@ -10,7 +10,8 @@
 #include "client_func.h"
 #include "socket_basic_func.h"
 
-bool create_network_client(network_server_t* server, int buff_size, char *pattern)
+bool create_network_client(network_server_t* server,
+int buff_size, char *pattern)
 {
     network_client_t *client = malloc(sizeof(network_client_t));
 

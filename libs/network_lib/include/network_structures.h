@@ -37,7 +37,8 @@
 
         void (*send)(void *user_data, circular_buffer_t *write_buffer);
         void (*receive)(void *user_data, circular_buffer_t *read_buffer);
-        void (*on_disconnect)(void *user_data, on_disconnect_error_t error_code);
+        void (*on_disconnect)(void *user_data,
+        on_disconnect_error_t error_code);
         void (*on_connect)(void *user_data);
     } network_client_t;
 

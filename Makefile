@@ -44,7 +44,7 @@ $(COMPILATION): $(OBJ)
 		 `printf '% 23s' $(COMPILATION)`" | tr ' ' '.'
 
 make_library:
-	@$(foreach lib, $(LIBRARY_PATHS), make -s -C $(lib);)
+	@$(foreach lib, $(LIBRARY_PATHS), make $(RULE) -s -C $(lib);)
 
 clean: make_library
 	@$(RM) -f *~ *.gcno *.gcda *.gcda *.swn *.swo *.c.swp

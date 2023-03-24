@@ -13,6 +13,7 @@
 
     void update_max_fd(int *max_fd, int new_socket);
     void find_new_max_fd(int *max_fd,  list_ptr_t *clients);
-    int select_socket(int max_fd, fd_set *read_fds, fd_set *write_fds, fd_set *except);
+    int select_socket(int max_fd, fd_set *read_fds,
+    fd_set *write_fds, fd_set *except);
 
 #endif /* !SELECT_FUNC_H_ */
