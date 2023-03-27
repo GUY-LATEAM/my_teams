@@ -19,8 +19,6 @@ SRC 	+= 	init/init_chanel.c \
 			init/init_user.c
 SRC		:= $(addprefix src/, $(SRC))
 
-SRC_TEST	=	$(filter-out main.c,$(SRC))
-
 CFLAGS	=	-Wall -Wextra -pedantic -I./include -I./libs/list_lib/include \
  -I./libs/network_lib/include -I./libs/circular_buffer_lib/include
 

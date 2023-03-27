@@ -10,12 +10,9 @@ COMPILATION = my_teams_cli
 SRC 	:=	main.c
 SRC		:= $(addprefix src/, $(SRC))
 
-SRC_TEST	=	$(filter-out main.c,$(SRC))
-
 CFLAGS	=	-Wall -Wextra -pedantic -I./include
 
 RULE = $(filter-out $@,$(MAKECMDGOALS))
-
 
 # ------------------------------------------------------------------
 
