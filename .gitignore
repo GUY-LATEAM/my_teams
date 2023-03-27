@@ -58,5 +58,5 @@ dkms.conf
 # End of https://www.toptal.com/developers/gitignore/api/c
 
 .vscode/
-my_teams
+my_teams_server.h
 report/

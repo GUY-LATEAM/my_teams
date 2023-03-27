@@ -9,7 +9,7 @@
 #include <string.h>
 #include <uuid/uuid.h>
 #include "list_lib.h"
-#include "my_teams.h"
+#include "my_teams_server.h"
 
 team_t *init_team(char *name, char *description)
 {
