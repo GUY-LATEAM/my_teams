@@ -48,9 +48,6 @@ SRC	:=	init_list.c							\
 		remove_list.c
 SRC	:=	$(addprefix src/,$(SRC))
 
-SRC_TEST	:=	$(filter-out main.c,$(SRC))	\
-				tests/tests.c
-
 CFLAGS	=	-Wall -Wextra -Wpedantic -I./include/
 
 
@@ -77,7 +74,7 @@ $(COMPILATION):	$(OBJ)
 
 all: $(COMPILATION)
 
-fclean:
+fclean: clean
 ifneq (,$(wildcard $(FRM_ARRAY)))
 	@$(call delete,$(FRM_ARRAY))
 else
@@ -96,9 +93,3 @@ re: fclean all
 
 debug: CFLAGS += -g3
 debug: fclean $(COMPILATION)
-
-test_run: CFLAGS += --coverage -lcriterion
-test_run: fclean
-	gcc -o unit_tests $(SRC_TEST) $(CFLAGS)
-	./unit_tests
-	gcovr --exclude tests/
