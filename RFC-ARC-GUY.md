@@ -66,7 +66,7 @@ Commands sent by the client follow the format:
 - **CMD** : The command keyword (e.g., /login, /users, etc.).
 - **sp** : A space separating the command keyword and its arguments.
 - **args**: The command arguments, if any, enclosed in double quotes and separated by spaces (e.g., "username", "team_uuid").
-- **endL**: A custom delimiter to indicate the end of the command. In this case, the delimiter is the sequence \g\u\y.
+- **endL**: A custom delimiter to indicate the end of the command. In this case, the delimiter is the sequence **\g\u\y**.
 
 **args** : The arguments for the command, if necessary, enclosed in double quotes and separated by spaces (e.g., "username", "team_uuid"). The specific data to include for each command is described below.
 Data to include for each command:
@@ -93,7 +93,7 @@ Responses from the server follow the format:
 - **sp**: A space used to separate the response elements.
 - **CODE**: A code corresponding to the message type or the specific message being sent.
 - **MESSAGE**: The actual message content or information being sent as a response.
-- **endL**: The custom delimiter to indicate the end of the response, which is the sequence \g\u\y.in this case.
+- **endL**: The custom delimiter to indicate the end of the response, which is the sequence **\g\u\y**.
 
 **CODE** :
 
