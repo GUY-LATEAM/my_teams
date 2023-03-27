@@ -28,5 +28,9 @@ int do_myteams(int ac, char **av)
 
 void loop_server(server_t *srv)
 {
-    return;
+    if (server_receive_new_con(srv->network_server, 1024, "\g\u\y") == 1) {
+        printf("New client connected");
+    }
+    server_loop_client(srv->network_server);
+
 }
