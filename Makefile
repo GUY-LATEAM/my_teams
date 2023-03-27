@@ -53,4 +53,5 @@ noice_client:
 	@make -s -C client noice
 	@cp client/my_teams_cli .
 
-.PHONY: all server client clean clean_server clean_client fclean re debug debug_server debug_client noice noice_server noice_client
+.PHONY: all server client clean clean_server clean_client fclean re debug \
+ debug_server debug_client noice noice_server noice_client
