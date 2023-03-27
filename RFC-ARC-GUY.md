@@ -1,11 +1,13 @@
-MyTeams Protocol Specification
+#MyTeams Protocol Specification
 RFC: ARC-GUY
 
-1. Introduction
+##1. Introduction
 
 This document describes the MyTeams protocol, which is designed to facilitate communication and collaboration within teams through a server-client architecture. The protocol supports a range of features, including user authentication, team and channel management, thread and comment creation, and personal messaging.
 
-2. Terminology
+---
+
+##2. Terminology
 
 - Server: The central component that manages the communication between clients and maintains the application state.
 - Client: An endpoint that connects to the server to interact with the MyTeams application.
@@ -14,11 +16,15 @@ This document describes the MyTeams protocol, which is designed to facilitate co
 - Thread: A conversation within a channel, consisting of an initial post and additional comments.
 - Comment: A message in response to a thread's initial post or another comment.
 
-3. Architecture
+---
+
+##3. Architecture
 
 The MyTeams protocol is built on a client-server architecture using TCP sockets for communication. The server maintains the application state, including users, teams, channels, threads, and comments. Clients connect to the server to send commands and receive updates.
 
-4. Data Model
+---
+
+##4. Data Model
 
 The data model consists of the following structures:
 
@@ -28,7 +34,9 @@ The data model consists of the following structures:
 - Thread: Contains thread-related information, such as UUID, title, and initial message.
 - Comment: Contains comment-related information, such as UUID and message body.
 
-5. Commands
+---
+
+##5. Commands
 
 The MyTeams protocol supports the following commands:
 
@@ -47,18 +55,20 @@ The MyTeams protocol supports the following commands:
 - /list: based on what is being used list all the subresources (see below)
 - /info: based on what is being used list the current (see below)
 
-6. Command and Response Format
+---
+
+##6. Command and Response Format
 
 Commands sent by the client follow the format:
 
     <CMD><sp><args><endL>
 
-- <CMD>: The command keyword (e.g., /login, /users, etc.).
-- <sp>: A space separating the command keyword and its arguments.
-- <args>: The command arguments, if any, enclosed in double quotes and separated by spaces (e.g., "username", "team_uuid").
-- <endL>: A custom delimiter to indicate the end of the command. In this case, the delimiter is the sequence \g\u\y.
+- **CMD** : The command keyword (e.g., /login, /users, etc.).
+- **sp** : A space separating the command keyword and its arguments.
+- **args**: The command arguments, if any, enclosed in double quotes and separated by spaces (e.g., "username", "team_uuid").
+- **endL**: A custom delimiter to indicate the end of the command. In this case, the delimiter is the sequence \g\u\y.
 
-<args>: The arguments for the command, if necessary, enclosed in double quotes and separated by spaces (e.g., "username", "team_uuid"). The specific data to include for each command is described below.
+**args** : The arguments for the command, if necessary, enclosed in double quotes and separated by spaces (e.g., "username", "team_uuid"). The specific data to include for each command is described below.
 Data to include for each command:
 
     /login -> "username" - The username the client will use.
@@ -79,13 +89,13 @@ Responses from the server follow the format:
 
     <STATUS><sp><CODE><sp><MESSAGE><endL>
 
-- <STATUS>: The status of the response,indicate the success or failure of the command (OK, ERROR).
-- <sp>: A space used to separate the response elements.
-- <CODE>: A code corresponding to the message type or the specific message being sent.
-- <MESSAGE>: The actual message content or information being sent as a response.
-- <endL>: The custom delimiter to indicate the end of the response, which is the sequence \g\u\y.in this case.
+- **STATUS**: The status of the response,indicate the success or failure of the command (OK, ERROR).
+- **sp**: A space used to separate the response elements.
+- **CODE**: A code corresponding to the message type or the specific message being sent.
+- **MESSAGE**: The actual message content or information being sent as a response.
+- **endL**: The custom delimiter to indicate the end of the response, which is the sequence \g\u\y.in this case.
 
-<CODE> : 
+**CODE** :
 
 Response codes are three-digit numeric codes used to indicate the outcome of a command. Response codes are grouped into five classes, based on the first digit of the code:
 
@@ -95,7 +105,7 @@ Response codes are three-digit numeric codes used to indicate the outcome of a c
     4xx (Client Error): The request contains bad syntax or cannot be fulfilled by the server.
     5xx (Server Error): The server failed to fulfill an apparently valid request.
 
-Here are some example response codes for your MyTeams protocol:
+Here are the response codes for ARC-GUY protocol:
 
     200 OK: The command was successfully processed.
     201 Created: The resource was successfully created (e.g., a team, channel, or thread).
@@ -106,11 +116,15 @@ Here are some example response codes for your MyTeams protocol:
     404 Not Found: The requested resource was not found (e.g., a user, team, channel, or thread).
     500 Internal Server Error: An error occurred on the server side while processing the command.
 
-7. Error Handling
+---
+
+##7. Error Handling
 
 Errors in the MyTeams protocol are handled by returning an error code (e.g., 84) and an error message on the error output. Clients should handle these errors appropriately.
 
-8. Security
+---
+
+##8. Security
 
 While password authentication is not required for this project, developers should implement basic security measures, such as ensuring that only logged-in users can access certain features and preventing unauthorized access to teams, channels, and threads.
 
