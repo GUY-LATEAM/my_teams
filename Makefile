@@ -8,6 +8,15 @@
 COMPILATION = my_teams
 
 SRC 	:=	main.c
+SRC 	+= 	init/init_chanel.c \
+			init/init_contexte.c \
+			init/init_conversation.c \
+			init/init_message.c \
+			init/init_reply.c \
+			init/init_server.c \
+			init/init_teams.c \
+			init/init_thread.c \
+			init/init_user.c
 SRC		:= $(addprefix src/, $(SRC))
 
 SRC_TEST	=	$(filter-out main.c,$(SRC))
@@ -15,8 +24,8 @@ SRC_TEST	=	$(filter-out main.c,$(SRC))
 CFLAGS	=	-Wall -Wextra -pedantic -I./include -I./libs/list_lib/include \
  -I./libs/network_lib/include -I./libs/circular_buffer_lib/include
 
-LDFLAGS	=	-L ./libs/list_lib -l list -L ./libs/network_lib -l network \
- -L ./libs/circular_buffer_lib -l circular_buffer
+LDFLAGS	=	-L ./libs/list_lib -L ./libs/network_lib\
+ -L ./libs/circular_buffer_lib -luuid -l list -l network -l buff
 
 RULE = $(filter-out $@,$(MAKECMDGOALS))
 
@@ -38,7 +47,7 @@ endif
 endif
 
 $(COMPILATION): $(OBJ)
-	@$(CC) $(OBJ) -o $(COMPILATION)
+	@$(CC) $(OBJ) -o $(COMPILATION) $(LDFLAGS)
 	@echo -e "[\033[0;36mbuilt\033[0m] `printf '% 32s' $(OBJ)`"
 		@echo -e "[\033[1;93mBinary \033[1;32mcreated\033[0m] \
 		 `printf '% 23s' $(COMPILATION)`" | tr ' ' '.'
