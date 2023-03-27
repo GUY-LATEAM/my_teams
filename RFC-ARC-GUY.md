@@ -1,13 +1,13 @@
-#MyTeams Protocol Specification
+# MyTeams Protocol Specification
 RFC: ARC-GUY
 
-##1. Introduction
+## 1. Introduction
 
 This document describes the MyTeams protocol, which is designed to facilitate communication and collaboration within teams through a server-client architecture. The protocol supports a range of features, including user authentication, team and channel management, thread and comment creation, and personal messaging.
 
 ---
 
-##2. Terminology
+## 2. Terminology
 
 - Server: The central component that manages the communication between clients and maintains the application state.
 - Client: An endpoint that connects to the server to interact with the MyTeams application.
@@ -18,13 +18,13 @@ This document describes the MyTeams protocol, which is designed to facilitate co
 
 ---
 
-##3. Architecture
+## 3. Architecture
 
 The MyTeams protocol is built on a client-server architecture using TCP sockets for communication. The server maintains the application state, including users, teams, channels, threads, and comments. Clients connect to the server to send commands and receive updates.
 
 ---
 
-##4. Data Model
+## 4. Data Model
 
 The data model consists of the following structures:
 
@@ -36,7 +36,7 @@ The data model consists of the following structures:
 
 ---
 
-##5. Commands
+## 5. Commands
 
 The MyTeams protocol supports the following commands:
 
@@ -57,7 +57,7 @@ The MyTeams protocol supports the following commands:
 
 ---
 
-##6. Command and Response Format
+## 6. Command and Response Format
 
 Commands sent by the client follow the format:
 
@@ -118,13 +118,13 @@ Here are the response codes for ARC-GUY protocol:
 
 ---
 
-##7. Error Handling
+## 7. Error Handling
 
 Errors in the MyTeams protocol are handled by returning an error code (e.g., 84) and an error message on the error output. Clients should handle these errors appropriately.
 
 ---
 
-##8. Security
+## 8. Security
 
 While password authentication is not required for this project, developers should implement basic security measures, such as ensuring that only logged-in users can access certain features and preventing unauthorized access to teams, channels, and threads.
 
