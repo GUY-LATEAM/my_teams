@@ -43,12 +43,15 @@ COMPILATION	=	libnetwork.a
 
 SRC	:=	client_create_func.c				\
 		client_destroy_func.c				\
+		client_misc_func.c					\
 		select_func.c						\
 		server_create_func.c				\
 		server_destroy_func.c               \
         server_misc_func.c                  \
         socket_basic_func.c                 \
+		socket_basic_extended_func.c		\
         socket_management.c                 \
+
 
 SRC	:=	$(addprefix src/,$(SRC))
 

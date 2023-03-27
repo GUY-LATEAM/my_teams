@@ -15,5 +15,6 @@
     int listen_socket(int socket_fd);
     int accept_socket(int socket_fd);
     void set_socket_fdset(network_server_t *server);
+    int connect_socket(int socket_fd, char *ip, int port);
 
 #endif /* !SOCKET_BASIC_FUNC_H_ */

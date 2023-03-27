@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2023
-** Network_Lib
+** bs_teams
 ** File description:
 ** client_func
 */
@@ -15,8 +15,7 @@
 
     // Create a client
 
-    bool create_network_client(network_server_t* server, int buff_size,
-        char *pattern);
+    network_client_t *create_client(int buff_size, char *pattern);
 
     bool set_network_client_methods_dialogue(
         network_client_t* client, void (*send) (void *, circular_buffer_t *),
@@ -34,5 +33,8 @@
     bool delete_all_network_clients_serv(network_server_t* server);
 
     // Misc client
+
+    bool connect_network_client(network_client_t* client, char* ip, int port);
+    bool accept_network_client(network_server_t* server, network_client_t* client);
 
 #endif /* !CLIENT_FUNC_H_ */
