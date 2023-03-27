@@ -6,7 +6,9 @@
 */
 
 #include <signal.h>
+#include <stdio.h>
 #include "my_teams_server.h"
+#include "server_func.h"
 #include "server_loop.h"
 #include "signal_management.h"
 
@@ -28,7 +30,7 @@ int do_myteams(int ac, char **av)
 
 void loop_server(server_t *srv)
 {
-    if (server_receive_new_con(srv->network_server, 1024, "\g\u\y") == 1) {
+    if (server_receive_new_con(srv->network_server, 1024, "\x67\x75\x79") == 1) {
         printf("New client connected");
     }
     server_loop_client(srv->network_server);
