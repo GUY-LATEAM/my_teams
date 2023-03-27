@@ -20,7 +20,7 @@ This document describes the MyTeams protocol, which is designed to facilitate co
 
 ## 3. Architecture
 
-The MyTeams protocol is built on a client-server architecture using TCP sockets for communication. The server maintains the application state, including users, teams, channels, threads, and comments. Clients connect to the server to send commands and receive updates.
+The MyTeams protocol is built on a client-server architecture using TCP sockets for communication. The server maintains the application state, including users, teams, channels, threads, and comments. Clients connect to the server to send commands and receive updates, so it's important for the client to retain the context in order to send it for certain commands that will be explained later.
 
 ---
 
@@ -120,7 +120,7 @@ Here are the response codes for ARC-GUY protocol:
 
 ## 7. Error Handling
 
-Errors in the MyTeams protocol are handled by returning an error code (e.g., 84) and an error message on the error output. Clients should handle these errors appropriately.
+Errors in the MyTeams protocol are handled by returning an error code (e.g., 84) and an error message on the standart output as the libmyteams.so is using stderr. Clients should handle these errors appropriately.
 
 ---
 
