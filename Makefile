@@ -16,7 +16,9 @@ SRC 	+= 	init/init_chanel.c \
 			init/init_server.c \
 			init/init_teams.c \
 			init/init_thread.c \
-			init/init_user.c
+			init/init_user.c \
+			checks/check_args_server.c \
+			server_logic/server_loop.c 
 SRC		:= $(addprefix src/, $(SRC))
 
 SRC_TEST	=	$(filter-out main.c,$(SRC))
