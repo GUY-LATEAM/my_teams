@@ -8,6 +8,9 @@
 #ifndef SERVER_LOOP_H_
     #define SERVER_LOOP_H_
 
+    #include "my_teams_server.h"
+
     int do_myteams(int ac, char **av);
+    void loop_server(server_t *srv);
 
 #endif /* !SERVER_LOOP_H_ */

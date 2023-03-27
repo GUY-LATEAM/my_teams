@@ -18,7 +18,8 @@ SRC 	+= 	init/init_chanel.c \
 			init/init_thread.c \
 			init/init_user.c \
 			checks/check_args_server.c \
-			server_logic/server_loop.c
+			server_logic/server_loop.c \
+			signals/handle_signal.c
 SRC		:= $(addprefix src/, $(SRC))
 
 CFLAGS	=	-Wall -Wextra -pedantic -I./include -I./libs/list_lib/include \
