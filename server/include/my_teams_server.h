@@ -1,13 +1,12 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_teams
+** my_teams_server.h
 ** File description:
-** my_teams
+** my_teams_server.h
 */
 
 #ifndef MY_TEAMS_H_
     #define MY_TEAMS_H_
-    #define EXIT_EPITECH 84
 
     #include <sys/select.h> // Pour les fd_set
     #include <netinet/in.h> // Pour les strucs sockaddr

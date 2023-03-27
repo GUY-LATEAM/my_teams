@@ -1,14 +1,14 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_teams.c
+** my_teams_server.h.c
 ** File description:
-** my_teams
+** my_teams_server.h
 */
 
 #include <string.h>
-#include "my_teams.h"
 #include "check_args_server.h"
 #include "server_loop.h"
+#include "my_teams_server.h"
 
 int main(int ac, char **av)
 {

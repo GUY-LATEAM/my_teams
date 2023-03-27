@@ -9,6 +9,7 @@
     #define CHECK_ARGS_SERVER_H_
 
     #include <stdio.h>
+    #include <stdbool.h>
 
     void print_help(void);
     bool is_arg_port(char *arg);

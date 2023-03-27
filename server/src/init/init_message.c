@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "my_teams.h"
+#include "my_teams_server.h"
 
 message_t *init_message(char *content)
 {
