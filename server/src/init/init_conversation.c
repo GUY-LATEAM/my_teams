@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "list_lib.h"
-#include "my_teams.h"
+#include "my_teams_server.h"
 
 conversation_t *init_conversation(user_t *user)
 {

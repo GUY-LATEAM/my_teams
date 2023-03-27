@@ -9,7 +9,7 @@
 #include <string.h>
 #include "list_lib.h"
 #include "server_func.h"
-#include "my_teams.h"
+#include "my_teams_server.h"
 
 server_t *init_server(int port)
 {
