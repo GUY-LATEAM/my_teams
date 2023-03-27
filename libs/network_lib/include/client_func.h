@@ -35,6 +35,7 @@
     // Misc client
 
     bool connect_network_client(network_client_t* client, char* ip, int port);
-    bool accept_network_client(network_server_t* server, network_client_t* client);
+    bool accept_network_client(network_server_t* server,
+    network_client_t* client);
 
 #endif /* !CLIENT_FUNC_H_ */
