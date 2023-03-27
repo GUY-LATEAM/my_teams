@@ -62,6 +62,7 @@
         char description[MAX_DESCRIPTION_LENGTH + 1];
         list_ptr_t *subscribed_users;
         list_ptr_t *channels;
+        list_ptr_t *users;
     } team_t;
 
     typedef struct context_s {

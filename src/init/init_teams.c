@@ -27,5 +27,6 @@ team_t *init_team(char *name, char *description)
     team->description[MAX_DESCRIPTION_LENGTH] = '\0';
     team->subscribed_users = list_create();
     team->channels = list_create();
+    team->users = list_create();
     return team;
 }
