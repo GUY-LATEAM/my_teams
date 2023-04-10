@@ -3,6 +3,10 @@
         "list_lib.h": "c",
         "stdlib.h": "c",
         "string.h": "c",
-        "my_teams_server.h": "c"
+        "my_teams_server.h": "c",
+        "signal_management.h": "c",
+        "stdio.h": "c",
+        "server_loop.h": "c",
+        "server_func.h": "c"
     }
 }

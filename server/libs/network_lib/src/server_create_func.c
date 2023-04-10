@@ -5,6 +5,7 @@
 ** server_create_func
 */
 
+#include "list_lib.h"
 #include "server_func.h"
 #include "socket_basic_func.h"
 
@@ -27,6 +28,7 @@ network_server_t *create_server(int port)
         free(server);
         return (NULL);
     }
-    server->clients = NULL;
+    server->clients = list_create();
+    server->max_fd = server->socket;
     return (server);
 }

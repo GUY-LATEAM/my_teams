@@ -30,7 +30,7 @@ LDFLAGS	=	-L ./libs/list_lib -L ./libs/network_lib\
 
 RULE = $(filter-out $@,$(MAKECMDGOALS))
 
-LIBRARY_PATHS = $(addprefix ./libs/, list_lib network_lib circular_buffer_lib)
+LIBRARY_PATHS = $(addprefix ./libs/, list_lib circular_buffer_lib network_lib)
 
 # ------------------------------------------------------------------
 

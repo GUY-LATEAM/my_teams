@@ -19,6 +19,8 @@ server_t *init_server(int port)
     if (!srv)
         return NULL;
     srv->network_server = create_server(port);
+    if (!srv->network_server)
+        return NULL;
     srv->teams = list_create();
     return srv;
 }

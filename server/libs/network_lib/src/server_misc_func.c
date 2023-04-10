@@ -8,6 +8,7 @@
 #include "list_lib.h"
 #include "socket_management_func.h"
 #include "server_func.h"
+#include <stdio.h>
 #include "client_func.h"
 
 int server_receive_new_con(network_server_t *server, int buff_size,
