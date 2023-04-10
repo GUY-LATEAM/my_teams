@@ -39,6 +39,7 @@ void loop_server(server_t *srv)
             return;
     if (server_receive_new_con(srv->network_server, 1024, "\x67\x75\x79") == 1) {
         printf("New client connected\n");
+        // Set client's callback
     }
     server_loop_client(srv->network_server);
 }

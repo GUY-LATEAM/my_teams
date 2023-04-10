@@ -8,6 +8,7 @@
 #include "list_lib.h"
 #include "socket_basic_func.h"
 #include "client_func.h"
+#include "select_func.h"
 
 bool accept_network_client(network_server_t* server, network_client_t* client)
 {
@@ -17,6 +18,7 @@ bool accept_network_client(network_server_t* server, network_client_t* client)
         destroy_network_client(client);
         return false;
     }
+    update_max_fd(&server->max_fd, client->socket);
     list_add_last(server->clients, client);
     return true;
 }

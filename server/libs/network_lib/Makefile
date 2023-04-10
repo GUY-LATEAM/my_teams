@@ -51,6 +51,7 @@ SRC	:=	client_create_func.c				\
         socket_basic_func.c                 \
 		socket_basic_extended_func.c		\
         socket_management.c                 \
+		socket_manipulation.c				\
 
 
 SRC	:=	$(addprefix src/,$(SRC))
