@@ -12,7 +12,7 @@
 
     network_server_t *create_server(int port);
     void destroy_server(network_server_t *server);
-    void server_receive_new_con(network_server_t *server, int buff_size,
+    int server_receive_new_con(network_server_t *server, int buff_size,
     char *pattern);
     void server_loop_client(network_server_t *server);
 

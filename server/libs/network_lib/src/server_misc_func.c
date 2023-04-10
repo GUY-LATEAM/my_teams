@@ -8,14 +8,17 @@
 #include "list_lib.h"
 #include "socket_management_func.h"
 #include "server_func.h"
+#include <stdio.h>
 #include "client_func.h"
 
-void server_receive_new_con(network_server_t *server, int buff_size,
+int server_receive_new_con(network_server_t *server, int buff_size,
     char *pattern)
 {
     if (FD_ISSET(server->socket, &server->read_fds)) {
         create_network_client(server, buff_size, pattern);
+        return 1;
     }
+    return 0;
 }
 
 void server_loop_client(network_server_t *server)
