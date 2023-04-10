@@ -13,6 +13,8 @@
 #include "server_func.h"
 #include "server_loop.h"
 #include "signal_management.h"
+#include "init_struct.h"
+#include "destroy_struct.h"
 
 int do_myteams(int ac, char **av)
 {

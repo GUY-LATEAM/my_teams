@@ -11,8 +11,6 @@
 #include "list_lib.h"
 #include "my_teams_server.h"
 
-#include <string.h>
-
 channel_t *init_channel(char *name, char *description)
 {
     channel_t *chan = NULL;

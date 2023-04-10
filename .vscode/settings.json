@@ -9,6 +9,7 @@
         "server_loop.h": "c",
         "server_func.h": "c",
         "socket_basic_func.h": "c",
-        "circular_buffer.h": "c"
+        "circular_buffer.h": "c",
+        "destroy_struct.h": "c"
     }
 }

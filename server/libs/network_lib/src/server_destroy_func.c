@@ -9,7 +9,7 @@
 #include "server_func.h"
 #include "client_func.h"
 
-void destroy_server(network_server_t *server)
+void destroy_server_network(network_server_t *server)
 {
     if (server == NULL)
         return;
