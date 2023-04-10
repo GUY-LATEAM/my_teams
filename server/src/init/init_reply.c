@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "my_teams.h"
+#include "my_teams_server.h"
 
 reply_t *init_reply(user_t *user, char *content)
 {

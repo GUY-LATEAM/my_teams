@@ -22,6 +22,7 @@ network_client_t *create_client(int buff_size, char *pattern)
         return NULL;
     }
     client->socket = -1;
+    client->user_data = NULL;
     client->send = NULL;
     client->receive = NULL;
     client->on_connect = NULL;
