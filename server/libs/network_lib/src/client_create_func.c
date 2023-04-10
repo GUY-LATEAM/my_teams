@@ -11,26 +11,24 @@
 #include "socket_basic_func.h"
 #include "select_func.h"
 
-bool create_network_client(network_server_t* server,
-int buff_size, char *pattern)
+network_client_t *create_client(int buff_size, char *pattern)
 {
     network_client_t *client = malloc(sizeof(network_client_t));
-
+    if (client == NULL)
+        return NULL;
     client->read_buffer = create_circular_buffer(buff_size, pattern);
     client->write_buffer = create_circular_buffer(buff_size, pattern);
-    client->socket = accept_socket(server->socket);
-    client->on_connect = NULL;
-    client->on_disconnect = NULL;
+    if (client->read_buffer == NULL || client->write_buffer == NULL) {
+        destroy_network_client(client);
+        return NULL;
+    }
+    client->socket = -1;
+    client->user_data = NULL;
     client->send = NULL;
     client->receive = NULL;
-    client->user_data = NULL;
-    if (client->socket == -1) {
-        destroy_network_client(client);
-        return false;
-    }
-    update_max_fd(&server->max_fd, client->socket);
-    list_add_last(server->clients, client);
-    return true;
+    client->on_connect = NULL;
+    client->on_disconnect = NULL;
+    return client;
 }
 
 bool set_network_client_methods_dialogue(
