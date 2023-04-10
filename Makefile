@@ -1,57 +1,78 @@
 ##
-## EPITECH PROJECT, 2023
+## EPITECH PROJECT, 2021
 ## Makefile
 ## File description:
-## Makefile
+## makefile that gcc
 ##
+
+COMPILATION = my_teams
+
+SRC 	:=	main.c
+SRC		:= $(addprefix src/, $(SRC))
+
+SRC_TEST	=	$(filter-out main.c,$(SRC))
+
+CFLAGS	=	-Wall -Wextra -pedantic -I./include -I./libs/list_lib/include \
+ -I./libs/network_lib/include -I./libs/circular_buffer_lib/include
+
+LDFLAGS	=	-L ./libs/list_lib -l list -L ./libs/network_lib -l network \
+ -L ./libs/circular_buffer_lib -l circular_buffer
 
 RULE = $(filter-out $@,$(MAKECMDGOALS))
 
-all: server client
+LIBRARY_PATHS = $(addprefix ./libs/, list_lib network_lib circular_buffer_lib)
 
-server:
-	@make -s -C server $(RULE)
-	@cp server/my_teams_server .
+# ------------------------------------------------------------------
 
-client:
-	@make -s -C client $(RULE)
-	@cp client/my_teams_cli .
+OBJ = $(SRC:.c=.o)
 
-clean: clean_server clean_client
+%.o:		%.c
+	@$(CC) -c -o $@ $< $(CFLAGS) $(LDFLAGS)
+	@echo -e "[\033[0;32mcompiled\033[0m] `printf '% 29s' $<`" | tr ' ' '.'
 
-clean_server:
-	@make -s -C server clean
+all: make_library $(COMPILATION)
+ifneq (,$(wildcard $(COMPILATION)))
+ifneq ($(RULE), re)
+	@echo -e "[\033[1;32mAlready up to date\033[0m]"
+endif
+endif
 
-clean_client:
-	@make -s -C client clean
+$(COMPILATION): $(OBJ)
+	@$(CC) $(OBJ) -o $(COMPILATION)
+	@echo -e "[\033[0;36mbuilt\033[0m] `printf '% 32s' $(OBJ)`"
+		@echo -e "[\033[1;93mBinary \033[1;32mcreated\033[0m] \
+		 `printf '% 23s' $(COMPILATION)`" | tr ' ' '.'
 
-fclean: clean
-	@make -s -C server fclean
-	@make -s -C client fclean
-	@rm -f my_teams_server
-	@rm -f my_teams_cli
+make_library:
+	@$(foreach lib, $(LIBRARY_PATHS), make $(RULE) -s -C $(lib);)
 
-re: fclean all
+clean: make_library
+	@$(RM) -f *~ *.gcno *.gcda *.gcda *.swn *.swo *.c.swp
+	@$(RM) -f 'a.out'
+	@$(RM) -f 'unit_tests'
+ifneq (,$(wildcard ./$(OBJ)))
+	@$(RM) -f $(OBJ)
+	@echo -e "[\033[1;31mDeleted\033[0m] `printf '% 32s' $(OBJ)`" | tr ' ' '.'
+else
+	@echo -e "[\033[1;36mOBJ \033[1;32malready deleted\033[0m]"
+endif
 
-debug: debug_server debug_client
+fclean : make_library clean
+ifneq (,$(wildcard ./$(COMPILATION)))
+	@rm -f $(COMPILATION)
+	@echo -e "[\033[1;93mBinary \033[1;31mdeleted\033[0m] \
+	 `printf '% 25s' $(COMPILATION)`" | tr ' ' '.'
+else
+	@echo -e "[\033[1;93mBinary \033[1;32malready deleted\033[0m]"
+endif
 
-debug_server:
-	@make -s -C server debug
-	@cp server/my_teams_server .
+re: make_library fclean all
 
-debug_client:
-	@make -s -C client debug
-	@cp client/my_teams_cli .
+debug: CFLAGS += -g3
+debug: RULE = re
+debug:	make_library re
 
-noice: noice_server noice_client
-
-noice_server:
-	@make -s -C server noice
-	@cp server/my_teams_server .
-
-noice_client:
-	@make -s -C client noice
-	@cp client/my_teams_cli .
-
-.PHONY: all server client clean clean_server clean_client fclean re debug \
- debug_server debug_client noice noice_server noice_client
+noice: RULE = re
+noice: make_library re
+	$(MAKE) clean
+	@make -C $(LIBRARY_PATHS) clean

@@ -35,6 +35,7 @@ fd_set *write_fds, fd_set *except)
     activity = select(max_fd + 1, read_fds, write_fds, except, NULL);
 
     if (activity < 0) {
+        printf("Error: Fail to select\n");
         return (-1);
     }
     return (0);
