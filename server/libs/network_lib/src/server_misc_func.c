@@ -14,7 +14,7 @@ void server_receive_new_con(network_server_t *server, int buff_size,
     char *pattern)
 {
     if (FD_ISSET(server->socket, &server->read_fds)) {
-        create_network_client(server, buff_size, pattern);
+        accept_network_client(server, create_client(buff_size, pattern));
     }
 }
 
