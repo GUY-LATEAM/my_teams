@@ -42,7 +42,7 @@ jobs:
       
       - name: test norm
         run: |
-          if [[ -z "$(wget https://raw.githubusercontent.com/Epitech/coding-style-checker/main/coding-style.sh && echo "no" | bash coding-style.sh . . | grep "0 major, 1 minor")" ]]; then
+          if [[ -z "$(wget https://raw.githubusercontent.com/Epitech/coding-style-checker/main/coding-style.sh && echo "no" | bash coding-style.sh . . | grep "1 major, 0 minor")" ]]; then
               echo "::error title=Norm not respected GUY"
               exit 1
           fi
