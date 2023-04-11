@@ -10,16 +10,16 @@
 
 static signal_t signal_flag = NOTHING_RECEIVED;
 
+static const signal_dict_t signal_tab[] = {
+    {SIGINT_RECEIVED, &save_server_config},
+    {MAX_ENUM_SIGNAL, NULL},
+};
+
 void save_server_config(server_t *server)
 {
     printf("Saving server config...\n");
     return;
 }
-
-static const signal_dict_t signal_tab[] = {
-    {SIGINT_RECEIVED, &save_server_config},
-    {MAX_ENUM_SIGNAL, NULL},
-};
 
 void handle_signal(int sig)
 {

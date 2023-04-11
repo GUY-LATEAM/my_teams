@@ -15,7 +15,7 @@ void destroy_server(server_t *server)
     if (!server)
         return;
     for (int i = 0; i < server->all_users->len; i++)
-       destroy_user(get_list_i_data(server->all_users, i));
+        destroy_user(get_list_i_data(server->all_users, i));
     for (int i = 0; i < server->teams->len; i++)
         destroy_team(get_list_i_data(server->teams, i));
     destroy_server_network(server->network_server);

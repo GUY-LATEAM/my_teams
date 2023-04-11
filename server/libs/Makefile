@@ -1,7 +1,8 @@
-## EPITECH PROJECT, 2021
+##
+## EPITECH PROJECT, 2023
 ## Makefile
 ## File description:
-## makefile that gcc
+## Makefile
 ##
 
 LIB_NAME = liball.a

@@ -10,7 +10,7 @@
 #include <string.h>
 #include "socket_manipulation.h"
 
-int read_socket(int socket, circular_buffer_t *read_buff) 
+int read_socket(int socket, circular_buffer_t *read_buff)
 {
     char *buffer = NULL;
     int read_size = 0;

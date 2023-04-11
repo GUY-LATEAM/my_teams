@@ -18,7 +18,8 @@ void do_socket_read(network_client_t *client, fd_set *read_fds)
             destroy_network_client(client);
             return;
         }
-        client->receive(client->user_data, client->read_buffer, client->write_buffer);
+        client->receive(client->user_data, client->read_buffer,
+        client->write_buffer);
     }
 }
 
