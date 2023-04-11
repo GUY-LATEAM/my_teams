@@ -8,6 +8,7 @@
 #include "list_lib.h"
 #include "destroy_struct.h"
 #include "my_teams_server.h"
+#include "server_func.h"
 
 void destroy_server(server_t *server)
 {
@@ -17,5 +18,6 @@ void destroy_server(server_t *server)
     //    destroy_user(get_list_i_data(server->users, i));
     for (int i = 0; i < server->teams->len; i++)
         destroy_team(get_list_i_data(server->teams, i));
+    destroy_server_network(server->network_server);
     free(server);
 }

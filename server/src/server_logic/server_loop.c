@@ -29,7 +29,7 @@ int do_myteams(int ac, char **av)
         loop_server(srv);
     }
     apply_signal_action(srv);
-    // Destroy server
+    destroy_server(srv);
     return 0;
 }
 
