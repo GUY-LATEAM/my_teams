@@ -7,28 +7,41 @@
 
 COMPILATION = my_teams_server
 
+SRC_INIT 	:= 	init_channel.c \
+			init_contexte.c \
+			init_conversation.c \
+			init_message.c \
+			init_reply.c \
+			init_server.c \
+			init_teams.c \
+			init_thread.c \
+			init_user.c
+SRC_INIT 	:= 	$(addprefix init/, $(SRC_INIT))
+
+SRC_DESTROY 	:= 	destroy_channel.c \
+			destroy_contexte.c \
+			destroy_conversation.c \
+			destroy_message.c \
+			destroy_reply.c \
+			destroy_server.c \
+			destroy_team.c \
+			destroy_thread.c \
+			destroy_user.c
+SRC_DESTROY 	:= 	$(addprefix destroy/, $(SRC_DESTROY))
+
+SRC_CHECKS 	:= 	check_args_server.c
+SRC_CHECKS 	:= 	$(addprefix checks/, $(SRC_CHECKS))
+
+SRC_SERVER_LOGIC 	:= 	server_loop.c
+SRC_SERVER_LOGIC 	:= 	$(addprefix server_logic/, $(SRC_SERVER_LOGIC))
+
+SRC_SIGNALS 	:= 	handle_signal.c
+SRC_SIGNALS 	:= 	$(addprefix signals/, $(SRC_SIGNALS))
+
+
 SRC 	:=	main.c
-SRC 	+= 	init/init_channel.c \
-			init/init_contexte.c \
-			init/init_conversation.c \
-			init/init_message.c \
-			init/init_reply.c \
-			init/init_server.c \
-			init/init_teams.c \
-			init/init_thread.c \
-			init/init_user.c \
-			destroy/destroy_channel.c \
-			destroy/destroy_contexte.c \
-			destroy/destroy_conversation.c \
-			destroy/destroy_message.c \
-			destroy/destroy_reply.c \
-			destroy/destroy_server.c \
-			destroy/destroy_team.c \
-			destroy/destroy_thread.c \
-			destroy/destroy_user.c \
-			checks/check_args_server.c \
-			server_logic/server_loop.c \
-			signals/handle_signal.c
+SRC 	+=  $(SRC_INIT) $(SRC_DESTROY) $(SRC_CHECKS) $(SRC_SERVER_LOGIC) \
+		$(SRC_SIGNALS)
 SRC		:= $(addprefix src/, $(SRC))
 
 CFLAGS	=	-Wall -Wextra -pedantic -I./include -I./libs/list_lib/include \
