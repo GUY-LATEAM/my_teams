@@ -7,7 +7,17 @@
 
 COMPILATION = my_teams_cli
 
-SRC 	:=	main.c
+SRC 	:=	main.c \
+			./src/checks/check_args_client.c \
+			./src/client_logic/client_logic.c \
+			./src/destroy/destroy_client.c \
+			./src/destroy/destroy_context.c \
+			./src/init/init_client.c \
+			./src/init/init_context.c \
+			./src/signals/handle_signal.c \
+			
+
+
 SRC		:= $(addprefix src/, $(SRC))
 
 CFLAGS	=	-Wall -Wextra -pedantic -I./include

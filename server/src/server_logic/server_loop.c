@@ -12,11 +12,11 @@
 #include "my_teams_server.h"
 #include "server_func.h"
 #include "server_loop.h"
-#include "signal_management.h"
+#include "signal_management_server.h"
 #include "init_struct.h"
 #include "destroy_struct.h"
 
-int do_myteams(int ac, char **av)
+int do_myteams_server(int ac, char **av)
 {
     server_t *srv = NULL;
 

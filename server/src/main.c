@@ -19,6 +19,6 @@ int main(int ac, char **av)
     } else if (is_args_server_valid(ac, av) == false)
         return (84);
     else
-        return (do_myteams(ac, av));
+        return (do_myteams_server(ac, av));
     return (0);
 }

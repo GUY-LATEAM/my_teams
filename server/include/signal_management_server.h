@@ -5,8 +5,8 @@
 ** signal_management
 */
 
-#ifndef SIGNAL_MANAGEMENT_H_
-    #define SIGNAL_MANAGEMENT_H_
+#ifndef SIGNAL_MANAGEMENT_SERVER_H_
+    #define SIGNAL_MANAGEMENT_SERVER_H_
 
 
     #include <signal.h>
