@@ -11,7 +11,7 @@
 #include "list_lib.h"
 #include "my_teams_server.h"
 
-channel_t *init_channel(char *name, char *description)
+channel_t *init_channel(user_t *user, char *name, char *description)
 {
     channel_t *chan = NULL;
     uuid_t uuid;
@@ -26,5 +26,6 @@ channel_t *init_channel(char *name, char *description)
     strncpy(chan->description, description, MAX_DESCRIPTION_LENGTH);
     chan->description[MAX_DESCRIPTION_LENGTH] = '\0';
     chan->threads = list_create();
+    chan->user_owner = user;
     return chan;
 }

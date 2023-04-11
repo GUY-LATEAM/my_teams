@@ -1,4 +1,3 @@
-##
 ## EPITECH PROJECT, 2021
 ## Makefile
 ## File description:
@@ -34,12 +33,11 @@ SRC		:= $(addprefix src/, $(SRC))
 CFLAGS	=	-Wall -Wextra -pedantic -I./include -I./libs/list_lib/include \
  -I./libs/network_lib/include -I./libs/circular_buffer_lib/include
 
-LDFLAGS	=	-L ./libs/list_lib -L ./libs/network_lib\
- -L ./libs/circular_buffer_lib -luuid -l list -l network -l buff
+LDFLAGS	=	-L ./libs -luuid -lall
 
 RULE = $(filter-out $@,$(MAKECMDGOALS))
 
-LIBRARY_PATHS = $(addprefix ./libs/, list_lib circular_buffer_lib network_lib)
+LIBRARY_PATHS = ./libs
 
 # ------------------------------------------------------------------
 
@@ -63,7 +61,7 @@ $(COMPILATION): $(OBJ)
 		 `printf '% 23s' $(COMPILATION)`" | tr ' ' '.'
 
 make_library:
-	@$(foreach lib, $(LIBRARY_PATHS), make $(RULE) -s -C $(lib);)
+	@make $(RULE) -s -C $(LIBRARY_PATHS)
 
 clean: make_library
 	@$(RM) -f *~ *.gcno *.gcda *.gcda *.swn *.swo *.c.swp

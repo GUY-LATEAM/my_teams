@@ -22,5 +22,6 @@ server_t *init_server(int port)
     if (!srv->network_server)
         return NULL;
     srv->teams = list_create();
+    srv->all_users = list_create();
     return srv;
 }
