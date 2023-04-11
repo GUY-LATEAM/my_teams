@@ -53,6 +53,7 @@
         char name[MAX_NAME_LENGTH + 1];
         char description[MAX_DESCRIPTION_LENGTH + 1];
         list_ptr_t *threads;
+        user_t *user_owner;
     } channel_t;
 
     typedef struct team_s {
@@ -61,7 +62,6 @@
         char description[MAX_DESCRIPTION_LENGTH + 1];
         list_ptr_t *subscribed_users;
         list_ptr_t *channels;
-        list_ptr_t *users;
     } team_t;
 
     typedef struct context_s {
@@ -73,16 +73,7 @@
     typedef struct server_s {
         network_server_t *network_server;
         list_ptr_t *teams;
+        list_ptr_t *all_users;
     } server_t;
-
-    user_t *init_user(char *name);
-    conversation_t *init_conversation(user_t *user);
-    message_t *init_message(char *content);
-    reply_t *init_reply(user_t *user, char *content);
-    thread_t *init_thread(user_t *user, char *title, char *message);
-    channel_t *init_channel(char *name, char *description);
-    team_t *init_team(char *name, char *description);
-    context_t *init_context(void);
-    server_t *init_server(int port);
 
 #endif /* !MY_TEAMS_H_ */

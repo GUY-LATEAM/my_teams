@@ -1,14 +1,14 @@
 ##
-## EPITECH PROJECT, 2021
+## EPITECH PROJECT, 2023
 ## Makefile
 ## File description:
-## makefile that gcc
+## Makefile
 ##
 
 COMPILATION = my_teams_server
 
 SRC 	:=	main.c
-SRC 	+= 	init/init_chanel.c \
+SRC 	+= 	init/init_channel.c \
 			init/init_contexte.c \
 			init/init_conversation.c \
 			init/init_message.c \
@@ -17,19 +17,28 @@ SRC 	+= 	init/init_chanel.c \
 			init/init_teams.c \
 			init/init_thread.c \
 			init/init_user.c \
+			destroy/destroy_channel.c \
+			destroy/destroy_contexte.c \
+			destroy/destroy_conversation.c \
+			destroy/destroy_message.c \
+			destroy/destroy_reply.c \
+			destroy/destroy_server.c \
+			destroy/destroy_team.c \
+			destroy/destroy_thread.c \
+			destroy/destroy_user.c \
 			checks/check_args_server.c \
-			server_logic/server_loop.c
+			server_logic/server_loop.c \
+			signals/handle_signal.c
 SRC		:= $(addprefix src/, $(SRC))
 
 CFLAGS	=	-Wall -Wextra -pedantic -I./include -I./libs/list_lib/include \
  -I./libs/network_lib/include -I./libs/circular_buffer_lib/include
 
-LDFLAGS	=	-L ./libs/list_lib -L ./libs/network_lib\
- -L ./libs/circular_buffer_lib -luuid -l list -l network -l buff
+LDFLAGS	=	-L ./libs -luuid -lall
 
 RULE = $(filter-out $@,$(MAKECMDGOALS))
 
-LIBRARY_PATHS = $(addprefix ./libs/, list_lib network_lib circular_buffer_lib)
+LIBRARY_PATHS = ./libs
 
 # ------------------------------------------------------------------
 
@@ -53,7 +62,7 @@ $(COMPILATION): $(OBJ)
 		 `printf '% 23s' $(COMPILATION)`" | tr ' ' '.'
 
 make_library:
-	@$(foreach lib, $(LIBRARY_PATHS), make $(RULE) -s -C $(lib);)
+	@make $(RULE) -s -C $(LIBRARY_PATHS)
 
 clean: make_library
 	@$(RM) -f *~ *.gcno *.gcda *.gcda *.swn *.swo *.c.swp

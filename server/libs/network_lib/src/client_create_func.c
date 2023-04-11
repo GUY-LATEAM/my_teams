@@ -9,6 +9,7 @@
 #include "circular_buffer.h"
 #include "client_func.h"
 #include "socket_basic_func.h"
+#include "select_func.h"
 
 network_client_t *create_client(int buff_size, char *pattern)
 {
@@ -23,7 +24,6 @@ network_client_t *create_client(int buff_size, char *pattern)
     }
     client->socket = -1;
     client->user_data = NULL;
-    client->send = NULL;
     client->receive = NULL;
     client->on_connect = NULL;
     client->on_disconnect = NULL;
@@ -31,12 +31,11 @@ network_client_t *create_client(int buff_size, char *pattern)
 }
 
 bool set_network_client_methods_dialogue(
-    network_client_t* client, void (*send) (void *, circular_buffer_t *),
-    void (*receive)(void *, circular_buffer_t *))
+    network_client_t* client,
+    void (*receive)(void *, circular_buffer_t *, circular_buffer_t *))
 {
     if (client == NULL)
         return false;
-    client->send = send;
     client->receive = receive;
     return true;
 }
