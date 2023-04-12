@@ -60,3 +60,6 @@ dkms.conf
 .vscode/
 report/
 .idea/
+
+my_teams_cli
+my_teams_server

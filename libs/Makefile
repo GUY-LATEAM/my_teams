@@ -42,7 +42,7 @@ all: $(LIB_NAME)
 
 $(LIB_NAME): $(OBJ)
 	ar rc $(LIB_NAME) $(OBJ)
-	@echo "$(LIB_NAME) créé."
+	@echo "$(LIB_NAME) créée."
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
