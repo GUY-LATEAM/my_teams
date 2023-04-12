@@ -43,7 +43,7 @@ jobs:
       - name: test norm
         run: |
           wget https://raw.githubusercontent.com/Epitech/coding-style-checker/main/coding-style.sh && echo "no" | bash coding-style.sh . .
-          if [[ -z "$(grep -E "MAJOR|MINOR" coding-style-reports.log)" ]]; then
+          if [[ ! -z "$(grep -E "MAJOR|MINOR" coding-style-reports.log)" ]]; then
               IFS=$'\n'
               paths=($(cat coding-style-reports.log))
               unset IFS
