@@ -22,22 +22,26 @@
         char uuid[MAX_UUID_LENGTH + 1];
         char name[MAX_NAME_LENGTH + 1]; // +1 for the null terminator
         list_ptr_t *conversations;
+        time_t timestamp;
     } user_t;
 
     typedef struct conversation_s {
         user_t *user; // L'utilisateur avec qui on a la conversation
         list_ptr_t *messages; // Liste de messages
+        time_t timestamp;
     } conversation_t;
 
     typedef struct message_s {
         char content[MAX_BODY_LENGTH + 1];
         char uuid[MAX_UUID_LENGTH + 1]; // uid du message
+        time_t timestamp;
     } message_t;
 
     typedef struct reply_s {
         char uuid[MAX_UUID_LENGTH];
         char content[MAX_BODY_LENGTH + 1];
         user_t *user; // L'utilisateur qui a créé la réponse
+        time_t timestamp;
     } reply_t;
 
     typedef struct thread_s {
@@ -46,6 +50,7 @@
         char message[MAX_BODY_LENGTH + 1];
         user_t *user; // L'utilisateur qui a créé le thread
         list_ptr_t *replies;
+        time_t timestamp;
     } thread_t;
 
     typedef struct channel_s {
@@ -54,6 +59,7 @@
         char description[MAX_DESCRIPTION_LENGTH + 1];
         list_ptr_t *threads;
         user_t *user_owner;
+        time_t timestamp;
     } channel_t;
 
     typedef struct team_s {
@@ -62,6 +68,7 @@
         char description[MAX_DESCRIPTION_LENGTH + 1];
         list_ptr_t *subscribed_users;
         list_ptr_t *channels;
+        time_t timestamp;
     } team_t;
 
     typedef struct context_s {
@@ -74,6 +81,7 @@
         network_server_t *network_server;
         list_ptr_t *teams;
         list_ptr_t *all_users;
+        time_t timestamp;
     } server_t;
 
 #endif /* !MY_TEAMS_H_ */

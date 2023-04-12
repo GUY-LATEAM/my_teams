@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <uuid/uuid.h>
 #include "list_lib.h"
 #include "my_teams_server.h"
@@ -29,5 +30,6 @@ thread_t *init_thread(user_t *user, char *title, char *message)
     thrd->message[MAX_BODY_LENGTH] = '\0';
     thrd->replies = list_create();
     thrd->user = user;
+    thrd->timestamp = time(NULL);
     return thrd;
 }

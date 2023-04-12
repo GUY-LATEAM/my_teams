@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "my_teams_server.h"
 
 reply_t *init_reply(user_t *user, char *content)
@@ -21,5 +22,6 @@ reply_t *init_reply(user_t *user, char *content)
     strncpy(rep->content, content, MAX_BODY_LENGTH);
     rep->content[MAX_BODY_LENGTH] = '\0';
     rep->user = user;
+    rep->timestamp = time(NULL);
     return rep;
 }
