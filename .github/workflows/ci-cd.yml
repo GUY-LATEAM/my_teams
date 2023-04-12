@@ -43,7 +43,7 @@ jobs:
       - name: test norm
         run: |
           wget https://raw.githubusercontent.com/Epitech/coding-style-checker/main/coding-style.sh && echo "no" | bash coding-style.sh . .
-          if [[ -z "$(cat coding-style-reports.log | grep "1 major, 0 minor")" ]]; then
+          if [[ -z "$(grep -E "MAJOR|MINOR" coding-style-reports.log)" ]]; then
               cat coding-style-reports.log
               echo "::error ::title=Norm not respected GUY"
               exit 1
