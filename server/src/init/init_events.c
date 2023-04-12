@@ -55,7 +55,7 @@ static int attribute_events_method(server_events_t *events, void *lib)
         NULL
     };
 
-    if (sizeof(events) == sizeof(funcs))
+    if (sizeof(events) != sizeof(funcs))
         return NULL;
     for (int i = 0; funcs[i] != NULL; i++) {
         *funcs[i] = dlsym(lib, events_names[i]);
