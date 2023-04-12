@@ -8,7 +8,17 @@
 COMPILATION = my_teams_server
 
 SRC 	:=	main.c
-SRC 	+= 	init/init_channel.c \
+SRC 	+= 	add/add_conversation_to_user.c \
+			add/add_message_to_conversation.c \
+			add/add_reply_to_thread.c \
+			add/add_user_to_conversation.c \
+			add/add_user_to_server.c \
+			add/add_user_to_team.c \
+			add/create_and_add_channel.c \
+			add/create_and_add_reply.c \
+			add/create_and_add_team.c \
+			add/create_and_add_thread.c \
+			init/init_channel.c \
 			init/init_contexte.c \
 			init/init_conversation.c \
 			init/init_message.c \
