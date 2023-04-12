@@ -67,10 +67,10 @@ char **get_args(char *input, int nb_args)
     return args;
 }
 
+//free cmd
 void free_parse_info(char *cmd, char **args, int nb_args)
 {
     if (cmd)
-        //free(cmd);
     if (args)
         free(args);
 }
