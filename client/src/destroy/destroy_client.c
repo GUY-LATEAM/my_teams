@@ -7,11 +7,11 @@
 
 #include "my_teams_client.h"
 #include "destroy_struct.h"
-#include "client_func.h"
+#include "server_func.h"
 
 void destroy_client(client_t *client)
 {
-    destroy_network_client(client->network_client);
+    destroy_server_network(client->network_client);
     destroy_context(client->context);
     if (client) {
         free(client);

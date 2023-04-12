@@ -22,7 +22,7 @@
     } context_t;
 
     typedef struct client_s {
-        network_client_t *network_client;
+        network_server_t *network_client;
         context_t *context;
     } client_t;
 

@@ -12,5 +12,6 @@
 
     client_t *init_client(void);
     context_t *init_context(void);
+    void create_client_protocol(network_server_t *client, char *ip, int port);
 
 #endif /* !INIT_STRUCT_H_ */

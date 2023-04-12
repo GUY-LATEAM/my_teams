@@ -16,6 +16,8 @@
 #include "init_struct.h"
 #include "destroy_struct.h"
 
+static const char GUY[] = "\x67\x75\x79";
+
 int do_myteams_server(int ac, char **av)
 {
     server_t *srv = NULL;
@@ -41,7 +43,7 @@ void loop_server(server_t *srv)
     &srv->network_server->except_fds) != 0)
             return;
     if (server_receive_new_con(srv->network_server, 1024,
-    "\x67\x75\x79") == 1) {
+    GUY) == 1) {
         printf("New client connected\n");
     }
     server_loop_client(srv->network_server);

@@ -1,0 +1,5 @@
+./client/src/init/init_client.c:21: INFO:C-A3
+./client/src/init/init_client_protocol.c:22: INFO:C-A3
+./client/src/signals/handle_signal.c:11: MAJOR:C-G4
+./server/libs/network_lib/src/server_create_func.c:46: INFO:C-A3
+./server/src/signals/handle_signal.c:11: MAJOR:C-G4

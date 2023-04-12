@@ -14,9 +14,7 @@ SRC 	:=	main.c \
 			./src/destroy/destroy_context.c \
 			./src/init/init_client.c \
 			./src/init/init_context.c \
-			./src/signals/handle_signal.c \
-			
-
+			./src/signals/handle_signal.c
 
 SRC		:= $(addprefix src/, $(SRC))
 

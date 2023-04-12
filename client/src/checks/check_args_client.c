@@ -10,8 +10,10 @@
 void print_help(void)
 {
     printf("USAGE: ./myteams_cli ip port\n");
-    printf("\tip\tis the server ip address on which the server socket listens.\n");
-    printf("\tport\tis the port number on which the server socket listens.\n");
+    printf("\tip\tis the server ip address");
+    printf(" on which the server socket listens.\n");
+    printf("\tport\tis the port number on which");
+    printf(" the server socket listens.\n");
 }
 
 bool is_arg_port(char *arg)
@@ -34,9 +36,12 @@ bool is_arg_ip(char *arg)
     int dots = 0;
 
     while (arg[i] != '\0') {
-        if (arg[i] == '.')
+        if (arg[i] == '.') {
+            i++;
             dots++;
-        else if (arg[i] < '0' || arg[i] > '9')
+            continue;
+        }
+        if (arg[i] < '0' || arg[i] > '9')
             return (false);
         i++;
     }

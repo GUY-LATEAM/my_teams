@@ -18,15 +18,21 @@ void do_socket_read(network_client_t *client, fd_set *read_fds)
             destroy_network_client(client);
             return;
         }
-        client->receive(client->user_data, client->read_buffer,
-        client->write_buffer);
+        if (is_circular_buffer_completed(client->read_buffer)) {
+            client->receive(client->user_data, client->read_buffer,
+            client->write_buffer);
+            clear_circular_buffer(client->read_buffer);
+        }
     }
 }
 
 void do_socket_write(network_client_t *client, fd_set *write_fds)
 {
     if (FD_ISSET(client->socket, write_fds)) {
-        write_socket(client->socket, client->write_buffer);
+        if (is_circular_buffer_completed(client->write_buffer)) {
+            write_socket(client->socket, client->write_buffer);
+            clear_circular_buffer(client->write_buffer);
+        }
     }
 }
 
