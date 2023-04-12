@@ -6,6 +6,7 @@
 */
 
 #include <stdlib.h>
+#include <time.h>
 #include <string.h>
 #include <uuid/uuid.h>
 #include "list_lib.h"
@@ -25,5 +26,6 @@ user_t *init_user(char *name)
     strncpy(user->name, name, MAX_NAME_LENGTH);
     user->name[MAX_NAME_LENGTH] = '\0';
     user->conversations = list_create();
+    user->timestamp = time(NULL);
     return user;
 }

@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "list_lib.h"
 #include "my_teams_server.h"
 
@@ -19,5 +20,6 @@ conversation_t *init_conversation(user_t *user)
         return NULL;
     conv->user = user;
     conv->messages = list_create();
+    conv->timestamp = time(NULL);
     return conv;
 }
