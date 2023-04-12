@@ -18,7 +18,7 @@
 
 static const char GUY[] = "\x67\x75\x79";
 
-int do_myteams_server(int ac, char **av)
+int do_myteams_server(char **av)
 {
     server_t *srv = NULL;
 

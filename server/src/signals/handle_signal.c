@@ -17,7 +17,8 @@ static const signal_dict_t signal_tab[] = {
 
 void save_server_config(server_t *server)
 {
-    printf("Saving server config...\n");
+    if (server)
+        printf("Saving server config...\n");
     return;
 }
 

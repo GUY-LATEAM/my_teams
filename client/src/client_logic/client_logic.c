@@ -16,7 +16,7 @@
 #include "list_lib.h"
 #include "protocol_logic.h"
 
-int do_myteams_client(int ac, char **av)
+int do_myteams_client(char **av)
 {
     client_t *client = init_client();
 

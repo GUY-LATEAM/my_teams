@@ -17,7 +17,8 @@ static const signal_dict_t signal_tab[] = {
 
 void save_client_config(client_t *server)
 {
-    printf("Closing Client...\n");
+    if (server)
+        printf("Closing Client...\n");
     return;
 }
 

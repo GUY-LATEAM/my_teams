@@ -8,6 +8,7 @@
 #include "client_func.h"
 #include "server_func.h"
 #include "list_lib.h"
+#include <stdio.h>
 
 static const char GUY[] = "\x67\x75\x79";
 

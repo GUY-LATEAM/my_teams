@@ -16,11 +16,11 @@
     void manage_input(client_t *client);
 
     char *get_cmd(char *input, int *nb_args);
-    char **get_args(char *input, int nb_args);
+    char **get_args(int nb_args);
 
     void display_error(char *cmd, char **args);
 
-    void free_parse_info(char *cmd, char **args, int nb_args);
+    void free_parse_info(char *cmd, char **args);
 
     typedef struct cmd_s {
         char *cmd;
