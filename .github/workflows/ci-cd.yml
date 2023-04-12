@@ -44,8 +44,10 @@ jobs:
         run: |
           wget https://raw.githubusercontent.com/Epitech/coding-style-checker/main/coding-style.sh && echo "no" | bash coding-style.sh . .
           if [[ -z "$(grep -E "MAJOR|MINOR" coding-style-reports.log)" ]]; then
-              cat coding-style-reports.log
-              echo "::error ::title=Norm not respected GUY"
+              IFS=$'\n'
+              paths=($(cat coding-style-reports.log))
+              unset IFS
+              for FILE in "${paths[@]}"; do echo "::error title=Norm error,file=$FILE::$FILE"; done
               exit 1
           fi
 
