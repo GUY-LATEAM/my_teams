@@ -14,6 +14,7 @@ const char *teams_filename)
     bool teams_saved = false;
 
     users_saved = save_users_to_file(server->all_users, users_filename);
+    teams_saved = save_server_to_file(server->teams, teams_filename);
     return users_saved && teams_saved;
 }
 
