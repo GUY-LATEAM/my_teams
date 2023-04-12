@@ -36,7 +36,7 @@ char *get_cmd(char *input, int *nb_args)
         if (strcasecmp(cmd_token, CMD_TAB[i].cmd) == 0) {
             *nb_args = CMD_TAB[i].nb_args;
             return strdup(cmd_token);
-        }   
+        }
     }
 }
 
@@ -64,6 +64,8 @@ char **get_args(char *input, int nb_args)
     return args;
 }
 
+// TO DO Free CMD + ARGS + Say error
+
 void parse_input(network_client_t *client, char *input)
 {
     char *cmd = NULL;
@@ -73,7 +75,6 @@ void parse_input(network_client_t *client, char *input)
     cmd = get_cmd(input, &nb_args);
     args = get_args(input, nb_args);
     if (!client || !cmd || !args) {
-        // Free CMD + ARGS + Say error
         return;
     }
     write_circular_buffer(client->write_buffer, cmd);
