@@ -5,13 +5,14 @@
 ** main
 */
 
+#include <string.h>
 #include "check_args_client.h"
 #include "my_teams_client.h"
 #include "client_loop.h"
 
 int main(int ac, char **av)
 {
-    if (ac != 2)
+    if (ac != 3)
         return (84);
     if (strcmp(av[1], "-help") == 0 || strcmp(av[1], "-h") == 0) {
         print_help();

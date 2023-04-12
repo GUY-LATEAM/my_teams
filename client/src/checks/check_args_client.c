@@ -5,6 +5,7 @@
 ** check_args_client
 */
 
+#include <stdlib.h>
 #include "check_args_client.h"
 
 void print_help(void)

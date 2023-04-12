@@ -29,6 +29,6 @@
     signal_t get_signal_flag(void);
     void set_signal_flag(signal_t flag);
     void apply_signal_action(client_t *client);
-    void save_server_config(client_t *client);
+    void save_client_config(client_t *client);
 
 #endif /* !SIGNAL_MANAGEMENT_H_ */

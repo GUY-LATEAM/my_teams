@@ -5,6 +5,7 @@
 ** socket_management
 */
 
+#include <stdio.h>
 #include "select_func.h"
 #include "socket_management_func.h"
 #include "client_func.h"
@@ -30,7 +31,8 @@ void do_socket_write(network_client_t *client, fd_set *write_fds)
 {
     if (FD_ISSET(client->socket, write_fds)) {
         if (is_circular_buffer_completed(client->write_buffer)) {
-            write_socket(client->socket, client->write_buffer);
+            printf("Well received !\n");
+            //write_socket(client->socket, client->write_buffer);
             clear_circular_buffer(client->write_buffer);
         }
     }

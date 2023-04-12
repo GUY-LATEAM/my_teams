@@ -5,23 +5,25 @@
 ** parse_input
 */
 
+#include <stdio.h>
+#include <string.h>
 #include "protocol_logic.h"
 
 static const char GUY[] = "\x67\x75\x79";
 static const char SP[] = " \n";
 static const cmd_t CMD_TAB[] = {
-    "login", 1,
-    "user", 1,
-    "send", 2,
-    "messages", 1,
-    "subscribe", 1,
-    "subscribed", 1,
-    "unsubscribe", 1,
-    "use", 0,
-    "create", 0,
-    "list", 0,
-    "info", 0,
-    NULL, 0
+    {"/login", 1},
+    {"/user", 1},
+    {"/send", 2},
+    {"/messages", 1},
+    {"/subscribe", 1},
+    {"/subscribed", 1},
+    {"/unsubscribe", 1},
+    {"/use", 0},
+    {"/create", 0},
+    {"/list", 0},
+    {"/info", 0},
+    {NULL, 0}
 };
 
 char *get_cmd(char *input, int *nb_args)
@@ -38,6 +40,7 @@ char *get_cmd(char *input, int *nb_args)
             return strdup(cmd_token);
         }
     }
+    return NULL;
 }
 
 char **get_args(char *input, int nb_args)
@@ -67,14 +70,20 @@ char **get_args(char *input, int nb_args)
 void free_parse_info(char *cmd, char **args, int nb_args)
 {
     if (cmd)
-        free(cmd);
-    if (!args)
-        return;
-    for (int i = 0; i < nb_args; i++)
-        if (args[i])
-            free(args[i]);
+        //free(cmd);
     if (args)
         free(args);
+}
+
+void write_args(network_client_t *client, char **args, int nb_args)
+{
+    for (int i = 0; i < nb_args; i++) {
+        write_circular_buffer(client->write_buffer, "\"");
+        write_circular_buffer(client->write_buffer, args[i]);
+        write_circular_buffer(client->write_buffer, "\"");
+        if (i != nb_args - 1)
+            write_circular_buffer(client->write_buffer, SP);
+    }
 }
 
 void parse_input(network_client_t *client, char *input)
@@ -86,17 +95,13 @@ void parse_input(network_client_t *client, char *input)
     cmd = get_cmd(input, &nb_args);
     args = get_args(input, nb_args);
     if (!client || !cmd || !args) {
+        display_error(cmd, args);
         free_parse_info(cmd, args, nb_args);
         return;
     }
     write_circular_buffer(client->write_buffer, cmd);
     write_circular_buffer(client->write_buffer, SP);
-    for (int i = 0; i < nb_args; i++) {
-        write_circular_buffer(client->write_buffer, "\"");
-        write_circular_buffer(client->write_buffer, args[i]);
-        write_circular_buffer(client->write_buffer, "\"");
-        if (i != nb_args - 1)
-            write_circular_buffer(client->write_buffer, SP);
-    }
+    write_args(client, args, nb_args);
     write_circular_buffer(client->write_buffer, GUY);
+    free_parse_info(cmd, args, nb_args);
 }

@@ -21,6 +21,7 @@ SRC_NETWORK = network_lib/src/client_create_func.c \
               network_lib/src/client_destroy_func.c \
               network_lib/src/client_misc_func.c \
               network_lib/src/select_func.c \
+              network_lib/src/select_misc_func.c \
               network_lib/src/server_create_func.c \
               network_lib/src/server_destroy_func.c \
               network_lib/src/server_misc_func.c \
@@ -42,7 +43,7 @@ all: $(LIB_NAME)
 
 $(LIB_NAME): $(OBJ)
 	ar rc $(LIB_NAME) $(OBJ)
-	@echo "$(LIB_NAME) créé."
+	@echo "$(LIB_NAME) créée."
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

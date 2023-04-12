@@ -6,13 +6,15 @@
 */
 
 #include "signal_management_client.h"
-#include "my_teams_server.h"
+#include "socket_basic_func.h"
 #include "client_loop.h"
 #include "select_func.h"
 #include "server_func.h"
 #include "client_func.h"
 #include "init_struct.h"
+#include "destroy_struct.h"
 #include "list_lib.h"
+#include "protocol_logic.h"
 
 int do_myteams_client(int ac, char **av)
 {
@@ -39,4 +41,5 @@ void loop_client(client_t *client)
     &client->network_client->except_fds) != 0)
         return;
     server_loop_client(client->network_client);
+    manage_input(client);
 }

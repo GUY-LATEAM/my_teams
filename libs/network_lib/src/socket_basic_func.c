@@ -10,6 +10,7 @@
 #include <sys/select.h>
 #include <arpa/inet.h>
 #include <stdio.h>
+#include <unistd.h>
 #include "socket_basic_func.h"
 
 int create_socket(void)
@@ -71,4 +72,7 @@ void set_socket_fdset(network_server_t *server)
     FD_SET(server->socket, &server->read_fds);
     FD_SET(server->socket, &server->write_fds);
     FD_SET(server->socket, &server->except_fds);
+    FD_SET(STDIN_FILENO, &server->read_fds);
+    FD_SET(STDIN_FILENO, &server->write_fds);
+    FD_SET(STDIN_FILENO, &server->except_fds);
 }

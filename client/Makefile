@@ -5,74 +5,102 @@
 ## makefile that gcc
 ##
 
+# ---------------------------------COLOR-------------------------------
+
+NO_COLOR	=	\033[0m
+BLINK		=	\033[5m
+BLUE		=	\033[0;34m
+RED			=	\033[0;31m
+PURPLE		=	\033[0;35m
+BBLUE		=	\033[1;34m
+BGREEN		=	\033[1;32m
+BPURPLE		=	\033[1;35m
+BRED		=	\033[1;31m
+UGREEN		=	\033[4;32m
+UPURPLE		=	\033[4;35m
+
+# ---------------------------------DEFINE------------------------------
+
+OK=$(BGREEN)$(BLINK)✔$(NO_COLOR)
+KO=$(BGREEN)$(BLINK)X$(NO_COLOR)
+
+define delete
+$(foreach rm_var, $1, \
+		$(if $(wildcard $(rm_var)), rm -f $(rm_var) && \
+		printf "$(BRED)[$(RED)deleted$(BRED)] $(NO_COLOR)\
+		:$(RED) $(rm_var)$(NO_COLOR)\n";) \
+)
+endef
+
+define already_done
+printf "$(BRED)[$(BPURPLE)RULE $(UPURPLE)$1 | $(COMPILATION)$(NO_COLOR) : \
+$(BGREEN)nothing to be done$(BRED)]\n$(NO_COLOR)"
+endef
+
+# ---------------------------------------------------------------------
+
 COMPILATION = my_teams_cli
 
 SRC 	:=	main.c \
-			./src/checks/check_args_client.c \
-			./src/client_logic/client_logic.c \
-			./src/destroy/destroy_client.c \
-			./src/destroy/destroy_context.c \
-			./src/init/init_client.c \
-			./src/init/init_context.c \
-			./src/signals/handle_signal.c
+			checks/check_args_client.c \
+			client_logic/client_logic.c \
+			destroy/destroy_client.c \
+			destroy/destroy_context.c \
+			init/init_client.c \
+			init/init_context.c \
+			init/init_client_protocol.c \
+			signals/handle_signal.c \
+			protocol_logic/parse_input.c \
+			protocol_logic/read_input.c \
+			protocol_logic/manage_input.c \
+			protocol_logic/display_error.c \
 
 SRC		:= $(addprefix src/, $(SRC))
 
-CFLAGS	=	-Wall -Wextra -pedantic -I./include
+CFLAGS	=	-Wall -Wextra -pedantic -I./include -I../libs/list_lib/include \
+	-I../libs/network_lib/include -I../libs/circular_buffer_lib/include
+
+LDFLAGS	=	-L ../libs -lall -luuid
+
+RM_ARRAY	:=	*~ a.out *.gcno *.gcda unit_tests *\# \#*
+FRM_ARRAY	=	$(RM_ARRAY) $(OBJ) $(COMPILATION)
+
+RM			:=	rm -rf
 
 RULE = $(filter-out $@,$(MAKECMDGOALS))
 
-# ------------------------------------------------------------------
+# ---------------------------------------------------------------------
 
 OBJ = $(SRC:.c=.o)
 
-%.o:		%.c
-	@$(CC) -c -o $@ $< $(CFLAGS)
-	@echo -e "[\033[0;32mcompiled\033[0m] `printf '% 29s' $<`" | tr ' ' '.'
+%.o: %.c
+	@$(CC) -c -o $@ $< $(CFLAGS) $(LDFLAGS)
+	@printf "$(BBLUE)[$(BLUE)builded$(BBLUE)] \
+	$(NO_COLOR):$(BLUE) $@$(NO_COLOR)\n"
 
-all: make_library $(COMPILATION)
-ifneq (,$(wildcard $(COMPILATION)))
-ifneq ($(RULE), re)
-	@echo -e "[\033[1;32mAlready up to date\033[0m]"
-endif
-endif
+$(COMPILATION):	$(OBJ)
+	@$(CC) $(OBJ) -o $(COMPILATION) $(LDFLAGS)
+	@printf "\n$(BGREEN)$(COMPILATION)$(NO_COLOR)\
+	 -> $(BGREEN)created $(OK)$(NO_COLOR)\n"
 
-$(COMPILATION): $(OBJ)
-	@$(CC) $(OBJ) -o $(COMPILATION)
-	@echo -e "[\033[0;36mbuilt\033[0m] `printf '% 32s' $(OBJ)`"
-		@echo -e "[\033[1;93mBinary \033[1;32mcreated\033[0m] \
-		 `printf '% 23s' $(COMPILATION)`" | tr ' ' '.'
+all: $(COMPILATION)
 
-make_library:
-	@$(foreach lib, $(LIBRARY_PATHS), make $(RULE) -s -C $(lib);)
-
-clean: make_library
-	@$(RM) -f *~ *.gcno *.gcda *.gcda *.swn *.swo *.c.swp
-	@$(RM) -f 'a.out'
-	@$(RM) -f 'unit_tests'
-ifneq (,$(wildcard ./$(OBJ)))
-	@$(RM) -f $(OBJ)
-	@echo -e "[\033[1;31mDeleted\033[0m] `printf '% 32s' $(OBJ)`" | tr ' ' '.'
+fclean:
+ifneq (,$(wildcard $(FRM_ARRAY)))
+	@$(call delete,$(FRM_ARRAY))
 else
-	@echo -e "[\033[1;36mOBJ \033[1;32malready deleted\033[0m]"
+	@$(call already_done,$@)
 endif
 
-fclean : make_library clean
-ifneq (,$(wildcard ./$(COMPILATION)))
-	@rm -f $(COMPILATION)
-	@echo -e "[\033[1;93mBinary \033[1;31mdeleted\033[0m] \
-	 `printf '% 25s' $(COMPILATION)`" | tr ' ' '.'
+
+clean:
+ifneq (,$(wildcard $(RM_ARRAY)))
+	@$(call delete,$(RM_ARRAY))
 else
-	@echo -e "[\033[1;93mBinary \033[1;32malready deleted\033[0m]"
+	@$(call already_done,$@)
 endif
 
-re: make_library fclean all
+re: fclean all
 
 debug: CFLAGS += -g3
-debug: RULE = re
-debug:	make_library re
-
-noice: RULE = re
-noice: make_library re
-	$(MAKE) clean
-	@make -C -s clean
+debug: fclean $(COMPILATION)
