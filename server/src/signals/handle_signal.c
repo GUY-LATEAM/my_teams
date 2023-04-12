@@ -25,7 +25,8 @@ signal_t signal_flag(signal_t signal, bool set)
 
 void save_server_config(server_t *server)
 {
-    printf("Saving server config...\n");
+    if (server)
+        printf("Saving server config...\n");
     return;
 }
 

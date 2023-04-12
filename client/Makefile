@@ -58,7 +58,7 @@ SRC 	:=	main.c \
 SRC		:= $(addprefix src/, $(SRC))
 
 CFLAGS	=	-Wall -Wextra -pedantic -I./include -I../libs/list_lib/include \
-	-I../libs/network_lib/include -I../libs/circular_buffer_lib/include
+	-I../libs/network_lib/include -I../libs/circular_buffer_lib/include -g3
 
 LDFLAGS	=	-L ../libs -lall -luuid
 

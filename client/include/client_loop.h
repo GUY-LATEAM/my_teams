@@ -10,7 +10,7 @@
 
     #include "my_teams_client.h"
 
-    int do_myteams_client(int ac, char **av);
+    int do_myteams_client(char **av);
     void loop_client(client_t *client);
 
 #endif /* !SERVER_LOOP_H_ */

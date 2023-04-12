@@ -11,7 +11,7 @@
 #include "socket_basic_func.h"
 #include "select_func.h"
 
-network_client_t *create_client(int buff_size, char *pattern)
+network_client_t *create_client(int buff_size, const char *pattern)
 {
     network_client_t *client = malloc(sizeof(network_client_t));
     if (client == NULL)

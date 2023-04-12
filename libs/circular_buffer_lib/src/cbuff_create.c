@@ -10,24 +10,27 @@
 #include <stdbool.h>
 #include "circular_buffer.h"
 
-circular_buffer_t *create_circular_buffer(size_t size, char *pattern)
+circular_buffer_t *create_circular_buffer(size_t size, const char *pattern)
 {
     circular_buffer_t *cbuff = NULL;
 
     cbuff = malloc(sizeof(circular_buffer_t));
     if (!cbuff)
         return NULL;
-    cbuff->buffer = calloc(size, sizeof(char));
+    cbuff->buffer = malloc(size);
+    memset(cbuff->buffer, 0, size);
     if (!cbuff->buffer) {
         free(cbuff);
         return NULL;
     }
     cbuff->size = size;
+    cbuff->cursor_read = 0;
+    cbuff->cursor_write = 0;
     cbuff->end_pattern = strdup(pattern);
     return cbuff;
 }
 
-bool write_circular_buffer(circular_buffer_t *cbuff, char *data)
+bool write_circular_buffer(circular_buffer_t *cbuff, const char *data)
 {
     if (strlen(data) > get_available_space_circular_buffer(cbuff))
         return false;

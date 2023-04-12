@@ -10,7 +10,7 @@
 
     #include "my_teams_server.h"
 
-    int do_myteams_server(int ac, char **av);
+    int do_myteams_server(char **av);
     void loop_server(server_t *srv);
 
 #endif /* !SERVER_LOOP_H_ */

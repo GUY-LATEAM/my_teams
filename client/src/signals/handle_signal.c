@@ -25,7 +25,8 @@ signal_t signal_flag(signal_t signal, bool set)
 
 void save_client_config(client_t *server)
 {
-    printf("Closing Client...\n");
+    if (server)
+        printf("Closing Client...\n");
     return;
 }
 

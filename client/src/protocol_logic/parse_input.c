@@ -43,7 +43,7 @@ char *get_cmd(char *input, int *nb_args)
     return NULL;
 }
 
-char **get_args(char *input, int nb_args)
+char **get_args(int nb_args)
 {
     char **args = NULL;
     char *arg_token = NULL;
@@ -67,10 +67,10 @@ char **get_args(char *input, int nb_args)
     return args;
 }
 
-void free_parse_info(char *cmd, char **args, int nb_args)
+//free cmd
+void free_parse_info(char *cmd, char **args)
 {
     if (cmd)
-        //free(cmd);
     if (args)
         free(args);
 }
@@ -93,15 +93,16 @@ void parse_input(network_client_t *client, char *input)
     int nb_args = 0;
 
     cmd = get_cmd(input, &nb_args);
-    args = get_args(input, nb_args);
+    args = get_args(nb_args);
     if (!client || !cmd || !args) {
         display_error(cmd, args);
-        free_parse_info(cmd, args, nb_args);
+        free_parse_info(cmd, args);
         return;
     }
+    printf("%p\n", client->write_buffer);
     write_circular_buffer(client->write_buffer, cmd);
     write_circular_buffer(client->write_buffer, SP);
     write_args(client, args, nb_args);
     write_circular_buffer(client->write_buffer, GUY);
-    free_parse_info(cmd, args, nb_args);
+    free_parse_info(cmd, args);
 }
