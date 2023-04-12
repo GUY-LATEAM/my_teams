@@ -1,5 +1,0 @@
-./client/src/protocol_logic/parse_input.c:39: MINOR:C-G7
-./client/src/protocol_logic/parse_input.c:76: MINOR:C-F8
-./client/src/protocol_logic/parse_input.c:89: INFO:C-A3
-./client/src/signals/handle_signal.c:11: MAJOR:C-G4
-./server/src/signals/handle_signal.c:11: MAJOR:C-G4
