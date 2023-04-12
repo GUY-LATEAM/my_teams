@@ -12,6 +12,7 @@
     #include <netinet/in.h> // Pour les strucs sockaddr
     #include "list_lib.h" // Pour la lib list
     #include "network_structures.h"
+    #include "server_events.h"
 
     #define MAX_NAME_LENGTH 32
     #define MAX_UUID_LENGTH 36
@@ -74,6 +75,7 @@
         network_server_t *network_server;
         list_ptr_t *teams;
         list_ptr_t *all_users;
+        server_events_t *send_event;
     } server_t;
 
 #endif /* !MY_TEAMS_H_ */

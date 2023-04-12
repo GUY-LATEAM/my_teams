@@ -9,6 +9,7 @@
 #include <dlfcn.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "my_teams_server.h"
 #include "server_events.h"
 
 static const char *events_names[] = {
@@ -37,69 +38,48 @@ static void *open_shared_library(const char *path)
     return lib;
 }
 
-static void *attribute_new_events_method(server_events_t *events, void *lib, int i)
+static int attribute_events_method(server_events_t *events, void *lib)
 {
-    switch (i) {
-        case 0:
-            events->server_event_team_created = dlsym(lib, events_names[i]);
-            return events->server_event_team_created;
-        case 1:
-            events->server_event_channel_created = dlsym(lib, events_names[i]);
-            return events->server_event_channel_created;
-        case 2:
-            events->server_event_thread_created = dlsym(lib, events_names[i]);
-            return events->server_event_thread_created;
-        case 3:
-            events->server_event_reply_created = dlsym(lib, events_names[i]);
-            return events->server_event_reply_created;
-        case 4:
-            events->server_event_user_subscribed = dlsym(lib, events_names[i]);
-            return events->server_event_user_subscribed;
-        case 5:
-            events->server_event_user_unsubscribed = dlsym(lib, events_names[i]);
-            return events->server_event_user_unsubscribed;
-        case 6:
-            events->server_event_user_created = dlsym(lib, events_names[i]);
-            return events->server_event_user_created;
-        case 7:
-            events->server_event_user_loaded = dlsym(lib, events_names[i]);
-            return events->server_event_user_loaded;
-        case 8:
-            events->server_event_user_logged_in = dlsym(lib, events_names[i]);
-            return events->server_event_user_logged_in;
-        case 9:
-            events->server_event_user_logged_out = dlsym(lib, events_names[i]);
-            return events->server_event_user_logged_out;
-        case 10:
-            events->server_event_private_message_sended = dlsym(lib, events_names[i]);
-            return events->server_event_private_message_sended;
+    void **funcs[] = {
+        &events->server_event_team_created,
+        &events->server_event_channel_created,
+        &events->server_event_thread_created,
+        &events->server_event_reply_created,
+        &events->server_event_user_subscribed,
+        &events->server_event_user_unsubscribed,
+        &events->server_event_user_created,
+        &events->server_event_user_loaded,
+        &events->server_event_user_logged_in,
+        &events->server_event_user_logged_out,
+        &events->server_event_private_message_sended,
+        NULL
+    };
+
+    if (sizeof(events) == sizeof(funcs))
+        return NULL;
+    for (int i = 0; funcs[i] != NULL; i++) {
+        *funcs[i] = dlsym(lib, events_names[i]);
+        if (!*funcs[i]) {
+            fprintf(stderr, "%s", dlerror());
+            return EXIT_FAILURE;
+        }
     }
-    return NULL;
+    return EXIT_SUCCESS;
 }
 
-server_events_t *init_events(void)
+server_events_t * init_events(void)
 {
     void *lib = NULL;
     server_events_t *events = NULL;
 
     lib = open_shared_library(EVENTS_PATH);
     if (!lib)
-        return;
+        return NULL;
     events = malloc(sizeof(server_events_t));
-    if (!events)
-        return;
-    for (int i = 0; events_names[i]; i++) {
-        if (attribute_new_events_method(events, lib, i) == NULL) {
-            fprintf(stderr, "%s", dlerror());
-            dlclose(lib);
-            return NULL;
-        }
+    if (!events || attribute_events_method(events, lib) != EXIT_SUCCESS) {
+        free(events);
+        dlclose(lib);
+        return NULL;
     }
     return events;
-}
-
-int terminate_events(server_events_t *events)
-{
-    free(events);
-    return EXIT_SUCCESS;
 }

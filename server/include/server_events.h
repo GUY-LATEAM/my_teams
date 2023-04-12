@@ -41,4 +41,6 @@
         char const *receiver_uuid,
         char const *message_body);
   };
+
+server_events_t *init_events();
 #endif // MY_SERVER_SERVER_EVENTS_H
