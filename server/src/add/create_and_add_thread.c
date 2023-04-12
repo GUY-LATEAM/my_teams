@@ -9,7 +9,8 @@
 #include "init_struct.h"
 #include "list_lib.h"
 
-thread_t *create_and_add_thread(channel_t *channel, user_t *user, char *title, char *message)
+thread_t *create_and_add_thread(channel_t *channel, user_t *user,
+char *title, char *message)
 {
     thread_t *thread = NULL;
 

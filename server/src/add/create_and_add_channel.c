@@ -9,7 +9,8 @@
 #include "init_struct.h"
 #include "list_lib.h"
 
-channel_t *create_and_add_channel(team_t *team, user_t *user, char *name, char *description)
+channel_t *create_and_add_channel(team_t *team, user_t *user,
+char *name, char *description)
 {
     channel_t *channel = NULL;
 
