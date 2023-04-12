@@ -26,7 +26,7 @@ int do_myteams_server(int ac, char **av)
     if (!srv)
         return 84;
     signal(SIGINT, handle_signal);
-    while (get_signal_flag() == NOTHING_RECEIVED) {
+    while (SIGNAL_FLAG == NOTHING_RECEIVED) {
         loop_server(srv);
     }
     apply_signal_action(srv);

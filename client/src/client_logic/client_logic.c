@@ -24,7 +24,7 @@ int do_myteams_client(int ac, char **av)
         return (84);
     signal(SIGINT, handle_signal);
     create_client_protocol(client->network_client, av[1], atoi(av[2]));
-    while (get_signal_flag() == NOTHING_RECEIVED) {
+    while (SIGNAL_FLAG == NOTHING_RECEIVED) {
         loop_client(client);
     }
     apply_signal_action(client);
