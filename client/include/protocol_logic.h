@@ -18,6 +18,8 @@
     char *get_cmd(char *input, int *nb_args);
     char **get_args(char *input, int nb_args);
 
+    void free_parse_info(char *cmd, char **args, int nb_args);
+
     typedef struct cmd_s {
         char *cmd;
         int nb_args;

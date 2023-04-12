@@ -64,7 +64,18 @@ char **get_args(char *input, int nb_args)
     return args;
 }
 
-// TO DO Free CMD + ARGS + Say error
+void free_parse_info(char *cmd, char **args, int nb_args)
+{
+    if (cmd)
+        free(cmd);
+    if (!args)
+        return;
+    for (int i = 0; i < nb_args; i++)
+        if (args[i])
+            free(args[i]);
+    if (args)
+        free(args);
+}
 
 void parse_input(network_client_t *client, char *input)
 {
@@ -75,6 +86,7 @@ void parse_input(network_client_t *client, char *input)
     cmd = get_cmd(input, &nb_args);
     args = get_args(input, nb_args);
     if (!client || !cmd || !args) {
+        free_parse_info(cmd, args, nb_args);
         return;
     }
     write_circular_buffer(client->write_buffer, cmd);
