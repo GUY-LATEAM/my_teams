@@ -38,7 +38,7 @@ OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -Wextra -Wpedantic \
          -I./circular_buffer_lib/include/ \
          -I./list_lib/include/ \
-         -I./network_lib/include/ -g3
+         -I./network_lib/include/
 
 all: $(LIB_NAME)
 

@@ -9,9 +9,6 @@
 #include <string.h>
 #include "protocol_logic.h"
 
-static const char GUY[] = "\x67\x75\x79";
-static const char SP[] = " ";
-static const char SEPARTORS[] = " \n";
 static const cmd_t CMD_TAB[] = {
     {"/login", 1},
     {"/user", 1},
@@ -32,7 +29,7 @@ char *get_cmd(char *input, int *nb_args)
     int i = 0;
     char *cmd_token = NULL;
 
-    cmd_token = strtok(input, SEPARTORS);
+    cmd_token = strtok(input, SEPARATORS);
     if (!cmd_token)
         return NULL;
     for (i = 0; CMD_TAB[i].cmd; i++) {
@@ -55,13 +52,13 @@ char **get_args(int nb_args)
     if (!args)
         return NULL;
     for (int i = 0; i < nb_args; i++) {
-        arg_token = strtok(NULL, SEPARTORS);
+        arg_token = strtok(NULL, SEPARATORS);
         if (!arg_token)
             return NULL;
         args[i] = strdup(arg_token);
     }
     args[nb_args] = NULL;
-    if (strtok(NULL, SEPARTORS) != NULL) {
+    if (strtok(NULL, SEPARATORS) != NULL) {
         free(args);
         return NULL;
     }

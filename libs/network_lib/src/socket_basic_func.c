@@ -63,7 +63,8 @@ int accept_socket(int socket_fd)
     return (new_socket);
 }
 
-void set_socket_fdset(int socket, fd_set *read_fds, fd_set *write_fds, fd_set *except_fds)
+void set_socket_fdset(int socket, fd_set *read_fds, fd_set *write_fds,
+fd_set *except_fds)
 {
     if (read_fds) {
         FD_SET(socket, read_fds);

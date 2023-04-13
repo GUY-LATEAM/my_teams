@@ -63,5 +63,5 @@ int destroy_list(list_ptr_t *listptr)
         }
     }
     free(listptr);
-    return 0;
+    return EXIT_SUCCESS;
 }

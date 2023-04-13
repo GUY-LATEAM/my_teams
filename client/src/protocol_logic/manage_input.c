@@ -8,7 +8,6 @@
 #include "list_lib.h"
 #include "select_func.h"
 #include "protocol_logic.h"
-#include <stdio.h>
 
 void manage_input(client_t *client)
 {

@@ -10,6 +10,15 @@
 
     #include "my_teams_client.h"
 
+    #define GUY "\x67\x75\x79"
+    #define SP " "
+    #define SEPARATORS " \n\t"
+
+    typedef struct cmd_s {
+        char *cmd;
+        int nb_args;
+    } cmd_t;
+
     char *read_input(void);
     void parse_input(network_client_t *client, char *input);
 
@@ -21,10 +30,5 @@
     void display_error(char *cmd, char **args);
 
     void free_parse_info(char *cmd, char **args);
-
-    typedef struct cmd_s {
-        char *cmd;
-        int nb_args;
-    } cmd_t;
 
 #endif /* !PROTOCOL_LOGIC_H_ */

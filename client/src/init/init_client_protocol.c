@@ -2,28 +2,28 @@
 ** EPITECH PROJECT, 2023
 ** my_teams
 ** File description:
-** init_client_protocole
+** init_client_protocol
 */
 
+#include <stdio.h>
 #include "client_func.h"
 #include "server_func.h"
 #include "list_lib.h"
-#include <stdio.h>
-
-static const char GUY[] = "\x67\x75\x79";
+#include "protocol_logic.h"
+#include "socket_manipulation.h"
 
 int create_client_protocol(network_server_t *client, char *ip, int port)
 {
     network_client_t *cli = NULL;
 
-    cli = create_client(1024,  GUY);
+    cli = create_client(BUFF_SIZE,  GUY);
     if (cli == NULL)
-        return -1;
+        return EXIT_FAILURE;
     if (!connect_network_client(cli, ip, port)) {
         printf("Connection failed\n");
-        return -1;
+        return EXIT_FAILURE;
     }
     list_add_last(client->clients, cli);
     client->max_fd = cli->socket;
-    return 0;
+    return EXIT_SUCCESS;
 }

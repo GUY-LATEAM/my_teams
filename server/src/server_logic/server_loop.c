@@ -17,8 +17,8 @@
 #include "init_struct.h"
 #include "destroy_struct.h"
 #include "socket_management_func.h"
-
-static const char GUY[] = "\x67\x75\x79";
+#include "protocol_logic.h"
+#include "socket_manipulation.h"
 
 int do_myteams_server(char **av)
 {
@@ -41,17 +41,18 @@ void loop_server(server_t *srv)
     clear_fd_set(&srv->network_server->read_fds,
     &srv->network_server->write_fds,
     &srv->network_server->except_fds);
-    set_socket_fdset(srv->network_server->socket, &srv->network_server->read_fds,
-    NULL, &srv->network_server->except_fds);
-    set_fds_clients(srv->network_server->clients, &srv->network_server->read_fds,
+    set_socket_fdset(srv->network_server->socket,
+    &srv->network_server->read_fds, NULL, &srv->network_server->except_fds);
+    set_fds_clients(srv->network_server->clients,
+    &srv->network_server->read_fds,
     &srv->network_server->write_fds, &srv->network_server->except_fds);
     if (select_socket(srv->network_server->max_fd,
     &srv->network_server->read_fds,
     &srv->network_server->write_fds,
     &srv->network_server->except_fds) != 0)
             return;
-    if (server_receive_new_con(srv->network_server, 1024,
-    GUY) == 1) {
+    if (server_receive_new_con(srv->network_server, BUFF_SIZE,
+    GUY) != EXIT_SUCCESS) {
         printf("New client connected\n");
     }
     server_loop_client(srv->network_server);

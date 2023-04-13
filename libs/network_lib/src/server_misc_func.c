@@ -16,9 +16,9 @@ int server_receive_new_con(network_server_t *server, int buff_size,
 {
     if (FD_ISSET(server->socket, &server->read_fds)) {
         accept_network_client(server, create_client(buff_size, pattern));
-        return 1;
+        return EXIT_FAILURE;
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 void server_loop_client(network_server_t *server)
@@ -27,12 +27,14 @@ void server_loop_client(network_server_t *server)
 
     for (int i = 0; i < server->clients->len ; i++) {;
         client = get_list_i_data(server->clients, i);
-        if (do_socket_read(client, &server->read_fds) == DISCONNECTED) {
+        if (do_socket_read(client, &server->read_fds)
+            == DISCONNECTED) {
             remove_list_element(server->clients, i);
             continue;
         }
         do_socket_write(client, &server->write_fds);
-        if (do_socket_except(client, &server->except_fds, server) == SOCKET_ERROR) {
+        if (do_socket_except(client, &server->except_fds, server)
+            == SOCKET_ERROR) {
             remove_list_element(server->clients, i);
             continue;
         }

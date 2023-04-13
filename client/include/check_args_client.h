@@ -8,7 +8,6 @@
 #ifndef CHECK_ARGS_CLIENT_H_
     #define CHECK_ARGS_CLIENT_H_
 
-    #include <stdio.h>
     #include <stdbool.h>
 
     void print_help(void);

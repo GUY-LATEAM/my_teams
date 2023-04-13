@@ -15,7 +15,7 @@ size_t read_circular_buffer(circular_buffer_t *cbuff, char *data)
     size_t used_space = get_used_space_circular_buffer(cbuff);
 
     if (used_space == 0)
-        return 0;
+        return EXIT_SUCCESS;
 
     for (size_t i = 0; i < used_space; i++) {
         data[i] = cbuff->buffer[(cbuff->cursor_read + i) % cbuff->size];
@@ -23,7 +23,6 @@ size_t read_circular_buffer(circular_buffer_t *cbuff, char *data)
     cbuff->cursor_read = (cbuff->cursor_read + used_space) % cbuff->size;
     return used_space;
 }
-
 
 void destroy_circular_buffer(circular_buffer_t *cbuff)
 {

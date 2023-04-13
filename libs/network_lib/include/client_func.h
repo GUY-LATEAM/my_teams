@@ -11,7 +11,6 @@
     #include <stdbool.h>
     #include "network_structures.h"
     #include "circular_buffer.h"
-    #define BUFF_SIZE 1024
 
     // Create a client
 

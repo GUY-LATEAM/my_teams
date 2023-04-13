@@ -23,19 +23,19 @@ int do_myteams_client(char **av)
     client_t *client = init_client();
 
     if (!client)
-        return (84);
+        return (EXIT_FAILURE);
     signal(SIGINT, handle_signal);
     if (create_client_protocol(client->network_client,
     av[1], atoi(av[2])) != 0) {
         destroy_client(client);
-        return (84);
+        return (EXIT_FAILURE);
     }
     while (SIGNAL_FLAG == NOTHING_RECEIVED) {
         loop_client(client);
     }
     apply_signal_action(client);
     destroy_client(client);
-    return (0);
+    return (EXIT_SUCCESS);
 }
 
 void loop_client(client_t *client)
@@ -45,7 +45,8 @@ void loop_client(client_t *client)
     &client->network_client->except_fds);
     set_socket_fdset(STDIN_FILENO, &client->network_client->read_fds,
     NULL, &client->network_client->except_fds);
-    set_fds_clients(client->network_client->clients, &client->network_client->read_fds,
+    set_fds_clients(client->network_client->clients,
+    &client->network_client->read_fds,
     &client->network_client->write_fds, &client->network_client->except_fds);
     if (select_socket(client->network_client->max_fd,
     &client->network_client->read_fds,

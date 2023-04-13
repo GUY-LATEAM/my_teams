@@ -14,9 +14,9 @@
 int read_socket(int socket, circular_buffer_t *read_buff)
 {
     int read_size = 0;
-    char buffer[1024];
+    char buffer[BUFF_SIZE];
 
-    read_size = read(socket, buffer, 1024);
+    read_size = read(socket, buffer, BUFF_SIZE);
     buffer[read_size] = '\0';
     if (read_size <= 0)
         return (read_size);
@@ -26,10 +26,10 @@ int read_socket(int socket, circular_buffer_t *read_buff)
 
 int write_socket(int socket, circular_buffer_t *write_buff)
 {
-    char buffer[1024];
+    char buffer[BUFF_SIZE];
     int write_size = 0;
 
-    memset(buffer, 0, 1024);
+    memset(buffer, 0, BUFF_SIZE);
     write_size = read_circular_buffer(write_buff, buffer);
     if (write_size <= 0) {
         return (write_size);

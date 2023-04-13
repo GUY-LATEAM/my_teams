@@ -13,12 +13,12 @@
 int main(int ac, char **av)
 {
     if (ac != 3)
-        return (84);
+        return (EXIT_FAILURE);
     if (strcmp(av[1], "-help") == 0 || strcmp(av[1], "-h") == 0) {
         print_help();
     } else if (is_args_client_valid(ac, av) == false)
-        return (84);
+        return (EXIT_FAILURE);
     else
         return (do_myteams_client(av));
-    return (0);
+    return (EXIT_SUCCESS);
 }
