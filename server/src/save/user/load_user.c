@@ -47,10 +47,12 @@ static user_t *create_user_from_line(char *line, const char sep)
 
     splitted = str_split(line, sep);
     if (splitted == NULL) {
+        free(splitted);
         return NULL;
     }
     user = create_user(splitted, sep + 1);
     if (user == NULL) {
+        free(splitted);
         return NULL;
     }
     return user;

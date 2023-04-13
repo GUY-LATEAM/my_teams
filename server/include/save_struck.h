@@ -39,4 +39,11 @@
     time_t string_to_time(const char *timestamp_str);
     bool is_file_not_empty(const char *filename);
 
+    list_ptr_t *create_channel_list_from_line(char *line, const char sep);
+    list_ptr_t *create_reply_list_from_line(char *line, const char sep);
+    bool load_server_from_file(list_ptr_t *teams, const char *filename);
+    bool load_teams_loop(list_ptr_t *teams, FILE *file, const char sep);
+    list_ptr_t *create_thread_list_from_line(char *line, const char sep);
+    list_ptr_t *create_user_list_from_line(char *line, const char sep);
+
 #endif /* !save_struck_H */

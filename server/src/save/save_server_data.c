@@ -25,6 +25,7 @@ const char *teams_filename)
     bool teams_loaded = false;
 
     users_loaded = load_users_from_file(server->all_users, users_filename);
+    teams_loaded = load_server_from_file(server->teams, teams_filename);
     return users_loaded && teams_loaded;
 }
 

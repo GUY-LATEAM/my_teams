@@ -73,6 +73,12 @@ SRC 	+= 	add/add_conversation_to_user.c \
 			checks/check_args_server.c \
 			server_logic/server_loop.c \
 			signals/handle_signal.c \
+			save/server/load_channel.c \
+			save/server/load_reply.c \
+			save/server/load_server_from_file.c \
+			save/server/load_team.c \
+			save/server/load_thread.c \
+			save/server/load_user.c \
 			save/server/save_channel.c \
 			save/server/save_reply.c \
 			save/server/save_team.c \

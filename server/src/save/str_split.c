@@ -55,6 +55,9 @@ static char *duplicate_string(const char *str)
 {
     char *dup = NULL;
 
+    if (str == NULL) {
+        return NULL;
+    }
     dup = strdup(str);
     if (dup == NULL) {
         perror("Error duplicating string");
