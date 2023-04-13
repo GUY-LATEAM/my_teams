@@ -10,7 +10,8 @@
 #include "protocol_logic.h"
 
 static const char GUY[] = "\x67\x75\x79";
-static const char SP[] = " \n";
+static const char SP[] = " ";
+static const char SEPARTORS[] = " \n";
 static const cmd_t CMD_TAB[] = {
     {"/login", 1},
     {"/user", 1},
@@ -31,7 +32,7 @@ char *get_cmd(char *input, int *nb_args)
     int i = 0;
     char *cmd_token = NULL;
 
-    cmd_token = strtok(input, SP);
+    cmd_token = strtok(input, SEPARTORS);
     if (!cmd_token)
         return NULL;
     for (i = 0; CMD_TAB[i].cmd; i++) {
@@ -54,13 +55,13 @@ char **get_args(int nb_args)
     if (!args)
         return NULL;
     for (int i = 0; i < nb_args; i++) {
-        arg_token = strtok(NULL, SP);
+        arg_token = strtok(NULL, SEPARTORS);
         if (!arg_token)
             return NULL;
         args[i] = strdup(arg_token);
     }
     args[nb_args] = NULL;
-    if (strtok(NULL, SP) != NULL) {
+    if (strtok(NULL, SEPARTORS) != NULL) {
         free(args);
         return NULL;
     }
@@ -71,8 +72,12 @@ char **get_args(int nb_args)
 void free_parse_info(char *cmd, char **args)
 {
     if (cmd)
-    if (args)
+        free(cmd);
+    if (args) {
+        for (int i = 0; args[i]; i++)
+            free(args[i]);
         free(args);
+    }
 }
 
 void write_args(network_client_t *client, char **args, int nb_args)
@@ -99,7 +104,6 @@ void parse_input(network_client_t *client, char *input)
         free_parse_info(cmd, args);
         return;
     }
-    printf("%p\n", client->write_buffer);
     write_circular_buffer(client->write_buffer, cmd);
     write_circular_buffer(client->write_buffer, SP);
     write_args(client, args, nb_args);

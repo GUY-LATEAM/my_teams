@@ -29,10 +29,12 @@ bool connect_network_client(network_client_t* client, char* ip, int port)
 
     if (connect_socket(client->socket, ip, port) == -1) {
         destroy_network_client(client);
+        client = NULL;
         return false;
     }
     if (client->socket == -1) {
         destroy_network_client(client);
+        client = NULL;
         return false;
     }
     return true;

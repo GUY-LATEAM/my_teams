@@ -28,6 +28,7 @@ SRC_NETWORK = network_lib/src/client_create_func.c \
               network_lib/src/socket_basic_func.c \
               network_lib/src/socket_basic_extended_func.c \
               network_lib/src/socket_management.c \
+              network_lib/src/socket_clear.c \
               network_lib/src/socket_manipulation.c
 
 SRC = $(SRC_BUFF) $(SRC_LIST) $(SRC_NETWORK)
@@ -37,7 +38,7 @@ OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -Wextra -Wpedantic \
          -I./circular_buffer_lib/include/ \
          -I./list_lib/include/ \
-         -I./network_lib/include/
+         -I./network_lib/include/ -g3
 
 all: $(LIB_NAME)
 

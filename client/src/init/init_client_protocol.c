@@ -12,13 +12,18 @@
 
 static const char GUY[] = "\x67\x75\x79";
 
-void create_client_protocol(network_server_t *client, char *ip, int port)
+int create_client_protocol(network_server_t *client, char *ip, int port)
 {
     network_client_t *cli = NULL;
 
     cli = create_client(1024,  GUY);
     if (cli == NULL)
-        return;
-    connect_network_client(cli, ip, port);
+        return -1;
+    if (!connect_network_client(cli, ip, port)) {
+        printf("Connection failed\n");
+        return -1;
+    }
     list_add_last(client->clients, cli);
+    client->max_fd = cli->socket;
+    return 0;
 }

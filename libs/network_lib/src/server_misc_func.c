@@ -25,10 +25,16 @@ void server_loop_client(network_server_t *server)
 {
     network_client_t *client = NULL;
 
-    for (int i = 0; i < server->clients->len ; i++) {
+    for (int i = 0; i < server->clients->len ; i++) {;
         client = get_list_i_data(server->clients, i);
-        do_socket_read(client, &server->read_fds);
+        if (do_socket_read(client, &server->read_fds) == DISCONNECTED) {
+            remove_list_element(server->clients, i);
+            continue;
+        }
         do_socket_write(client, &server->write_fds);
-        do_socket_except(client, &server->except_fds, server);
+        if (do_socket_except(client, &server->except_fds, server) == SOCKET_ERROR) {
+            remove_list_element(server->clients, i);
+            continue;
+        }
     }
 }

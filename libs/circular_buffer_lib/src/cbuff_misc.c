@@ -28,8 +28,7 @@ bool is_circular_buffer_empty(circular_buffer_t *cbuff)
 
 size_t get_available_space_circular_buffer(circular_buffer_t *cbuff)
 {
-    return (cbuff->cursor_read - \
-    cbuff->cursor_write + cbuff->size) % cbuff->size;
+    return cbuff->cursor_read - cbuff->cursor_write + cbuff->size - 1;
 }
 
 size_t get_used_space_circular_buffer(circular_buffer_t *cbuff)

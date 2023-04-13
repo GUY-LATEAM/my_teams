@@ -7,6 +7,7 @@
 
 #include <signal.h>
 #include <stdio.h>
+#include <unistd.h>
 #include "select_func.h"
 #include "socket_basic_func.h"
 #include "my_teams_server.h"
@@ -15,6 +16,7 @@
 #include "signal_management_server.h"
 #include "init_struct.h"
 #include "destroy_struct.h"
+#include "socket_management_func.h"
 
 static const char GUY[] = "\x67\x75\x79";
 
@@ -36,7 +38,13 @@ int do_myteams_server(char **av)
 
 void loop_server(server_t *srv)
 {
-    set_socket_fdset(srv->network_server);
+    clear_fd_set(&srv->network_server->read_fds,
+    &srv->network_server->write_fds,
+    &srv->network_server->except_fds);
+    set_socket_fdset(srv->network_server->socket, &srv->network_server->read_fds,
+    NULL, &srv->network_server->except_fds);
+    set_fds_clients(srv->network_server->clients, &srv->network_server->read_fds,
+    &srv->network_server->write_fds, &srv->network_server->except_fds);
     if (select_socket(srv->network_server->max_fd,
     &srv->network_server->read_fds,
     &srv->network_server->write_fds,

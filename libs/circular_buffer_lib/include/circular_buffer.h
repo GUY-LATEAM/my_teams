@@ -31,7 +31,7 @@
     bool write_circular_buffer(circular_buffer_t *cbuff, const char *data);
 
     // cbuf_destroy
-    bool read_circular_buffer(circular_buffer_t *cbuff, char *data);
+    size_t read_circular_buffer(circular_buffer_t *cbuff, char *data);
     void destroy_circular_buffer(circular_buffer_t *cbuff);
     void clear_circular_buffer(circular_buffer_t *cbuff);
 
