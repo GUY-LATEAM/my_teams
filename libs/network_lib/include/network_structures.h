@@ -35,12 +35,13 @@
         circular_buffer_t *write_buffer;
 
         void *user_data;
+        void *protocol_data;
 
-        void (*receive)(void *user_data, circular_buffer_t *read_buffer,
-        circular_buffer_t *write_buffer);
-        void (*on_disconnect)(void *user_data,
+        void (*receive)(void *user_data, void *protocol_data,
+        circular_buffer_t *read_buffer, circular_buffer_t *write_buffer);
+        void (*on_disconnect)(void *user_data, void *protocol_data,
         on_disconnect_error_t error_code);
-        void (*on_connect)(void *user_data);
+        void (*on_connect)(void *protocol_data);
     } network_client_t;
 
 #endif /* !NETWORK_STRUCTURES_H_ */

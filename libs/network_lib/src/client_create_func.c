@@ -32,7 +32,7 @@ network_client_t *create_client(int buff_size, const char *pattern)
 
 bool set_network_client_methods_dialogue(
     network_client_t* client,
-    void (*receive)(void *, circular_buffer_t *, circular_buffer_t *))
+    void (*receive)(void *, void *, circular_buffer_t *, circular_buffer_t *))
 {
     if (client == NULL)
         return false;
@@ -42,7 +42,7 @@ bool set_network_client_methods_dialogue(
 
 bool set_network_client_methods_connexion(
     network_client_t* client, void (*on_connect)(void *user_data),
-    void (*on_disconnect)(void *user_data,
+    void (*on_disconnect)(void *user_data, void *protocol_data,
     on_disconnect_error_t error_code))
 {
     if (client == NULL)
