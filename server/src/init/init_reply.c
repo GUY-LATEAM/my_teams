@@ -10,7 +10,7 @@
 #include <time.h>
 #include "my_teams_server.h"
 
-reply_t *init_reply(user_t *user, char *content)
+reply_t *init_reply(char *user_create, char *content)
 {
     reply_t *rep = NULL;
 
@@ -21,7 +21,8 @@ reply_t *init_reply(user_t *user, char *content)
     memset(rep->content, 0, MAX_BODY_LENGTH + 1);
     strncpy(rep->content, content, MAX_BODY_LENGTH);
     rep->content[MAX_BODY_LENGTH] = '\0';
-    rep->user = user;
+    strncpy(rep->uuid_create, user_create, MAX_UUID_LENGTH);
+    rep->uuid_create[MAX_UUID_LENGTH] = '\0';
     rep->timestamp = time(NULL);
     return rep;
 }

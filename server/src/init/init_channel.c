@@ -12,7 +12,7 @@
 #include "list_lib.h"
 #include "my_teams_server.h"
 
-channel_t *init_channel(user_t *user, char *name, char *description)
+channel_t *init_channel(char *user_create, char *name, char *description)
 {
     channel_t *chan = NULL;
     uuid_t uuid;
@@ -26,8 +26,9 @@ channel_t *init_channel(user_t *user, char *name, char *description)
     chan->name[MAX_NAME_LENGTH] = '\0';
     strncpy(chan->description, description, MAX_DESCRIPTION_LENGTH);
     chan->description[MAX_DESCRIPTION_LENGTH] = '\0';
+    strncpy(chan->uuid_create, user_create, MAX_UUID_LENGTH);
+    chan->uuid_create[MAX_UUID_LENGTH] = '\0';
     chan->threads = list_create();
-    chan->user_owner = user;
     chan->timestamp = time(NULL);
     return chan;
 }

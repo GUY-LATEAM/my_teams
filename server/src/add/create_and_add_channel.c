@@ -14,7 +14,7 @@ char *name, char *description)
 {
     channel_t *channel = NULL;
 
-    channel = init_channel(user, name, description);
+    channel = init_channel(user->uuid, name, description);
     if (channel) {
         list_add_last(team->channels, channel);
     }

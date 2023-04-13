@@ -14,7 +14,7 @@ char *title, char *message)
 {
     thread_t *thread = NULL;
 
-    thread = init_thread(user, title, message);
+    thread = init_thread(user->uuid, title, message);
     if (thread) {
         list_add_last(channel->threads, thread);
     }

@@ -7,19 +7,17 @@
 
 #include "save_struck.h"
 
-bool save_users_to_file(list_ptr_t *users, const char *filename)
+bool load_users_from_file(list_ptr_t *users, const char *filename)
 {
     FILE *file = NULL;
+    char sep = 1;
 
-    if (clear_file_content(filename) == false) {
-        return false;
-    }
-    file = fopen(filename, "a");
+    file = fopen(filename, "r");
     if (file == NULL) {
         perror("Error opening file for saving users");
         return false;
     }
-    if (save_user_loop(users, file) == false || (!fclose(file))) {
+    if (load_user_loop(users, file, sep) == false || (!fclose(file))) {
         return false;
     }
     return true;

@@ -26,7 +26,7 @@
     } user_t;
 
     typedef struct conversation_s {
-        user_t *user; // L'utilisateur avec qui on a la conversation
+        char uuid_create[MAX_UUID_LENGTH + 1];
         list_ptr_t *messages; // Liste de messages
         time_t timestamp;
     } conversation_t;
@@ -39,26 +39,26 @@
 
     typedef struct reply_s {
         char uuid[MAX_UUID_LENGTH];
+        char uuid_create[MAX_UUID_LENGTH + 1];
         char content[MAX_BODY_LENGTH + 1];
-        user_t *user; // L'utilisateur qui a créé la réponse
         time_t timestamp;
     } reply_t;
 
     typedef struct thread_s {
         char uuid[MAX_UUID_LENGTH + 1];
+        char uuid_create[MAX_UUID_LENGTH + 1];
         char title[MAX_NAME_LENGTH + 1];
         char message[MAX_BODY_LENGTH + 1];
-        user_t *user; // L'utilisateur qui a créé le thread
         list_ptr_t *replies;
         time_t timestamp;
     } thread_t;
 
     typedef struct channel_s {
         char uuid[MAX_UUID_LENGTH + 1];
+        char uuid_create[MAX_UUID_LENGTH + 1];
         char name[MAX_NAME_LENGTH + 1];
         char description[MAX_DESCRIPTION_LENGTH + 1];
         list_ptr_t *threads;
-        user_t *user_owner;
         time_t timestamp;
     } channel_t;
 
