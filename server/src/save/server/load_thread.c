@@ -42,7 +42,6 @@ static thread_t *create_thread(char **splitted, const char sep)
     return thread;
 }
 
-
 static thread_t *create_thread_from_line(char *line, const char sep)
 {
     char **splitted = NULL;
