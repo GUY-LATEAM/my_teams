@@ -24,6 +24,7 @@
     typedef struct client_s {
         network_server_t *network_client;
         context_t *context;
+        context_t *requested_context;
     } client_t;
 
 

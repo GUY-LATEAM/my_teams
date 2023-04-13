@@ -39,7 +39,7 @@ The data model consists of the following structures:
 
 ## 5. Command and Response Format
 
-Commands sent by the client follow the format:
+Commands sent by the client follow the format in ASCII:
 
     <CMD><sp><args><endL>
 
@@ -90,7 +90,7 @@ Commands sent by the client follow the format:
     The context for the use, create, list, and info commands is a string in the format "team_uuid:channel_uuid:thread_uuid". The server must use these UUIDs to determine the context in which the command should be executed.
 
 
-### Responses from the server follow the format:
+### Responses from the server follow the format in ASCII:
 
     <STATUS><sp><CODE><sp><MESSAGE><endL>
 
@@ -108,6 +108,8 @@ Response codes are three-digit numeric codes used to indicate the outcome of a c
     3xx (Redirection): Additional action needs to be taken to complete the request.
     4xx (Client Error): The request contains bad syntax or cannot be fulfilled by the server.
     5xx (Server Error): The server failed to fulfill an apparently valid request.
+    6xx (Data Transfer): The server will send inside the message
+    the data asked by the client.
 
 Here are the response codes for ARC-GUY protocol:
 
@@ -119,6 +121,7 @@ Here are the response codes for ARC-GUY protocol:
     403 Forbidden: The client does not have the necessary permissions to perform this action.
     404 Not Found: The requested resource was not found (e.g., a user, team, channel, or thread).
     500 Internal Server Error: An error occurred on the server side while processing the command.
+    600 Command Received, data proceed.
 
 ---
 
