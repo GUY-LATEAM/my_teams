@@ -64,6 +64,7 @@ char *apply_command(void *user_data, void *protocol_data,
             return command_functions[i](user_data, protocol_data, command->args);
         }
     }
+    return NULL;
 }
 
 // if command is null send error in stdin because not error in logging server.h
