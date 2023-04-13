@@ -11,11 +11,10 @@
     #include <stdbool.h>
     #include "network_structures.h"
     #include "circular_buffer.h"
-    #define BUFF_SIZE 1024
 
     // Create a client
 
-    network_client_t *create_client(int buff_size, char *pattern);
+    network_client_t *create_client(int buff_size, const char *pattern);
 
     bool set_network_client_methods_dialogue(
         network_client_t* client,

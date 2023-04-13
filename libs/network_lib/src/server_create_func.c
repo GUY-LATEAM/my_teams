@@ -32,3 +32,15 @@ network_server_t *create_server(int port)
     server->max_fd = server->socket;
     return (server);
 }
+
+network_server_t *create_server_client(void)
+{
+    network_server_t *client = malloc(sizeof(network_server_t));
+
+    if (client == NULL)
+        return (NULL);
+    client->socket = 0;
+    client->clients = list_create();
+    client->max_fd = client->socket;
+    return (client);
+}

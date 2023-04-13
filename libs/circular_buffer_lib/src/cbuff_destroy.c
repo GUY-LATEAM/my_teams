@@ -10,21 +10,28 @@
 #include <stdbool.h>
 #include "circular_buffer.h"
 
-bool read_circular_buffer(circular_buffer_t *cbuff, char *data)
+size_t read_circular_buffer(circular_buffer_t *cbuff, char *data)
 {
-    if (strlen(data) > get_used_space_circular_buffer(cbuff))
-        return false;
-    strncpy(data, cbuff->buffer + cbuff->cursor_read, strlen(data));
-    cbuff->cursor_read = (cbuff->cursor_read + strlen(data)) % cbuff->size;
-    return true;
+    size_t used_space = get_used_space_circular_buffer(cbuff);
+
+    if (used_space == 0)
+        return EXIT_SUCCESS;
+
+    for (size_t i = 0; i < used_space; i++) {
+        data[i] = cbuff->buffer[(cbuff->cursor_read + i) % cbuff->size];
+    }
+    cbuff->cursor_read = (cbuff->cursor_read + used_space) % cbuff->size;
+    return used_space;
 }
 
 void destroy_circular_buffer(circular_buffer_t *cbuff)
 {
     if (cbuff) {
-        free(cbuff->buffer);
+        if (cbuff->buffer)
+            free(cbuff->buffer);
+        if (cbuff->end_pattern)
+            free(cbuff->end_pattern);
         free(cbuff);
-        free(cbuff->end_pattern);
     }
 }
 

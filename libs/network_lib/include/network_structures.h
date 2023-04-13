@@ -13,6 +13,7 @@
     #include "struct_list_lib.h"
 
     typedef enum on_disconnect_error_e {
+        NO_ERROR,
         DISCONNECTED,
         SOCKET_ERROR,
         MAX_ENUM

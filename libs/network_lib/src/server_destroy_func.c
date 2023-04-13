@@ -14,6 +14,7 @@ void destroy_server_network(network_server_t *server)
     if (server == NULL)
         return;
     delete_all_network_clients_serv(server);
+    free(server->clients);
     close(server->socket);
     free(server);
 }

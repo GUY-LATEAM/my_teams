@@ -63,12 +63,16 @@ int accept_socket(int socket_fd)
     return (new_socket);
 }
 
-void set_socket_fdset(network_server_t *server)
+void set_socket_fdset(int socket, fd_set *read_fds, fd_set *write_fds,
+fd_set *except_fds)
 {
-    FD_ZERO(&server->read_fds);
-    FD_ZERO(&server->write_fds);
-    FD_ZERO(&server->except_fds);
-    FD_SET(server->socket, &server->read_fds);
-    FD_SET(server->socket, &server->write_fds);
-    FD_SET(server->socket, &server->except_fds);
+    if (read_fds) {
+        FD_SET(socket, read_fds);
+    }
+    if (write_fds) {
+        FD_SET(socket, write_fds);
+    }
+    if (except_fds) {
+        FD_SET(socket, except_fds);
+    }
 }

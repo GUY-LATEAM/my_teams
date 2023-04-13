@@ -27,11 +27,11 @@
     bool is_circular_buffer_completed(circular_buffer_t *cbuff);
 
     // cbuf_create
-    circular_buffer_t *create_circular_buffer(size_t size, char *pattern);
-    bool write_circular_buffer(circular_buffer_t *cbuff, char *data);
+    circular_buffer_t *create_circular_buffer(size_t size, const char *pattern);
+    bool write_circular_buffer(circular_buffer_t *cbuff, const char *data);
 
     // cbuf_destroy
-    bool read_circular_buffer(circular_buffer_t *cbuff, char *data);
+    size_t read_circular_buffer(circular_buffer_t *cbuff, char *data);
     void destroy_circular_buffer(circular_buffer_t *cbuff);
     void clear_circular_buffer(circular_buffer_t *cbuff);
 

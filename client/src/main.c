@@ -5,9 +5,20 @@
 ** main
 */
 
+#include <string.h>
+#include "check_args_client.h"
 #include "my_teams_client.h"
+#include "client_loop.h"
 
-int main(int ac, char **argv)
+int main(int ac, char **av)
 {
-    return 0;
+    if (ac != 3)
+        return (EXIT_FAILURE);
+    if (strcmp(av[1], "-help") == 0 || strcmp(av[1], "-h") == 0) {
+        print_help();
+    } else if (is_args_client_valid(ac, av) == false)
+        return (EXIT_FAILURE);
+    else
+        return (do_myteams_client(av));
+    return (EXIT_SUCCESS);
 }

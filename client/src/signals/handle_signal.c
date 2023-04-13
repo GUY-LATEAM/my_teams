@@ -6,10 +6,10 @@
 */
 
 #include <stdio.h>
-#include "signal_management_server.h"
+#include "signal_management_client.h"
 
 static const signal_dict_t signal_tab[] = {
-    {SIGINT_RECEIVED, &save_server_config},
+    {SIGINT_RECEIVED, &save_client_config},
     {MAX_ENUM_SIGNAL, NULL},
 };
 
@@ -23,10 +23,10 @@ signal_t signal_flag(signal_t signal, bool set)
     return signal_flag;
 }
 
-void save_server_config(server_t *server)
+void save_client_config(client_t *server)
 {
     if (server)
-        printf("Saving server config...\n");
+        printf("Closing Client...\n");
     return;
 }
 
@@ -39,7 +39,7 @@ void handle_signal(int sig)
     }
 }
 
-void apply_signal_action(server_t *server)
+void apply_signal_action(client_t *server)
 {
     int i = 0;
 

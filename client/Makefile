@@ -41,7 +41,20 @@ endef
 
 COMPILATION = my_teams_cli
 
-SRC 	:=	main.c
+SRC 	:=	main.c \
+			checks/check_args_client.c \
+			client_logic/client_logic.c \
+			destroy/destroy_client.c \
+			destroy/destroy_context.c \
+			init/init_client.c \
+			init/init_context.c \
+			init/init_client_protocol.c \
+			signals/handle_signal.c \
+			protocol_logic/parse_input.c \
+			protocol_logic/read_input.c \
+			protocol_logic/manage_input.c \
+			protocol_logic/display_error.c \
+
 SRC		:= $(addprefix src/, $(SRC))
 
 CFLAGS	=	-Wall -Wextra -pedantic -I./include -I../libs/list_lib/include \

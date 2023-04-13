@@ -21,12 +21,14 @@ SRC_NETWORK = network_lib/src/client_create_func.c \
               network_lib/src/client_destroy_func.c \
               network_lib/src/client_misc_func.c \
               network_lib/src/select_func.c \
+              network_lib/src/select_misc_func.c \
               network_lib/src/server_create_func.c \
               network_lib/src/server_destroy_func.c \
               network_lib/src/server_misc_func.c \
               network_lib/src/socket_basic_func.c \
               network_lib/src/socket_basic_extended_func.c \
               network_lib/src/socket_management.c \
+              network_lib/src/socket_clear.c \
               network_lib/src/socket_manipulation.c
 
 SRC = $(SRC_BUFF) $(SRC_LIST) $(SRC_NETWORK)
