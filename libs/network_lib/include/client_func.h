@@ -21,8 +21,8 @@
         void (*receive)(void *, void *, circular_buffer_t *, circular_buffer_t *));
 
     bool set_network_client_methods_connexion(
-        network_client_t* client, void (*on_connect)(void *protocol_data),
-        void (*on_disconnect)(void *user_data,
+        network_client_t* client, void (*on_connect)(void *user_data),
+        void (*on_disconnect)(void *user_data, void *protocol_data,
         on_disconnect_error_t error_code));
 
     // Destroy a client

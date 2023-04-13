@@ -42,7 +42,7 @@ bool set_network_client_methods_dialogue(
 
 bool set_network_client_methods_connexion(
     network_client_t* client, void (*on_connect)(void *user_data),
-    void (*on_disconnect)(void *user_data,
+    void (*on_disconnect)(void *user_data, void *protocol_data,
     on_disconnect_error_t error_code))
 {
     if (client == NULL)
