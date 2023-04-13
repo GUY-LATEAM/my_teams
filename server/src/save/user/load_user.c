@@ -19,7 +19,7 @@ static bool copy_user_info(user_t *user, char **user_info)
     return user->timestamp != -1;
 }
 
-static user_t *create_user(char **user_info, char sep)
+static user_t *create_user(char **user_info, const char sep)
 {
     user_t *user = NULL;
 
@@ -40,7 +40,7 @@ static user_t *create_user(char **user_info, char sep)
     return user;
 }
 
-static user_t *create_user_from_line(char *line, char sep)
+static user_t *create_user_from_line(char *line, const char sep)
 {
     char **splitted = NULL;
     user_t *user = NULL;
@@ -56,7 +56,7 @@ static user_t *create_user_from_line(char *line, char sep)
     return user;
 }
 
-bool load_user_loop(list_ptr_t *users, FILE *file, char sep)
+bool load_user_loop(list_ptr_t *users, FILE *file, const char sep)
 {
     char *line = NULL;
     size_t len = 0;

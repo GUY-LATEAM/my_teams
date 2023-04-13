@@ -15,7 +15,7 @@
 user_t *init_user(char *name)
 {
     user_t *user = NULL;
-    uuid_t uuid;
+    uuid_t uuid = {0};
 
     user = malloc(sizeof(user_t));
     if (!user)

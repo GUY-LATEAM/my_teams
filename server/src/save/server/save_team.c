@@ -7,7 +7,7 @@
 
 #include "save_struck.h"
 
-static bool save_sub_user_loop(list_ptr_t *users, FILE *file, char sep)
+static bool save_sub_user_loop(list_ptr_t *users, FILE *file, const char sep)
 {
     user_t *user = NULL;
 
@@ -20,7 +20,7 @@ static bool save_sub_user_loop(list_ptr_t *users, FILE *file, char sep)
     return true;
 }
 
-static bool save_team(team_t *team, FILE *file, char sep)
+static bool save_team(team_t *team, FILE *file, const char sep)
 {
     char *timestamp = NULL;
 
@@ -44,7 +44,7 @@ static bool save_team(team_t *team, FILE *file, char sep)
     return true;
 }
 
-bool save_team_loop(list_ptr_t *teams, FILE *file, char sep)
+bool save_team_loop(list_ptr_t *teams, FILE *file, const char sep)
 {
     team_t *team = NULL;
 

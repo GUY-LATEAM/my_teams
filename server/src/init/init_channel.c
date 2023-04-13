@@ -15,7 +15,7 @@
 channel_t *init_channel(char *user_create, char *name, char *description)
 {
     channel_t *chan = NULL;
-    uuid_t uuid;
+    uuid_t uuid = {0};
 
     chan = malloc(sizeof(channel_t));
     if (!chan)

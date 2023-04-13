@@ -7,7 +7,7 @@
 
 #include "save_struck.h"
 
-static bool save_user(user_t *user, FILE *file, char sep)
+static bool save_user(user_t *user, FILE *file, const char sep)
 {
     char *timestamp_str = NULL;
 
@@ -27,7 +27,7 @@ static bool save_user(user_t *user, FILE *file, char sep)
     return true;
 }
 
-bool save_user_loop(list_ptr_t *users, FILE *file, char sep)
+bool save_user_loop(list_ptr_t *users, FILE *file, const char sep)
 {
     user_t *user = NULL;
 

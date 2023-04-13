@@ -7,7 +7,7 @@
 
 #include "save_struck.h"
 
-static bool save_message(message_t *message, FILE *file, char sep)
+static bool save_message(message_t *message, FILE *file, const char sep)
 {
     char *timestamp_str = NULL;
 
@@ -24,7 +24,7 @@ static bool save_message(message_t *message, FILE *file, char sep)
     return true;
 }
 
-bool save_message_loop(list_ptr_t *messages, FILE *file, char sep)
+bool save_message_loop(list_ptr_t *messages, FILE *file, const char sep)
 {
     message_t *message = NULL;
 

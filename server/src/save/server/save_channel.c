@@ -7,7 +7,7 @@
 
 #include "save_struck.h"
 
-static bool save_channel(channel_t *channel, FILE *file, char sep)
+static bool save_channel(channel_t *channel, FILE *file, const char sep)
 {
     char *timestamp = NULL;
 
@@ -28,7 +28,7 @@ static bool save_channel(channel_t *channel, FILE *file, char sep)
     return true;
 }
 
-bool save_channel_loop(list_ptr_t *channels, FILE *file, char sep)
+bool save_channel_loop(list_ptr_t *channels, FILE *file, const char sep)
 {
     channel_t *channel = NULL;
 

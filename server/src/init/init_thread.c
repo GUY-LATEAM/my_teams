@@ -15,7 +15,7 @@
 thread_t *init_thread(char *user_create, char *title, char *message)
 {
     thread_t *thrd = NULL;
-    uuid_t uuid;
+    uuid_t uuid = {0};
 
     thrd = malloc(sizeof(thread_t));
     if (!thrd)

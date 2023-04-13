@@ -7,7 +7,7 @@
 
 #include "save_struck.h"
 
-static bool save_reply(reply_t *reply, FILE *file, char sep)
+static bool save_reply(reply_t *reply, FILE *file, const char sep)
 {
     char *timestamp = NULL;
 
@@ -24,7 +24,7 @@ static bool save_reply(reply_t *reply, FILE *file, char sep)
     return true;
 }
 
-bool save_reply_loop(list_ptr_t *replies, FILE *file, char sep)
+bool save_reply_loop(list_ptr_t *replies, FILE *file, const char sep)
 {
     reply_t *reply = NULL;
 

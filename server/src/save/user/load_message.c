@@ -36,7 +36,7 @@ static message_t *create_message(char **message_info)
     return message;
 }
 
-static message_t *create_message_from_line(char *message_info, char sep)
+static message_t *create_message_from_line(char *message_info, const char sep)
 {
     char **splitted = NULL;
     message_t *message = NULL;
@@ -54,7 +54,7 @@ static message_t *create_message_from_line(char *message_info, char sep)
     return message;
 }
 
-static list_ptr_t *create_message_list(char **tab_message, char sep)
+static list_ptr_t *create_message_list(char **tab_message, const char sep)
 {
     list_ptr_t *messages = NULL;
     message_t *message = NULL;
@@ -73,7 +73,7 @@ static list_ptr_t *create_message_list(char **tab_message, char sep)
     return messages;
 }
 
-list_ptr_t *create_message_list_from_line(char *message_info, char sep)
+list_ptr_t *create_message_list_from_line(char *message_info, const char sep)
 {
     char **splitted = NULL;
     list_ptr_t *messages = NULL;

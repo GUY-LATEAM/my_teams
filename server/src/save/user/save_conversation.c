@@ -8,7 +8,7 @@
 #include "save_struck.h"
 
 static bool save_conversation(conversation_t *conversation, FILE *file,
-char sep)
+const char sep)
 {
     char *timestamp_str = NULL;
 
@@ -28,7 +28,8 @@ char sep)
     return true;
 }
 
-bool save_conversation_loop(list_ptr_t *conversation, FILE *file, char sep)
+bool save_conversation_loop(list_ptr_t *conversation, FILE *file,
+const char sep)
 {
     conversation_t *conv = NULL;
 

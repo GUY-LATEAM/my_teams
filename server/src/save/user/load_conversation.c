@@ -18,7 +18,7 @@ static bool copy_conversation_info(conversation_t *conv, char **conv_info)
     return conv->timestamp != -1;
 }
 
-static conversation_t *create_conversation(char **conv_info, char sep)
+static conversation_t *create_conversation(char **conv_info, const char sep)
 {
     conversation_t *conv = NULL;
 
@@ -38,7 +38,8 @@ static conversation_t *create_conversation(char **conv_info, char sep)
     return conv;
 }
 
-static conversation_t *create_conversation_from_line(char *conv_info, char sep)
+static conversation_t *create_conversation_from_line(char *conv_info,
+const char sep)
 {
     char **splitted = NULL;
     conversation_t *conv = NULL;
@@ -56,7 +57,7 @@ static conversation_t *create_conversation_from_line(char *conv_info, char sep)
     return conv;
 }
 
-static list_ptr_t *create_conversation_list(char **tab_conv, char sep)
+static list_ptr_t *create_conversation_list(char **tab_conv, const char sep)
 {
     list_ptr_t *conv = NULL;
     conversation_t *conv_info = NULL;
@@ -77,7 +78,7 @@ static list_ptr_t *create_conversation_list(char **tab_conv, char sep)
     return conv;
 }
 
-list_ptr_t *create_conversation_list_from_line(char *conv_info, char sep)
+list_ptr_t *create_conversation_list_from_line(char *conv_info, const char sep)
 {
     char **splitted = NULL;
     list_ptr_t *conv = NULL;

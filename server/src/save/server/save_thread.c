@@ -7,7 +7,7 @@
 
 #include "save_struck.h"
 
-static bool save_thread(thread_t *thread, FILE *file, char sep)
+static bool save_thread(thread_t *thread, FILE *file, const char sep)
 {
     char *timestamp = NULL;
 
@@ -28,7 +28,7 @@ static bool save_thread(thread_t *thread, FILE *file, char sep)
     return true;
 }
 
-bool save_thread_loop(list_ptr_t *threads, FILE *file, char sep)
+bool save_thread_loop(list_ptr_t *threads, FILE *file, const char sep)
 {
     thread_t *thread = NULL;
 
