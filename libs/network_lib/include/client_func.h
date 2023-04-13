@@ -18,7 +18,8 @@
 
     bool set_network_client_methods_dialogue(
         network_client_t* client,
-        void (*receive)(void *, void *, circular_buffer_t *, circular_buffer_t *));
+        void (*receive)(void *, void *,
+        circular_buffer_t *, circular_buffer_t *));
 
     bool set_network_client_methods_connexion(
         network_client_t* client, void (*on_connect)(void *user_data),
