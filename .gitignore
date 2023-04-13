@@ -63,3 +63,7 @@ report/
 
 my_teams_cli
 my_teams_server
+
+# Codding style check
+
+*.log
