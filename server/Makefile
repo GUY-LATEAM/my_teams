@@ -84,6 +84,11 @@ SRC 	+= 	add/add_conversation_to_user.c \
 			save/save_server_to_file.c \
 			save/save_users_to_file.c \
 			save/time_utils.c
+
+SRC_RECEIVE	:=	receive_handler.c
+SRC_RECEIVE	:=	$(addprefix receive/, $(SRC_RECEIVE))
+
+SRC 	+=	$(SRC_RECEIVE)
 SRC		:= $(addprefix src/, $(SRC))
 
 CFLAGS	=	-Wall -Wextra -pedantic -I./include -I../libs/list_lib/include \
