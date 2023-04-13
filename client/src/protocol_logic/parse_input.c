@@ -29,7 +29,7 @@ char *get_cmd(char *input, int *nb_args)
     int i = 0;
     char *cmd_token = NULL;
 
-    cmd_token = strtok(input, SEPARATORS);
+    cmd_token = strtok(input, SP);
     if (!cmd_token)
         return NULL;
     for (i = 0; CMD_TAB[i].cmd; i++) {
@@ -53,19 +53,18 @@ char **get_args(int nb_args)
         return NULL;
     for (int i = 0; i < nb_args; i++) {
         arg_token = strtok(NULL, SEPARATORS);
-        if (!arg_token)
+        if (!arg_token) {
+            for (int j = 0; j < i; j++)
+                free(args[j]);
+            free(args);
             return NULL;
+        }
         args[i] = strdup(arg_token);
     }
     args[nb_args] = NULL;
-    if (strtok(NULL, SEPARATORS) != NULL) {
-        free(args);
-        return NULL;
-    }
     return args;
 }
 
-//free cmd
 void free_parse_info(char *cmd, char **args)
 {
     if (cmd)
