@@ -30,7 +30,7 @@ int do_myteams_client(char **av)
         destroy_client(client);
         return (84);
     }
-    while (get_signal_flag() == NOTHING_RECEIVED) {
+    while (SIGNAL_FLAG == NOTHING_RECEIVED) {
         loop_client(client);
     }
     apply_signal_action(client);

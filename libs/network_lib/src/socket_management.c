@@ -35,7 +35,6 @@ on_disconnect_error_t do_socket_write(network_client_t *client, fd_set *write_fd
 {
     if (FD_ISSET(client->socket, write_fds)) {
         write_socket(client->socket, client->write_buffer);
-        printf("Received ! : %s\n", client->write_buffer->buffer);
         clear_circular_buffer(client->write_buffer);
     }
     return NO_ERROR;
