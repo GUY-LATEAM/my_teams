@@ -42,8 +42,12 @@ jobs:
       
       - name: test norm
         run: |
-          if [[ -z "$(wget https://raw.githubusercontent.com/Epitech/coding-style-checker/main/coding-style.sh && echo "no" | bash coding-style.sh . . | grep "1 major, 0 minor")" ]]; then
-              echo "::error title=Norm not respected GUY"
+          wget https://raw.githubusercontent.com/Epitech/coding-style-checker/main/coding-style.sh && echo "no" | bash coding-style.sh . .
+          if [[ ! -z "$(grep -E "MAJOR|MINOR" coding-style-reports.log)" ]]; then
+              IFS=$'\n'
+              paths=($(cat coding-style-reports.log))
+              unset IFS
+              for FILE in "${paths[@]}"; do echo "::error title=Norm error,file=$FILE::$FILE"; done
               exit 1
           fi
 

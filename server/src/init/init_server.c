@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "list_lib.h"
 #include "server_func.h"
 #include "my_teams_server.h"
@@ -23,5 +24,6 @@ server_t *init_server(int port)
         return NULL;
     srv->teams = list_create();
     srv->all_users = list_create();
+    srv->timestamp = time(NULL);
     return srv;
 }
