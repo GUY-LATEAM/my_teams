@@ -40,6 +40,9 @@ char *my_split_right(char *ref, char *mark)
         return NULL;
     }
     len = my_split_right_len(ref, mark);
+    if (len == 0) {
+        return NULL;
+    }
     result = malloc(sizeof(char) * (len + 1));
     indx = my_split_get_indx_right(ref, mark);
     for (; ref[indx] != '\0'; i++, indx++)

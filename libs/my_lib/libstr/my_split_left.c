@@ -28,6 +28,9 @@ char *my_split_left(char *ref, char *mark)
         return NULL;
     }
     len = my_split_left_len(ref, mark);
+    if (len == 0) {
+        return NULL;
+    }
     result = malloc(sizeof(char) * (len + 1));
     for (; ref[indx] != '\0' && check_char(ref[indx], mark) == 0; indx++) {
         result[indx] = ref[indx];
