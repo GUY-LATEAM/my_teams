@@ -7,6 +7,7 @@ on: [push, pull_request]
 
 env:
   MIRROR_URL: git@github.com:EpitechPromo2026/B-NWP-400-TLS-4-1-myteams-clement.lagasse.git
+  FILES: './server/include/logging_server.h ./client/include/logging_client.h'
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   check_repository_cleanliness:
@@ -19,8 +20,8 @@ jobs:
           paths=($(find . -name '#*#' -o -name '*-' -o -name '*.tmp' -o -name '*.o' -o -name '*.a' -o -name '*.so' -o -name '*.gcno' -o -name '*.gcda' -o -name '*.gcov' -o -type d -name 'tmp'))
           if [[ ! -z "$path" ]]; then
             IFS=$'\n'
-            unset IFS
             for FILE in "${paths[@]}"; do echo "::error title=Unwanted file detected,file=$FILE::$FILE"; done
+            unset IFS
             exit 1
           fi
 
@@ -42,6 +43,7 @@ jobs:
       
       - name: test norm
         run: |
+          rm -f ${{ env.FILES }}
           wget https://raw.githubusercontent.com/Epitech/coding-style-checker/main/coding-style.sh && echo "no" | bash coding-style.sh . .
           if [[ ! -z "$(grep -E "MAJOR|MINOR" coding-style-reports.log)" ]]; then
               IFS=$'\n'
