@@ -53,9 +53,10 @@ static thread_t *create_thread_from_line(char *line, const char sep)
     }
     thread = create_thread(splitted, sep + 1);
     if (thread == NULL) {
-        free(splitted);
+        free_tokens(splitted);
         return NULL;
     }
+    free_tokens(splitted);
     return thread;
 }
 
@@ -68,11 +69,15 @@ static list_ptr_t *create_thread_list(char **tab_thread, const char sep)
     if (threads == NULL)
         return NULL;
     for (int i = 0; tab_thread[i] != NULL; i++) {
-        if (tab_thread[i] == NULL)
+        if (tab_thread[i] == NULL) {
+            destroy_list(threads);
             return NULL;
+        }
         thread = create_thread_from_line(tab_thread[i], sep);
-        if (list_add_last(threads, thread) == false)
+        if (list_add_last(threads, thread) != LIST_OK) {
+            destroy_list(threads);
             return NULL;
+        }
     }
     return threads;
 }
@@ -91,8 +96,9 @@ list_ptr_t *create_thread_list_from_line(char *line, const char sep)
     }
     threads = create_thread_list(splitted, sep + 1);
     if (threads == NULL) {
-        free(splitted);
+        free_tokens(splitted);
         return NULL;
     }
+    free_tokens(splitted);
     return threads;
 }

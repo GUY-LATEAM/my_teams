@@ -46,4 +46,13 @@
     list_ptr_t *create_thread_list_from_line(char *line, const char sep);
     list_ptr_t *create_user_list_from_line(char *line, const char sep);
 
+    void free_tokens(char **tokens);
+    void remove_newline(char *str);
+
+    size_t count_tokens(char *str, const char separator);
+    char **malloc_tokens(size_t count);
+    void fill_tokens(char **tokens, char *str, const char separator,
+    size_t count);
+    bool duplication_string(char *line, char **str, char **tmp);
+
 #endif /* !save_struck_H */

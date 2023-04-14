@@ -9,7 +9,9 @@
 
 static bool copy_message_info(message_t *message, char **message_info)
 {
-    if (message == NULL || message_info == NULL) {
+    if (message == NULL || message_info == NULL ||
+    message_info[0] == NULL || message_info[1] == NULL ||
+    message_info[2] == NULL) {
         return false;
     }
     strcpy(message->uuid, message_info[0]);
@@ -47,10 +49,10 @@ static message_t *create_message_from_line(char *message_info, const char sep)
     }
     message = create_message(splitted);
     if (message == NULL) {
-        free(splitted);
+        free_tokens(splitted);
         return NULL;
     }
-    free(splitted);
+    free_tokens(splitted);
     return message;
 }
 
@@ -64,11 +66,16 @@ static list_ptr_t *create_message_list(char **tab_message, const char sep)
         return NULL;
     }
     for (int i = 0; tab_message[i] != NULL; i++) {
-        if (tab_message[i] == NULL)
+        if (tab_message[i] == NULL) {
+            destroy_list(messages);
             return NULL;
+        }
         message = create_message_from_line(tab_message[i], sep);
-        if ((message == NULL) || (list_add_last(messages, message) == false))
+        if ((message == NULL) ||
+        (list_add_last(messages, message) != LIST_OK)) {
+            destroy_list(messages);
             return NULL;
+        }
     }
     return messages;
 }
@@ -84,9 +91,9 @@ list_ptr_t *create_message_list_from_line(char *message_info, const char sep)
     }
     messages = create_message_list(splitted, sep + 1);
     if (messages == NULL) {
-        free(splitted);
+        free_tokens(splitted);
         return NULL;
     }
-    free(splitted);
+    free_tokens(splitted);
     return messages;
 }

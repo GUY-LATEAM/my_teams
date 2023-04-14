@@ -49,3 +49,16 @@ bool is_file_not_empty(const char *filename)
     }
     return true;
 }
+
+void remove_newline(char *str)
+{
+    int len = 0;
+
+    if (str == NULL) {
+        return;
+    }
+    len = strlen(str);
+    if (len > 0 && str[len - 1] == '\n') {
+        str[len - 1] = '\0';
+    }
+}

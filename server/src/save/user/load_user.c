@@ -47,14 +47,14 @@ static user_t *create_user_from_line(char *line, const char sep)
 
     splitted = str_split(line, sep);
     if (splitted == NULL) {
-        free(splitted);
         return NULL;
     }
     user = create_user(splitted, sep + 1);
     if (user == NULL) {
-        free(splitted);
+        free_tokens(splitted);
         return NULL;
     }
+    free_tokens(splitted);
     return user;
 }
 
@@ -66,13 +66,15 @@ bool load_user_loop(list_ptr_t *users, FILE *file, const char sep)
     user_t *user = NULL;
 
     while ((read = getline(&line, &len, file)) != -1) {
+        remove_newline(line);
         user = create_user_from_line(line, sep);
         if (user == NULL) {
             return false;
         }
-        if (list_add_last(users, user) == false) {
+        if (list_add_last(users, user) != LIST_OK) {
             return false;
         }
     }
+    free(line);
     return true;
 }

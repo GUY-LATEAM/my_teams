@@ -9,16 +9,18 @@
 
 static bool create_team_annexe(team_t *team, char **splitted, const char sep)
 {
-    team->subscribed_users = create_user_list_from_line(splitted[3], sep);
-    if (team->subscribed_users == NULL) {
-        free(team);
+    list_ptr_t *tmp = NULL;
+
+    tmp = create_user_list_from_line(splitted[4], sep);
+    if (tmp == NULL) {
         return false;
     }
-    team->channels = create_channel_list_from_line(splitted[4], sep);
+    team->channels = create_channel_list_from_line(splitted[5], sep);
     if (team->channels == NULL) {
-        free(team);
+        destroy_list(tmp);
         return false;
     }
+    team->subscribed_users = tmp;
     return true;
 }
 
@@ -48,6 +50,7 @@ static team_t *create_team(char **splitted, const char sep)
         return NULL;
     }
     if (create_team_annexe(team, splitted, sep) == false) {
+        free(team);
         return NULL;
     }
     return team;
@@ -64,10 +67,10 @@ static team_t *create_team_from_line(char *line, const char sep)
     }
     team = create_team(splitted, sep + 1);
     if (team == NULL) {
-        free(splitted);
+        free_tokens(splitted);
         return NULL;
     }
-    free(splitted);
+    free_tokens(splitted);
     return team;
 }
 
@@ -79,10 +82,13 @@ bool load_teams_loop(list_ptr_t *teams, FILE *file, const char sep)
     team_t *team = NULL;
 
     while ((read = getline(&line, &len, file)) != -1) {
+        remove_newline(line);
         team = create_team_from_line(line, sep);
-        if (team == NULL || list_add_last(teams, team) == false) {
+        if (team == NULL || list_add_last(teams, team) != LIST_OK) {
+            free(line);
             return false;
         }
     }
+    free(line);
     return true;
 }

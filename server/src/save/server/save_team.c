@@ -48,9 +48,11 @@ bool save_team_loop(list_ptr_t *teams, FILE *file, const char sep)
 {
     team_t *team = NULL;
 
+    if (teams == NULL)
+        return true;
     for (int i = 0; i < teams->len; i++) {
         team = get_list_i_data(teams, i);
-        if ((save_team(team, file, sep + 1) == false) ||
+        if ((save_team(team, file, sep) == false) ||
         (fprintf(file, "\n") < 0)) {
             fclose(file);
             return false;

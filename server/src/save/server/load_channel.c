@@ -53,9 +53,10 @@ static channel_t *create_channel_from_line(char *line, const char sep)
     }
     channel = create_channel(splitted, sep + 1);
     if (channel == NULL) {
-        free(splitted);
+        free_tokens(splitted);
         return NULL;
     }
+    free_tokens(splitted);
     return channel;
 }
 
@@ -69,8 +70,13 @@ static list_ptr_t *create_channel_list(char **tab_info, const char sep)
         return NULL;
     }
     for (int i = 0; tab_info[i] != NULL; i++) {
+        if (tab_info[i] == NULL) {
+            destroy_list(channels);
+            return NULL;
+        }
         channel = create_channel_from_line(tab_info[i], sep);
-        if (channel == NULL || list_add_last(channels, channel) == false) {
+        if (channel == NULL || list_add_last(channels, channel) != LIST_OK) {
+            destroy_list(channels);
             return NULL;
         }
     }
@@ -88,9 +94,9 @@ list_ptr_t *create_channel_list_from_line(char *line, const char sep)
     }
     channels = create_channel_list(splitted, sep + 1);
     if (channels == NULL) {
-        free(splitted);
+        free_tokens(splitted);
         return NULL;
     }
-    free(splitted);
+    free_tokens(splitted);
     return channels;
 }

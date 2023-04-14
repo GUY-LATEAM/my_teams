@@ -33,6 +33,8 @@ const char sep)
 {
     conversation_t *conv = NULL;
 
+    if (conversation == NULL)
+        return true;
     for (int i = 0; i < conversation->len; i++) {
         conv = get_list_i_data(conversation, i);
         if ((save_conversation(conv, file, sep + 1) == false) ||

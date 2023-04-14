@@ -90,9 +90,11 @@ SRC 	+= 	add/add_conversation_to_user.c \
 			save/user/save_conversation.c \
 			save/user/save_message.c \
 			save/user/save_user.c \
+			save/free_token.c \
 			save/save_server_data.c \
 			save/server/save_server_to_file.c \
 			save/user/save_users_to_file.c \
+			save/str_split_utils.c \
 			save/str_split.c \
 			save/time_utils.c
 SRC		:= $(addprefix src/, $(SRC))

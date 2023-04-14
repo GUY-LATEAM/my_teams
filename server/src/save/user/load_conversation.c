@@ -50,10 +50,10 @@ const char sep)
     }
     conv = create_conversation(splitted, sep + 1);
     if (conv == NULL) {
-        free(splitted);
+        free_tokens(splitted);
         return NULL;
     }
-    free(splitted);
+    free_tokens(splitted);
     return conv;
 }
 
@@ -67,11 +67,13 @@ static list_ptr_t *create_conversation_list(char **tab_conv, const char sep)
         return NULL;
     }
     for (int i = 0; tab_conv[i] != NULL; i++) {
-        if (tab_conv[i] == NULL)
+        if (tab_conv[i] == NULL) {
+            destroy_list(conv);
             return NULL;
+        }
         conv_info = create_conversation_from_line(tab_conv[i], sep);
-        if ((conv_info == NULL) || (conv_info->messages == NULL) ||
-        list_add_last(conv, conv_info) == false) {
+        if ((conv_info == NULL) || list_add_last(conv, conv_info) != LIST_OK) {
+            destroy_list(conv);
             return NULL;
         }
     }
@@ -89,9 +91,9 @@ list_ptr_t *create_conversation_list_from_line(char *conv_info, const char sep)
     }
     conv = create_conversation_list(splitted, sep + 1);
     if (conv == NULL) {
-        free(splitted);
+        free_tokens(splitted);
         return NULL;
     }
-    free(splitted);
+    free_tokens(splitted);
     return conv;
 }

@@ -28,6 +28,8 @@ bool save_message_loop(list_ptr_t *messages, FILE *file, const char sep)
 {
     message_t *message = NULL;
 
+    if (messages == NULL)
+        return true;
     for (int i = 0; i < messages->len; i++) {
         message = get_list_i_data(messages, i);
         if ((save_message(message, file, sep + 1) == false) ||
