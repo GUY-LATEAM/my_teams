@@ -1,12 +1,12 @@
 /*
-** EPITECH PROJECT, XXXX
+** EPITECH PROJECT, 2023
 ** NWP_myteams_XXXX
 ** File description:
 ** a file containing libs functions that should be called in myteams_server
 */
 
 #ifndef LIB_MYTEAMS_LOGGING_SERVER_H
-#define LIB_MYTEAMS_LOGGING_SERVER_H
+    #define LIB_MYTEAMS_LOGGING_SERVER_H
 
 /*
 ** As the server never initialize an action all function here are called events
@@ -22,9 +22,7 @@
 ** /create "team_name" "team_description"
 **/
 int server_event_team_created(
-    char const *team_uuid,
-    char const *team_name,
-    char const *user_uuid);
+char const *team_uuid, char const *team_name, char const *user_uuid);
 
 /**
 ** @brief Must be called when a new channel is created
@@ -36,9 +34,7 @@ int server_event_team_created(
 ** /create "channel_name" "channel_description"
 **/
 int server_event_channel_created(
-    char const *team_uuid,
-    char const *channel_uuid,
-    char const *channel_name);
+char const *team_uuid, char const *channel_uuid, char const *channel_name);
 
 /**
 ** @brief Must be called when a new thread is created
@@ -51,12 +47,9 @@ int server_event_channel_created(
 ** Commands:
 ** /create "thread_title" "thread_body"
 **/
-int server_event_thread_created(
-    char const *channel_uuid,
-    char const *thread_uuid,
-    char const *user_uuid,
-    char const *thread_title,
-    char const *thread_body);
+int server_event_thread_created(char const *channel_uuid,
+char const *thread_uuid, char const *user_uuid, char const *thread_title,
+char const *thread_body);
 
 /**
 ** @brief Must be called when a new reply is created in a thread
@@ -68,9 +61,7 @@ int server_event_thread_created(
 ** /create "reply_body"
 **/
 int server_event_reply_created(
-    char const *thread_uuid,
-    char const *user_uuid,
-    char const *reply_body);
+char const *thread_uuid, char const *user_uuid, char const *reply_body);
 
 /**
 ** @brief Must be called when a user subscribe to a team
@@ -90,7 +81,8 @@ int server_event_user_subscribed(char const *team_uuid, char const *user_uuid);
 ** Commands:
 ** /unsubscribe "team_uuid"
 **/
-int server_event_user_unsubscribed(char const *team_uuid, char const *user_uuid);
+int server_event_user_unsubscribed(
+char const *team_uuid, char const *user_uuid);
 
 /**
 ** @brief Must be called when a user didn't existed in save and was created
@@ -143,10 +135,6 @@ int server_event_user_logged_out(char const *user_uuid);
 ** /send "user_uuid" "message_body"
 **/
 int server_event_private_message_sended(
-    char const *sender_uuid,
-    char const *receiver_uuid,
-    char const *message_body);
-
-
+char const *sender_uuid, char const *receiver_uuid, char const *message_body);
 
 #endif /* LIB_MYTEAMS_LOGGING_SERVER_H */
