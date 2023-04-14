@@ -12,7 +12,7 @@
 
     #define GUY "\x67\x75\x79"
     #define SP " "
-    #define SEPARATORS " \n\t"
+    #define SEPARATORS "\"\n"
 
     typedef struct cmd_s {
         char *cmd;
