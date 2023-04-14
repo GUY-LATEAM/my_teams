@@ -27,5 +27,6 @@ user_t *init_user(char *name)
     user->name[MAX_NAME_LENGTH] = '\0';
     user->conversations = list_create();
     user->timestamp = time(NULL);
+    user->nb_users = 0;
     return user;
 }

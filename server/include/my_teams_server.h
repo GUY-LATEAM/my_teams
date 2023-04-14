@@ -21,6 +21,7 @@
     typedef struct user_s {
         char uuid[MAX_UUID_LENGTH + 1];
         char name[MAX_NAME_LENGTH + 1]; // +1 for the null terminator
+        int nb_users;
         list_ptr_t *conversations;
         time_t timestamp;
     } user_t;
