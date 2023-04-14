@@ -67,10 +67,6 @@ static list_ptr_t *create_conversation_list(char **tab_conv, const char sep)
         return NULL;
     }
     for (int i = 0; tab_conv[i] != NULL; i++) {
-        if (tab_conv[i] == NULL) {
-            destroy_list(conv);
-            return NULL;
-        }
         conv_info = create_conversation_from_line(tab_conv[i], sep);
         if ((conv_info == NULL) || list_add_last(conv, conv_info) != LIST_OK) {
             destroy_list(conv);

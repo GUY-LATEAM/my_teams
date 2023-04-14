@@ -69,10 +69,6 @@ static list_ptr_t *create_thread_list(char **tab_thread, const char sep)
     if (threads == NULL)
         return NULL;
     for (int i = 0; tab_thread[i] != NULL; i++) {
-        if (tab_thread[i] == NULL) {
-            destroy_list(threads);
-            return NULL;
-        }
         thread = create_thread_from_line(tab_thread[i], sep);
         if (list_add_last(threads, thread) != LIST_OK) {
             destroy_list(threads);

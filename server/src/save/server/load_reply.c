@@ -70,10 +70,6 @@ static list_ptr_t *create_reply_list(char **splitted, const char sep)
         return NULL;
     }
     for (int i = 0; splitted[i] != NULL; i++) {
-        if (splitted[i] == NULL) {
-            destroy_list(replies);
-            return NULL;
-        }
         reply = create_reply_from_line(splitted[i], sep);
         if ((reply == NULL) || (list_add_last(replies, reply) != LIST_OK)) {
             destroy_list(replies);
