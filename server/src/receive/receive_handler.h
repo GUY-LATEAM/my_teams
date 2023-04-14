@@ -9,6 +9,21 @@
   #define SERVER_RECEIVE_HANDLER_H
   #include "network_structures.h"
 
+  #define FUNCTIONS_LIST &help_command,\
+        &login_command,\
+        &logout_command,\
+        &users_command,\
+        &user_command,\
+        &send_command,\
+        &messages_command,\
+        &subscribe_command,\
+        &subscribed_command,\
+        &unsubscribe_command,\
+        &use_command,\
+        &create_command,\
+        &list_command,\
+        &info_command
+
   typedef struct command_s command_t;
 
   struct command_s {

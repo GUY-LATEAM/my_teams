@@ -43,28 +43,27 @@ char *apply_command(void *user_data, void *protocol_data,
     command_t *command, circular_buffer_t *write_buffer)
 {
     static int (*command_functions[])(void *, void *, char *) = {
-        &help_command,
-        &login_command,
-        &logout_command,
-        &users_command,
-        &user_command,
-        &send_command,
-        &messages_command,
-        &subscribe_command,
-        &subscribed_command,
-        &unsubscribe_command,
-        &use_command,
-        &create_command,
-        &list_command,
-        &info_command
+        FUNCTIONS_LIST,
+        NULL
     };
 
     for (int i = 0; commands[i] != NULL; i++) {
         if (strcmp(command->command, commands[i]) == 0) {
-            return command_functions[i](user_data, protocol_data, command->args);
+            return command_functions[i](user_data, protocol_data,
+                command->args);
         }
     }
     return NULL;
+}
+
+static void delete_command(command_t *command)
+{
+    if (command->command != NULL) {
+        free(command->command);
+    }
+    if (command->args != NULL) {
+        free(command->args);
+    }
 }
 
 // if command is null send error in stdin because not error in logging server.h
@@ -78,10 +77,5 @@ void receive(void *user_data, void *protocol_data,
         return;
     }
     response = apply_command(user_data, protocol_data, &command, write_buffer);
-    if (command.command != NULL) {
-        free(command.command);
-    }
-    if (command.args != NULL) {
-        free(command.args);
-    }
+    delete_command(&command);
 }
