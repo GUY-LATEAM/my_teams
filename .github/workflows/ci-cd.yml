@@ -7,7 +7,7 @@ on: [push, pull_request]
 
 env:
   MIRROR_URL: git@github.com:EpitechPromo2026/B-NWP-400-TLS-4-1-myteams-clement.lagasse.git
-  FILES: './server/include/logging_client.h ./client/include/logging_client.h'
+  FILES: './server/include/logging_server.h ./client/include/logging_client.h'
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   check_repository_cleanliness:
