@@ -73,16 +73,29 @@ SRC 	+= 	add/add_conversation_to_user.c \
 			checks/check_args_server.c \
 			server_logic/server_loop.c \
 			signals/handle_signal.c \
+			save/server/load_channel.c \
+			save/server/load_reply.c \
+			save/server/load_server_from_file.c \
+			save/server/load_team.c \
+			save/server/load_thread.c \
+			save/server/load_user.c \
 			save/server/save_channel.c \
 			save/server/save_reply.c \
 			save/server/save_team.c \
 			save/server/save_thread.c \
+			save/user/load_conversation.c \
+			save/user/load_message.c \
+			save/user/load_user.c \
+			save/user/load_users_from_file.c \
 			save/user/save_conversation.c \
 			save/user/save_message.c \
 			save/user/save_user.c \
+			save/free_token.c \
 			save/save_server_data.c \
-			save/save_server_to_file.c \
-			save/save_users_to_file.c \
+			save/server/save_server_to_file.c \
+			save/user/save_users_to_file.c \
+			save/str_split_utils.c \
+			save/str_split.c \
 			save/time_utils.c
 SRC		:= $(addprefix src/, $(SRC))
 

@@ -15,7 +15,7 @@
 team_t *init_team(char *name, char *description)
 {
     team_t *team = malloc(sizeof(team_t));
-    uuid_t uuid;
+    uuid_t uuid = {0};
 
     if (!team)
         return NULL;

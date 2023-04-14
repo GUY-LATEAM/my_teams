@@ -11,14 +11,15 @@
 #include "list_lib.h"
 #include "my_teams_server.h"
 
-conversation_t *init_conversation(user_t *user)
+conversation_t *init_conversation(char *user_create)
 {
     conversation_t *conv = NULL;
 
     conv = malloc(sizeof(conversation_t));
     if (!conv)
         return NULL;
-    conv->user = user;
+    strncpy(conv->uuid_create, user_create, MAX_UUID_LENGTH);
+    conv->uuid_create[MAX_UUID_LENGTH] = '\0';
     conv->messages = list_create();
     conv->timestamp = time(NULL);
     return conv;

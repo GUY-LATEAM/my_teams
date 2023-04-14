@@ -7,7 +7,7 @@
 
 #include "save_struck.h"
 
-bool save_message(message_t *message, FILE *file)
+static bool save_message(message_t *message, FILE *file, const char sep)
 {
     char *timestamp_str = NULL;
 
@@ -15,7 +15,7 @@ bool save_message(message_t *message, FILE *file)
     if (timestamp_str == NULL) {
         return false;
     }
-    if (fprintf(file, "%s^%s^%s", message->uuid, message->content,
+    if (fprintf(file, "%s%c%s%c%s", message->uuid, sep, message->content, sep,
     timestamp_str) < 0) {
         free(timestamp_str);
         return false;
@@ -24,14 +24,16 @@ bool save_message(message_t *message, FILE *file)
     return true;
 }
 
-bool save_message_loop(list_ptr_t *messages, FILE *file)
+bool save_message_loop(list_ptr_t *messages, FILE *file, const char sep)
 {
     message_t *message = NULL;
 
+    if (messages == NULL)
+        return true;
     for (int i = 0; i < messages->len; i++) {
         message = get_list_i_data(messages, i);
-        if ((save_message(message, file) == false) ||
-        (fprintf(file, "/") < 0)) {
+        if ((save_message(message, file, sep + 1) == false) ||
+        (fprintf(file, "%c", sep) < 0)) {
             fclose(file);
             return false;
         }

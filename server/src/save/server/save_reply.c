@@ -7,7 +7,7 @@
 
 #include "save_struck.h"
 
-bool save_reply(reply_t *reply, FILE *file)
+static bool save_reply(reply_t *reply, FILE *file, const char sep)
 {
     char *timestamp = NULL;
 
@@ -15,8 +15,8 @@ bool save_reply(reply_t *reply, FILE *file)
     if (timestamp == NULL) {
         return false;
     }
-    if (fprintf(file, "%s#%s#%s#%s", reply->uuid, reply->content,
-    reply->user->uuid, timestamp) < 0) {
+    if (fprintf(file, "%s%c%s%c%s%c%s", reply->uuid, sep, reply->content,
+    sep, reply->uuid_create, sep, timestamp) < 0) {
         free(timestamp);
         return false;
     }
@@ -24,14 +24,14 @@ bool save_reply(reply_t *reply, FILE *file)
     return true;
 }
 
-bool save_reply_loop(list_ptr_t *replies, FILE *file)
+bool save_reply_loop(list_ptr_t *replies, FILE *file, const char sep)
 {
     reply_t *reply = NULL;
 
     for (int i = 0; i < replies->len; i++) {
         reply = get_list_i_data(replies, i);
-        if ((save_reply(reply, file) == false) ||
-        (fprintf(file, "^") < 0)) {
+        if ((save_reply(reply, file, sep + 1) == false) ||
+        (fprintf(file, "%c", sep) < 0)) {
             fclose(file);
             return false;
         }
