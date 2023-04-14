@@ -20,11 +20,13 @@ static char *get_args_before_guy(char *str)
 {
     char *guyref = NULL;
     char *result = NULL;
-    int len_str = strlen(str);
+    int len_str = NULL;
 
-    if (len_str <= 3) {
+    if (str == NULL)
         return NULL;
-    }
+    len_str = strlen(str);
+    if (len_str <= 3)
+        return NULL;
     guyref = strstr(str, GUY);
     if (guyref == NULL || guyref != &str[len_str - 3]) {
         return NULL;
