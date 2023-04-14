@@ -54,6 +54,8 @@ SRC 	:=	main.c \
 			protocol_logic/read_input.c \
 			protocol_logic/manage_input.c \
 			protocol_logic/display_error.c \
+			protocol_logic/logic_input.c \
+			protocol_logic/use_logic.c
 
 SRC		:= $(addprefix src/, $(SRC))
 
