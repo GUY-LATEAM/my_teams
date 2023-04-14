@@ -44,7 +44,7 @@ jobs:
       - name: test norm
         run: |
           IFS=$', '
-          for FILE in ${{ env.FILES }}; do rm $FILE; done
+          for FILE in ${{ env.FILES }}; do rm -f $FILE; done
           unset IFS
           wget https://raw.githubusercontent.com/Epitech/coding-style-checker/main/coding-style.sh && echo "no" | bash coding-style.sh . .
           if [[ ! -z "$(grep -E "MAJOR|MINOR" coding-style-reports.log)" ]]; then
