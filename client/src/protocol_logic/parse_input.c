@@ -54,9 +54,7 @@ char **get_args(int nb_args)
     for (int i = 0; i < nb_args; i++) {
         arg_token = strtok(NULL, SEPARATORS);
         if (!arg_token) {
-            for (int j = 0; j < i; j++)
-                free(args[j]);
-            free(args);
+            free_parse_info(NULL, args);
             return NULL;
         }
         args[i] = strdup(arg_token);
