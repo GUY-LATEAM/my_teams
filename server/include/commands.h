@@ -7,19 +7,34 @@
 
 #ifndef MY_TEAMS_COMMANDS_H
     #define MY_TEAMS_COMMANDS_H
+    #include "circular_buffer.h"
 
-    const char *help_command(void *user_data, void *protocol_data, char *args);
-    const char *login_command(void *user_data, void *protocol_data, char *args);
-    const char *logout_command(void *user_data, void *protocol_data, char *args);
-    const char *users_command(void *user_data, void *protocol_data, char *args);
-    const char *user_command(void *user_data, void *protocol_data, char *args);
-    const char *send_command(void *user_data, void *protocol_data, char *args);
-    const char *messages_command(void *user_data, void *protocol_data, char *args);
-    const char *subscribe_command(void *user_data, void *protocol_data, char *args);
-    const char *subscribed_command(void *user_data, void *protocol_data, char *args);
-    const char *unsubscribe_command(void *user_data, void *protocol_data, char *args);
-    const char *use_command(void *user_data, void *protocol_data, char *args);
-    const char *create_command(void *user_data, void *protocol_data, char *args);
-    const char *list_command(void *user_data, void *protocol_data, char *args);
-    const char *info_command(void *user_data, void *protocol_data, char *args);
+    int help_command(void *user_data, void *protocol_data, char *args,
+        circular_buffer_t *write_buffer);
+    int login_command(void *user_data, void *protocol_data, char *args,
+        circular_buffer_t *write_buffer);
+    int logout_command(void *user_data, void *protocol_data, char *args,
+        circular_buffer_t *write_buffer);
+    int users_command(void *user_data, void *protocol_data, char *args,
+        circular_buffer_t *write_buffer);
+    int user_command(void *user_data, void *protocol_data, char *args,
+        circular_buffer_t *write_buffer);
+    int send_command(void *user_data, void *protocol_data, char *args,
+        circular_buffer_t *write_buffer);
+    int messages_command(void *user_data, void *protocol_data, char *args,
+        circular_buffer_t *write_buffer);
+    int subscribe_command(void *user_data, void *protocol_data, char *args,
+        circular_buffer_t *write_buffer);
+    int subscribed_command(void *user_data, void *protocol_data, char *args,
+        circular_buffer_t *write_buffer);
+    int unsubscribe_command(void *user_data, void *protocol_data, char *args,
+        circular_buffer_t *write_buffer);
+    int use_command(void *user_data, void *protocol_data, char *args,
+        circular_buffer_t *write_buffer);
+    int create_command(void *user_data, void *protocol_data, char *args,
+        circular_buffer_t *write_buffer);
+    int list_command(void *user_data, void *protocol_data, char *args,
+        circular_buffer_t *write_buffer);
+    int info_command(void *user_data, void *protocol_data, char *args,
+        circular_buffer_t *write_buffer);
 #endif //MY_TEAMS_COMMANDS_H

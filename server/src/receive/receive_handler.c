@@ -39,7 +39,7 @@ static int get_command(circular_buffer_t *read_buffer, command_t *command)
     return EXIT_SUCCESS;
 }
 
-char *apply_command(void *user_data, void *protocol_data,
+int apply_command(void *user_data, void *protocol_data,
     command_t *command, circular_buffer_t *write_buffer)
 {
     static int (*command_functions[])(void *, void *, char *) = {
@@ -71,11 +71,13 @@ void receive(void *user_data, void *protocol_data,
     circular_buffer_t *read_buffer, circular_buffer_t *write_buffer)
 {
     command_t command = {NULL, NULL};
-    char *response = NULL;
+    int command_result = EXIT_SUCCESS;
 
     if (get_command(read_buffer, &command) != EXIT_SUCCESS) {
         return;
     }
-    response = apply_command(user_data, protocol_data, &command, write_buffer);
+    command_result = apply_command(user_data, protocol_data,
+        &command, write_buffer);
     delete_command(&command);
+    return command_result;
 }
