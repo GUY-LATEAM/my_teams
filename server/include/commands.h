@@ -39,6 +39,6 @@
         circular_buffer_t *write_buffer);
     int info_command(void *user_data, void *protocol_data, char *args,
         circular_buffer_t *write_buffer);
-    int commmand_not_found(void *user_data, void *protocol_data, char *args,
+    int command_not_found(void *user_data, void *protocol_data, char *args,
         circular_buffer_t *write_buffer);
 #endif //MY_TEAMS_COMMANDS_H

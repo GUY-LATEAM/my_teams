@@ -26,7 +26,7 @@ static char *get_args_before_guy(char *str)
         return NULL;
     }
     guyref = strstr(str, GUY);
-    if (guyref == NULL || &guyref != &str[len_str - 3]) {
+    if (guyref == NULL || guyref != &str[len_str - 3]) {
         return NULL;
     }
     result = malloc(sizeof(char) * (len_str - 2));
@@ -56,16 +56,16 @@ static int get_command(circular_buffer_t *read_buffer, command_t *command)
 static int apply_command(void *user_data, void *protocol_data,
 command_t *command, circular_buffer_t *write_buffer)
 {
-    static int (*command_functions[])(void *, void *, char *) = {
-    FUNCTIONS_LIST, NULL};
+    static int (*command_functions[])
+        (void *, void *, char *, circular_buffer_t *) = {FUNCTIONS_LIST, NULL};
 
     for (int i = 0; commands[i] != NULL; i++) {
         if (strcmp(command->command, commands[i]) == 0) {
             return command_functions[i](
-            user_data, protocol_data, command->args);
+            user_data, protocol_data, command->args, write_buffer);
         }
     }
-    return NULL;
+    return EXIT_FAILURE;
 }
 
 static void delete_command(command_t *command)
@@ -83,14 +83,13 @@ void receive(void *user_data, void *protocol_data,
 circular_buffer_t *read_buffer, circular_buffer_t *write_buffer)
 {
     command_t command = {NULL, NULL};
-    int command_result = EXIT_SUCCESS;
 
     if (get_command(read_buffer, &command) != EXIT_SUCCESS) {
-        commmand_not_found(user_data, protocol_data, NULL, write_buffer);
+        command_not_found(user_data, protocol_data, NULL, write_buffer);
         return;
     }
-    command_result =
-        apply_command(user_data, protocol_data, &command, write_buffer);
+    if (apply_command(user_data, protocol_data, &command, write_buffer)) {
+        command_not_found(user_data, protocol_data, NULL, write_buffer);
+    }
     delete_command(&command);
-    return command_result;
 }
