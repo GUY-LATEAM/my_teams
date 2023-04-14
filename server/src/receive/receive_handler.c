@@ -78,7 +78,6 @@ static void delete_command(command_t *command)
     }
 }
 
-// if command is null send error in stdin because not error in logging server.h
 void receive(void *user_data, void *protocol_data,
 circular_buffer_t *read_buffer, circular_buffer_t *write_buffer)
 {
