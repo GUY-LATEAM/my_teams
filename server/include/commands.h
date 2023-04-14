@@ -9,6 +9,8 @@
     #define MY_TEAMS_COMMANDS_H
     #include "circular_buffer.h"
 
+    #define UNKNOW_COMMAND "ERROR 400 Unknown command"
+
     int help_command(void *user_data, void *protocol_data, char *args,
         circular_buffer_t *write_buffer);
     int login_command(void *user_data, void *protocol_data, char *args,
@@ -36,5 +38,7 @@
     int list_command(void *user_data, void *protocol_data, char *args,
         circular_buffer_t *write_buffer);
     int info_command(void *user_data, void *protocol_data, char *args,
+        circular_buffer_t *write_buffer);
+    int commmand_not_found(void *user_data, void *protocol_data, char *args,
         circular_buffer_t *write_buffer);
 #endif //MY_TEAMS_COMMANDS_H
