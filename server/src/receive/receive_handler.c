@@ -20,7 +20,7 @@ static char *get_args_before_guy(char *str)
 {
     char *guyref = NULL;
     char *result = NULL;
-    int len_str = NULL;
+    int len_str = 0;
 
     if (str == NULL)
         return NULL;
