@@ -16,7 +16,7 @@
 #include "protocol_logic.h"
 #include "commands.h"
 
-user_t *is_user_exist(server_t *server, const char *name)
+static user_t *is_user_exist(server_t *server, const char *name)
 {
     user_t *user = NULL;
 
@@ -29,7 +29,7 @@ user_t *is_user_exist(server_t *server, const char *name)
     return NULL;
 }
 
-bool link_user_to_client(server_t *server, user_t *user)
+static bool link_user_to_client(server_t *server, user_t *user)
 {
     network_client_t *client = NULL;
 
@@ -43,7 +43,7 @@ bool link_user_to_client(server_t *server, user_t *user)
     return false;
 }
 
-int login_broadcast(circular_buffer_t *write_buffer, user_t *user)
+static int login_broadcast(circular_buffer_t *write_buffer, user_t *user)
 {
     char *message = NULL;
     bool command = false;
@@ -64,8 +64,8 @@ successfully processed.");
     return true;
 }
 
-int login_command_annexe(server_t *server, circular_buffer_t *write_buffer,
-char *name)
+static int login_command_annexe(server_t *server,
+circular_buffer_t *write_buffer, char *name)
 {
     user_t *user = NULL;
 
