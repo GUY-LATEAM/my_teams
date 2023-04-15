@@ -55,10 +55,10 @@ successfully processed.");
     if (command == false || guy == false)
         return false;
     message = malloc(sizeof(char) * (strlen(user->uuid) +\
-    strlen(user->name) + 15));
+    strlen(user->name) + 19));
     if (message == NULL)
         return false;
-    sprintf(message, "broadcast %s %s%s", user->uuid, user->name, GUY);
+    sprintf(message, "broadcast LOGIN %s %s%s", user->uuid, user->name, GUY);
     write_circular_buffer(write_buffer, message);
     free(message);
     return true;
