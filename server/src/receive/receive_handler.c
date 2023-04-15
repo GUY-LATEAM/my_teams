@@ -52,6 +52,7 @@ static int get_command(circular_buffer_t *read_buffer, command_t *command)
     tmp = my_split(buffer, SP, RIGHT);
     command->args = get_args_before_guy(tmp);
     free(tmp);
+    free(buffer);
     return EXIT_SUCCESS;
 }
 
