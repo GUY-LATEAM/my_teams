@@ -126,9 +126,9 @@ SRC		:= $(addprefix src/, $(SRC))
 
 CFLAGS	=	-Wall -Wextra -pedantic -I./include -I../libs/list_lib/include \
 	-I../libs/network_lib/include -I../libs/circular_buffer_lib/include	\
-	-I../libs/my_lib/include
+	-I../libs/my_lib/include -I../libs/myteams
 
-LDFLAGS	=	-L ../libs -lall -luuid
+LDFLAGS	=	-L ../libs -lall -luuid -L../libs/myteams -lmyteams
 
 RM_ARRAY	:=	*~ a.out *.gcno *.gcda unit_tests *\# \#*
 FRM_ARRAY	=	$(RM_ARRAY) $(OBJ) $(COMPILATION)

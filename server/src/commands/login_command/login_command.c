@@ -64,8 +64,6 @@ successfully processed.");
     return true;
 }
 
-///server_event_user_created(user->uuid,user->name);
-//server_event_user_logged_in(user->uuid);
 int login_command_annexe(server_t *server, circular_buffer_t *write_buffer,
 char *name)
 {
@@ -75,7 +73,9 @@ char *name)
     if (user == NULL) {
         user = init_user(name);
         list_add_last(server->all_users, user);
+        server_event_user_created(user->uuid,user->name);
     }
+    server_event_user_logged_in(user->uuid);
     if ((link_user_to_client(server, user) == false) ||
     (login_broadcast(write_buffer, user) == false)) {
         write_circular_buffer(write_buffer, "400 Bad Request: The received \
