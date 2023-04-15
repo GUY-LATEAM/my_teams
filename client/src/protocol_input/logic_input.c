@@ -28,13 +28,12 @@ static const cmd_t CMD_TAB[] = {
 
 char *get_cmd(char *input, int *nb_args)
 {
-    int i = 0;
     char *cmd_token = NULL;
 
     cmd_token = strtok(input, SEPARATORS);
     if (!cmd_token)
         return NULL;
-    for (i = 0; CMD_TAB[i].cmd; i++) {
+    for (int i = 0; CMD_TAB[i].cmd; i++) {
         if (strcasecmp(cmd_token, CMD_TAB[i].cmd) == 0) {
             *nb_args = CMD_TAB[i].nb_args;
             return strdup(cmd_token);
@@ -45,9 +44,7 @@ char *get_cmd(char *input, int *nb_args)
 
 void apply_logic_cmd(client_t *client, char *cmd, char **args)
 {
-    int i = 0;
-
-    for (i = 0; CMD_TAB[i].cmd; i++) {
+    for (int i = 0; CMD_TAB[i].cmd; i++) {
         if (strcasecmp(cmd, CMD_TAB[i].cmd) == 0 && CMD_TAB[i].logic) {
                 CMD_TAB[i].logic(client, args);
                 client->requested_cmd = CMD_TAB[i].id;
