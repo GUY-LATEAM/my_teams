@@ -16,7 +16,7 @@
 #include "protocol_logic.h"
 #include "commands.h"
 
-user_t *is_user_exist(server_t *server, char *name)
+user_t *is_user_exist(server_t *server, const char *name)
 {
     user_t *user = NULL;
 

@@ -11,7 +11,7 @@
 #include "list_lib.h"
 #include "commands.h"
 
-bool is_user_subcribed_to_team(user_t *user, team_t *team)
+static bool is_user_subcribed_to_team(user_t *user, team_t *team)
 {
     char *subscribed_user = NULL;
 
@@ -24,7 +24,8 @@ bool is_user_subcribed_to_team(user_t *user, team_t *team)
     return false;
 }
 
-void applided_broadcast_team(server_t *server, user_t *user, char *message)
+static void applided_broadcast_team(server_t *server, user_t *user,
+const char *message)
 {
     network_client_t *client = NULL;
 
@@ -36,7 +37,8 @@ void applided_broadcast_team(server_t *server, user_t *user, char *message)
     }
 }
 
-bool find_broadcast_team(server_t *server, team_t *team, char *message)
+static bool find_broadcast_team(server_t *server, team_t *team,
+const char *message)
 {
     char *client_sub_uuid = NULL;
     user_t *user = NULL;
@@ -52,7 +54,8 @@ bool find_broadcast_team(server_t *server, team_t *team, char *message)
     return true;
 }
 
-bool if_find_team(server_t *server, team_t *team, user_t *user, char *message)
+static bool if_find_team(server_t *server, team_t *team, user_t *user,
+const char *message)
 {
     if (is_user_subcribed_to_team(user, team)) {
         if (find_broadcast_team(server, team, message) == false) {
@@ -62,7 +65,7 @@ bool if_find_team(server_t *server, team_t *team, user_t *user, char *message)
     return true;
 }
 
-bool broadcast_teams(server_t *server, user_t *user, char *message)
+bool broadcast_teams(server_t *server, user_t *user, const char *message)
 {
     team_t *team = NULL;
 

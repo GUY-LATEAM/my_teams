@@ -10,7 +10,7 @@
 #include "circular_buffer.h"
 #include "list_lib.h"
 
-bool broadcast_all_user(server_t *server, char *message)
+bool broadcast_all_user(server_t *server, const char *message)
 {
     network_client_t *client = NULL;
 
