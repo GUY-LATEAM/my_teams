@@ -20,15 +20,13 @@ char **get_args(int nb_args)
         return NULL;
     for (int i = 0; i < nb_args; i++) {
         arg_token = strtok(NULL, SEPARATORS);
-        if (!arg_token)
+        if (!arg_token) {
+            free_parse_info(NULL, args);
             return NULL;
+        }
         args[i] = strdup(arg_token);
     }
     args[nb_args] = NULL;
-    if (strtok(NULL, SEPARATORS) != NULL) {
-        free(args);
-        return NULL;
-    }
     return args;
 }
 

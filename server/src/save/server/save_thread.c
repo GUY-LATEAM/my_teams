@@ -7,7 +7,7 @@
 
 #include "save_struck.h"
 
-bool save_thread(thread_t *thread, FILE *file)
+static bool save_thread(thread_t *thread, FILE *file, const char sep)
 {
     char *timestamp = NULL;
 
@@ -15,12 +15,12 @@ bool save_thread(thread_t *thread, FILE *file)
     if (timestamp == NULL) {
         return false;
     }
-    if (fprintf(file, "%s_%s_%s_%s_%s_", thread->uuid, thread->title,
-    thread->message, thread->user->uuid, timestamp) < 0) {
+    if (fprintf(file, "%s%c%s%c%s%c%s%c%s%c", thread->uuid, sep, thread->title,
+    sep, thread->message, sep, thread->uuid_create, sep, timestamp, sep) < 0) {
         free(timestamp);
         return false;
     }
-    if (save_reply_loop(thread->replies, file) == false) {
+    if (save_reply_loop(thread->replies, file, sep + 1) == false) {
         free(timestamp);
         return false;
     }
@@ -28,14 +28,14 @@ bool save_thread(thread_t *thread, FILE *file)
     return true;
 }
 
-bool save_thread_loop(list_ptr_t *threads, FILE *file)
+bool save_thread_loop(list_ptr_t *threads, FILE *file, const char sep)
 {
     thread_t *thread = NULL;
 
     for (int i = 0; i < threads->len; i++) {
         thread = get_list_i_data(threads, i);
-        if ((save_thread(thread, file) == false) ||
-        (fprintf(file, "|") < 0)) {
+        if ((save_thread(thread, file, sep + 1) == false) ||
+        (fprintf(file, "%c", sep) < 0)) {
             fclose(file);
             return false;
         }
