@@ -18,6 +18,6 @@ void manage_input(client_t *client)
     if (!input)
         return;
     cli = get_list_i_data(client->network_client->clients, 0);
-    parse_input(cli, input);
+    parse_input(client, cli, input);
     free(input);
 }

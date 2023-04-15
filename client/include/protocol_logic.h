@@ -15,15 +15,28 @@
     #define SEPARATORS "\"\n"
 
     typedef struct cmd_s {
+        enum cmd_e id;
         char *cmd;
         int nb_args;
+        void (*logic)(client_t *client, char **args);
     } cmd_t;
 
+    typedef struct cmd_code_s {
+        enum cmd_e id;
+        char *expected_code;
+    } cmd_code_t;
+
+    typedef struct cmd_parse_s {
+        enum cmd_e id;
+        void (*check)(client_t *client, char *args);
+    } cmd_parse_t;
+
     char *read_input(void);
-    void parse_input(network_client_t *client, char *input);
+    void parse_input(client_t *client, network_client_t *net_cli, char *input);
 
     void manage_input(client_t *client);
 
+    void apply_logic_cmd(client_t *client, char *cmd, char **args);
     char *get_cmd(char *input, int *nb_args);
     char **get_args(int nb_args);
 

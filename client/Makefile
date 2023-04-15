@@ -50,10 +50,15 @@ SRC 	:=	main.c \
 			init/init_context.c \
 			init/init_client_protocol.c \
 			signals/handle_signal.c \
-			protocol_logic/parse_input.c \
-			protocol_logic/read_input.c \
-			protocol_logic/manage_input.c \
-			protocol_logic/display_error.c \
+			protocol_input/parse_input.c \
+			protocol_input/read_input.c \
+			protocol_input/manage_input.c \
+			protocol_input/display_error.c \
+			protocol_input/logic_input.c \
+			protocol_input/use_logic.c \
+			protocol_logic/receive_func.c \
+			protocol_logic/manage_response.c \
+			protocol_logic/parse_no_info_resp.c \
 
 SRC		:= $(addprefix src/, $(SRC))
 

@@ -39,7 +39,7 @@ The data model consists of the following structures:
 
 ## 5. Command and Response Format
 
-Commands sent by the client follow the format:
+Commands sent by the client follow the format in ASCII:
 
     <CMD><sp><args><endL>
 
@@ -48,49 +48,77 @@ Commands sent by the client follow the format:
 - **args**: The command arguments, if any, enclosed in double quotes and separated by spaces (e.g., "username", "team_uuid").
 - **endL** : The custom delimiter to indicate the end of the command, which is the sequence **\g\u\y**.
 
-#### 5.1 login
-    login "username" -> The username the client will use.
+### 5.1 broadcast
 
-#### 5.2 logout
-    logout -> The client will disconnect from the server.
+    broadcast <type> <typeargs>
 
-#### 5.3 users
-    users -> The server will send a list of all users.
+### 5.1.1 broadcast types
 
-#### 5.4 user
-    user "user_uuid" -> The server will send information about the user with the specified UUID.
+- **LOGIN**
+- **LOGOUT**
+- **USER**
+- **TEAMS**
+- **CHANNEL**
+- **THREAD**
+- **REPLY**
+- **MESSAGE**
 
-#### 5.5 send
-    send "user_uuid" "message_body" -> The server will send a message to the user with the specified UUID.
+### 5.1.2 broadcast args
 
-#### 5.6 messages
-    messages "user_uuid" -> The server will send a list of all messages exchanged with the user with the specified UUID.
+|  Types    | Format                                                            | Description                                                                                                                                    |
+|-----------|-------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| LOGIN     | "user_uuid:user_name"                                             | user_uuid: User's ID, user_name: User's name (logged in)                                                                                       |
+| LOGOUT    | "user_uuid:user_name"                                             | user_uuid: User's ID, user_name: User's name (logged out)                                                                                      |
+| MESSAGE   | "user_uuid:message_body"                    ,                     | user_uuid: Sender's ID, message_body: Private message content                                                                                  |
+| THREAD    | "team_uuid:thread_uuid:user_uuid:reply_body"                      | team_uuid: Team's ID, thread_uuid: Thread's ID, user_uuid: User's ID (reply), reply_body: Reply content                                        |
+| TEAMS     | "team_uuid:team_name:team_description"                            | team_uuid: Team's ID, team_name: Team's name, team_description: Team's description                                                             |
+| CHANNEL   | "channel_uuid:channel_name:channel_description"                   | channel_uuid: Channel's ID, channel_name: Channel's name, channel_description: Channel's description                                           |
+| REPLY     | "thread_uuid:user_uuid:thread_timestamp:thread_title:thread_body" | thread_uuid: Thread's ID, user_uuid: User's ID (thread), thread_timestamp: Timestamp, thread_title: Thread's title, thread_body: Thread's body |
+| SUBSCRIBE | 
 
-#### 5.7 subscribe
-    subscribe "team_uuid" -> The server will subscribe the client to the team with the specified UUID.
+#### 5.2 login
+**login** "username" -> The username the client will use.
 
-#### 5.8 subscribed
-    subscribed "team_uuid" -> The server will send a list of all users subscribed to the team with the specified UUID, if no team_uuid is entered, the server will list all subscribed teams.
+#### 5.3 logout
+**logout** -> The client will disconnect from the server.
 
-#### 5.9 unsubscribe
-    unsubscribe "team_uuid" -> The server will unsubscribe the client from the team with the specified UUID.
+#### 5.4 users
+**users** -> The server will send a list of all users.
 
-#### 5.10 use
-    use "team_uuid:channel_uuid:thread_uuid" -> The server will use the team, channel, and thread with the specified UUIDs as the context for the following commands.
+#### 5.5 user
+**user** "user_uuid" -> The server will send information about the user with the specified UUID.
 
-#### 5.11 create
-    create "team_uuid:channel_uuid:thread_uuid" "name" "description" -> The server will create a team, channel, or thread with the specified name and description in the context specified by the UUIDs.
+#### 5.6 send
+**send** "user_uuid" "message_body" -> The server will send a message to the user with the specified UUID.
 
-#### 5.12 list
-    list "team_uuid:channel_uuid:thread_uuid" -> The server will send a list of all teams, channels, or threads in the context specified by the UUIDs.
+#### 5.7 messages
+**messages** "user_uuid" -> The server will send a list of all messages exchanged with the user with the specified UUID.
 
-#### 5.13 info
-    info "team_uuid:channel_uuid:thread_uuid" -> The server will send information about the team, channel, or thread in the context specified by the UUIDs.
+#### 5.8 subscribe
+**subscribe** "team_uuid" -> The server will subscribe the client to the team with the specified UUID.
 
-    The context for the use, create, list, and info commands is a string in the format "team_uuid:channel_uuid:thread_uuid". The server must use these UUIDs to determine the context in which the command should be executed.
+#### 5.9 subscribed
+**subscribed** "team_uuid" -> The server will send a list of all users subscribed to the team with the specified UUID, if no team_uuid is entered, the server will list all subscribed teams.
+
+#### 5.10 unsubscribe
+**unsubscribe** "team_uuid" -> The server will unsubscribe the client from the team with the specified UUID.
+
+#### 5.11 use
+**use** "team_uuid:channel_uuid:thread_uuid" -> The server will use the team, channel, and thread with the specified UUIDs as the context for the following commands.
+
+#### 5.12 create
+**create** "team_uuid:channel_uuid:thread_uuid" "name" "description" -> The server will create a team, channel, or thread with the specified name and description in the context specified by the UUIDs.
+
+#### 5.13 list
+**list** "team_uuid:channel_uuid:thread_uuid" -> The server will send a list of all teams, channels, or threads in the context specified by the UUIDs.
+
+#### 5.14 info
+**info** "team_uuid:channel_uuid:thread_uuid" -> The server will send information about the team, channel, or thread in the context specified by the UUIDs.
+
+The context for the use, create, list, and info commands is a string in the format "team_uuid:channel_uuid:thread_uuid". The server must use these UUIDs to determine the context in which the command should be executed.
 
 
-### Responses from the server follow the format:
+### Responses from the server follow the format in ASCII:
 
     <STATUS><sp><CODE><sp><MESSAGE><endL>
 
@@ -118,6 +146,7 @@ Here are the response codes for ARC-GUY protocol:
     401 Unauthorized: The client needs to authenticate before performing this action.
     403 Forbidden: The client does not have the necessary permissions to perform this action.
     404 Not Found: The requested resource was not found (e.g., a user, team, channel, or thread).
+    409 Conflict: The request could not be completed due to a conflict with the current state of the resource (e.g., the resource already exists).
     500 Internal Server Error: An error occurred on the server side while processing the command.
 
 ---
