@@ -8,6 +8,7 @@
 #ifndef MY_TEAMS_COMMANDS_H
     #define MY_TEAMS_COMMANDS_H
     #include "circular_buffer.h"
+    #include "my_teams_server.h"
 
     #define UNKNOW_COMMAND "ERROR 400 Unknown command"
 
@@ -41,4 +42,9 @@
         circular_buffer_t *write_buffer);
     int command_not_found(void *user_data, void *protocol_data, char *args,
         circular_buffer_t *write_buffer);
+
+    user_t *find_user(server_t *server, char *uuid);
+    bool broadcast_teams(server_t *server, user_t *user, const char *message);
+bool broadcast_all_user(server_t *server, const char *message);
+
 #endif //MY_TEAMS_COMMANDS_H
