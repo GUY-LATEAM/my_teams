@@ -14,24 +14,6 @@
     #define SP " "
     #define SEPARATORS " \n\t"
 
-    enum cmd_e {
-        LOGIN,
-        LOGOUT,
-        USERS,
-        USER,
-        SEND,
-        MESSAGES,
-        SUBSCRIBE,
-        SUBSCRIBED,
-        UNSUBSCRIBE,
-        USE,
-        CREATE,
-        LIST,
-        INFO,
-        HELP,
-        UNKNOWN
-    };
-
     typedef struct cmd_s {
         enum cmd_e id;
         char *cmd;
@@ -43,6 +25,11 @@
         enum cmd_e id;
         char *expected_code;
     } cmd_code_t;
+
+    typedef struct cmd_parse_s {
+        enum cmd_e id;
+        void (*check)(client_t *client, char *args);
+    } cmd_parse_t;
 
     char *read_input(void);
     void parse_input(client_t *client, network_client_t *net_cli, char *input);

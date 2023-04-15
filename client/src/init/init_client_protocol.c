@@ -11,6 +11,7 @@
 #include "list_lib.h"
 #include "protocol_logic.h"
 #include "socket_manipulation.h"
+#include "protocol_func.h"
 
 int create_client_protocol(network_server_t *client, char *ip, int port)
 {
@@ -23,6 +24,7 @@ int create_client_protocol(network_server_t *client, char *ip, int port)
         printf("Connection failed\n");
         return EXIT_FAILURE;
     }
+    set_network_client_methods_dialogue(cli, &receive_client);
     list_add_last(client->clients, cli);
     client->max_fd = cli->socket;
     return EXIT_SUCCESS;

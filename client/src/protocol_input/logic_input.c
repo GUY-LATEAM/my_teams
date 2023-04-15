@@ -16,7 +16,7 @@ static const cmd_t CMD_TAB[] = {
     {SEND, "/send", 2, NULL},
     {MESSAGES, "/messages", 1, NULL},
     {SUBSCRIBE, "/subscribe", 1, NULL},
-    {SUBSCRIBED, "/subscribed", 1, NULL},
+    {SUBSCRIBED_USERS, "/subscribed", 1, NULL},
     {UNSUBSCRIBE, "/unsubscribe", 1, NULL},
     {USE, "/use", 3, NULL},
     {CREATE, "/create", 0, NULL},
@@ -24,24 +24,6 @@ static const cmd_t CMD_TAB[] = {
     {INFO, "/info", 0, NULL},
     {HELP, "/help", 0, NULL},
     {UNKNOWN, NULL, 0, NULL}
-};
-
-static const cmd_code_t CMD_CODE_TAB[] = {
-    {LOGIN, "204"},
-    {LOGOUT, "204"},
-    {USERS, "200"},
-    {USER, "200"},
-    {SEND, "204"},
-    {MESSAGES, "200"},
-    {SUBSCRIBE, "204"},
-    {SUBSCRIBED, "200"},
-    {UNSUBSCRIBE, "200"},
-    {USE, "200"},
-    {CREATE, "201"},
-    {LIST, "200"},
-    {INFO, "200"},
-    {HELP, "200"},
-    {UNKNOWN, NULL}
 };
 
 char *get_cmd(char *input, int *nb_args)
@@ -68,6 +50,7 @@ void apply_logic_cmd(client_t *client, char *cmd, char **args)
     for (i = 0; CMD_TAB[i].cmd; i++) {
         if (strcasecmp(cmd, CMD_TAB[i].cmd) == 0 && CMD_TAB[i].logic) {
                 CMD_TAB[i].logic(client, args);
+                client->requested_cmd = CMD_TAB[i].id;
                 return;
         }
     }

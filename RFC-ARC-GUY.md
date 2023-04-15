@@ -65,16 +65,16 @@ Commands sent by the client follow the format in ASCII:
 
 ### 5.1.2 broadcast args
 
-| Command  | Format                                                            | Description                                                                                                                                    |
-|----------|-------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| LOGIN    | "user_uuid:user_name"                                             | user_uuid: User's ID, user_name: User's name (logged in)                                                                                       |
-| LOGOUT   | "user_uuid:user_name"                                             | user_uuid: User's ID, user_name: User's name (logged out)                                                                                      |
-| MESSAGE  | "user_uuid:message_body"                    ,                     | user_uuid: Sender's ID, message_body: Private message content                                                                                  |
-| THREAD   | "team_uuid:thread_uuid:user_uuid:reply_body"                      | team_uuid: Team's ID, thread_uuid: Thread's ID, user_uuid: User's ID (reply), reply_body: Reply content                                        |
-| TEAMS    | "team_uuid:team_name:team_description"                            | team_uuid: Team's ID, team_name: Team's name, team_description: Team's description                                                             |
-| CHANNEL  | "channel_uuid:channel_name:channel_description"                   | channel_uuid: Channel's ID, channel_name: Channel's name, channel_description: Channel's description                                           |
-| REPLY    | "thread_uuid:user_uuid:thread_timestamp:thread_title:thread_body" | thread_uuid: Thread's ID, user_uuid: User's ID (thread), thread_timestamp: Timestamp, thread_title: Thread's title, thread_body: Thread's body |
-
+|  Types    | Format                                                            | Description                                                                                                                                    |
+|-----------|-------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| LOGIN     | "user_uuid:user_name"                                             | user_uuid: User's ID, user_name: User's name (logged in)                                                                                       |
+| LOGOUT    | "user_uuid:user_name"                                             | user_uuid: User's ID, user_name: User's name (logged out)                                                                                      |
+| MESSAGE   | "user_uuid:message_body"                    ,                     | user_uuid: Sender's ID, message_body: Private message content                                                                                  |
+| THREAD    | "team_uuid:thread_uuid:user_uuid:reply_body"                      | team_uuid: Team's ID, thread_uuid: Thread's ID, user_uuid: User's ID (reply), reply_body: Reply content                                        |
+| TEAMS     | "team_uuid:team_name:team_description"                            | team_uuid: Team's ID, team_name: Team's name, team_description: Team's description                                                             |
+| CHANNEL   | "channel_uuid:channel_name:channel_description"                   | channel_uuid: Channel's ID, channel_name: Channel's name, channel_description: Channel's description                                           |
+| REPLY     | "thread_uuid:user_uuid:thread_timestamp:thread_title:thread_body" | thread_uuid: Thread's ID, user_uuid: User's ID (thread), thread_timestamp: Timestamp, thread_title: Thread's title, thread_body: Thread's body |
+| SUBSCRIBE | 
 
 #### 5.2 login
 **login** "username" -> The username the client will use.
