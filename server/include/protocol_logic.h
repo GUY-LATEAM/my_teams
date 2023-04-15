@@ -9,5 +9,7 @@
     #define PROTOCOL_LOGIC_H_
 
     #define GUY "\x67\x75\x79"
+    #define SP " "
+    #define SEPARATORS " \n\t"
 
 #endif /* !PROTOCOL_LOGIC_H_ */

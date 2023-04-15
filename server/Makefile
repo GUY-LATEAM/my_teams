@@ -97,10 +97,33 @@ SRC 	+= 	add/add_conversation_to_user.c \
 			save/str_split_utils.c \
 			save/str_split.c \
 			save/time_utils.c
+
+SRC_COMMANDS :=	command_not_found/command_not_found.c	\
+				create_command/create_command.c	\
+				help_command/help_command.c		\
+				info_command/info_command.c		\
+				list_command/list_command.c		\
+				login_command/login_command.c		\
+				logout_command/logout_command.c	\
+				messages_command/messages_command.c	\
+				send_command/send_command.c		\
+				subscribe_command/subscribe_command.c	\
+				subscribed_command/subscribed_command.c	\
+				unsubscribe_command/unsubscribe_command.c	\
+				use_command/use_command.c		\
+				user_command/user_command.c		\
+				users_command/users_command.c
+SRC_COMMANDS	:=	$(addprefix commands/, $(SRC_COMMANDS))
+
+SRC_RECEIVE	:=	receive_handler.c
+SRC_RECEIVE	:=	$(addprefix receive/, $(SRC_RECEIVE))
+
+SRC 	+=	$(SRC_RECEIVE) $(SRC_COMMANDS)
 SRC		:= $(addprefix src/, $(SRC))
 
 CFLAGS	=	-Wall -Wextra -pedantic -I./include -I../libs/list_lib/include \
-	-I../libs/network_lib/include -I../libs/circular_buffer_lib/include
+	-I../libs/network_lib/include -I../libs/circular_buffer_lib/include	\
+	-I../libs/my_lib/include
 
 LDFLAGS	=	-L ../libs -lall -luuid
 
