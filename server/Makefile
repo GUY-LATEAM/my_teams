@@ -112,7 +112,10 @@ SRC_COMMANDS :=	command_not_found/command_not_found.c	\
 				unsubscribe_command/unsubscribe_command.c	\
 				use_command/use_command.c		\
 				user_command/user_command.c		\
-				users_command/users_command.c
+				users_command/users_command.c \
+				broadcast/broadcast_all_users.c \
+				broadcast/broadcast_teams.c \
+				find_user.c
 SRC_COMMANDS	:=	$(addprefix commands/, $(SRC_COMMANDS))
 
 SRC_RECEIVE	:=	receive_handler.c
