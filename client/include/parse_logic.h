@@ -43,22 +43,24 @@
     // Usefull functions
 
     bool is_code_valid(char *code, enum cmd_e cmd);
-    char **get_argument_parse(char *args);
-    char *get_status(char *response);
-    char *get_code(char *response);
     time_t get_timestamp(char *buffer);
+    bool parse_resp(char **status, char **code, char ***users_args,
+    char *args);
     char *get_help(char *buffer);
     int get_status_use(char *buffer);
 
     // Error func for parse
-    bool check_unauthorized_cmd(const char *status, const char *code, const char **args);
-    bool check_already_exist_cmd(const char *status, const char *code, const char **args);
+    bool check_unauthorized_cmd(const char *status, const char *code,
+    char **args);
+    bool check_already_exist_cmd(const char *status, const char *code,
+    char **args);
     bool check_unknown_thread_cmd(const client_t *client, const char *status,
-    const char *code, const char **args);
+    const char *code, char **args);
     bool check_unknown_team_cmd(const client_t *client, const char *status,
-                                const char *code, const char **args);
+    const char *code, char **args);
     bool check_unknown_channel_cmd(const client_t *client, const char *status,
-                                   const char *code, const char **args);
-    bool check_unknown_user_cmd(const char *status, const char *code, const char **args);
+    const char *code, char **args);
+    bool check_unknown_user_cmd(const char *status, const char *code,
+    char **args);
 
 #endif /* !PARSE_LOGIC_H_ */

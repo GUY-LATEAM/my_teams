@@ -15,7 +15,7 @@ __attribute__((unused)) int *nb_args)
 {
     int size_array = 0;
 
-    size_array = my_arraylen(args);
+    size_array = my_arrlen(args);
     memset(client->context->team_uuid, 0, MAX_UUID_LENGTH);
     memset(client->context->channel_uuid, 0, MAX_UUID_LENGTH);
     memset(client->context->thread_uuid, 0, MAX_UUID_LENGTH);

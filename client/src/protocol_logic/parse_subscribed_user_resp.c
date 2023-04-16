@@ -20,7 +20,6 @@ char *args)
 
     if (parse_resp(&status, &code, &users_args, args) == false)
         return;
-    users_args = get_argument_parse(args);
     if (check_unauthorized_cmd(status, code, users_args))
         return;
     client_print_users(users_args[0], users_args[1],

@@ -21,7 +21,6 @@ void parse_info_user(client_t *client, char *args)
 
     if (parse_resp(&status, &code, &users_args, args) == false)
         return;
-    users_args = get_argument_parse(args);
     if (check_unauthorized_cmd(status, code, users_args)
         || check_unknown_team_cmd(client, status, code, users_args))
         return;

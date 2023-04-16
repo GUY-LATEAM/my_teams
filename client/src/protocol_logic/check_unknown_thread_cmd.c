@@ -13,7 +13,7 @@
 
 bool check_unknown_thread_cmd(const client_t *client,
 __attribute__((unused)) const char *status,
-__attribute__((unused)) const char *code, const char **args)
+__attribute__((unused)) const char *code, char **args)
 {
     if (client->context->thread_valid) {
         client_error_unknown_thread(args[0]);

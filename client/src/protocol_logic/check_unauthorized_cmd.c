@@ -12,14 +12,14 @@
 #include "parse_logic.h"
 
 bool is_unauthorized_cmd(const char *status, const char *code,
-__attribute__((unused)) const char **args)
+__attribute__((unused)) char **args)
 {
     if (strcmp(status, "ERROR") == 0 && strcmp(code, "401") == 0)
         return true;
     return false;
 }
 
-bool check_unauthorized_cmd(const char *status, const char *code, const char **args)
+bool check_unauthorized_cmd(const char *status, const char *code, char **args)
 {
     if (is_unauthorized_cmd(status, code, args)) {
         client_error_unauthorized();

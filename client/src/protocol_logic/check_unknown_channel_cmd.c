@@ -13,7 +13,7 @@
 
 bool check_unknown_channel_cmd(const client_t *client,
 __attribute__((unused)) const char *status,
-__attribute__((unused)) const char *code, const char **args)
+__attribute__((unused)) const char *code, char **args)
 {
     if (client->context->channel_valid) {
         client_error_unknown_channel(args[0]);

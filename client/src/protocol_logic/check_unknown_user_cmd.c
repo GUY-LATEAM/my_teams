@@ -11,7 +11,7 @@
 #include "parse_logic.h"
 
 static bool is_user_found(const char *status, const char *code,
-__attribute__((unused)) const char **args)
+__attribute__((unused)) char **args)
 {
     if (strcmp(status, "ERROR") == 0 && strcmp(code, "404") == 0)
         return true;
@@ -19,7 +19,7 @@ __attribute__((unused)) const char **args)
 }
 
 bool check_unknown_user_cmd(const char *status, const char *code,
-const char **args)
+char **args)
 {
     if (is_user_found(status, code, args)) {
         client_error_unknown_user(args[0]);

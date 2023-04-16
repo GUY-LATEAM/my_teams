@@ -18,7 +18,7 @@ __attribute__((unused)) char **args)
     return false;
 }
 
-bool check_already_exist_cmd(const char *status, const char *code, const char **args)
+bool check_already_exist_cmd(const char *status, const char *code, char **args)
 {
     if (is_already_exist(status, code, args)) {
         client_error_already_exist();

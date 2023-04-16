@@ -8,7 +8,7 @@
 #include "stdlib.h"
 #include "my_teams_client.h"
 
-static int get_nbr_new_args(context_t *context, char **args)
+static int get_nbr_new_args(context_t *context)
 {
     int nb_args = 0;
 
@@ -25,7 +25,7 @@ void add_context_to_args(client_t *client, char **args, int *nb_args)
 {
     char **new_tab = NULL;
 
-    *nb_args += get_nbr_new_args(client->context, args);
+    *nb_args += get_nbr_new_args(client->context);
     new_tab = realloc(args, sizeof(char *) * (*nb_args + 1));
     if (!new_tab)
         return;
