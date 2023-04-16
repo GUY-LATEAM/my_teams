@@ -32,7 +32,7 @@ char **get_char_array_args(char *args)
     if (tmp == NULL) {
         return NULL;
     }
-    if (my_arrlen(tmp) == 2) {
+    if (my_arrlen(tmp) != 2) {
         destroy_array(tmp);
         return NULL;
     }
