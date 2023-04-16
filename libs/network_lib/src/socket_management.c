@@ -17,8 +17,8 @@ on_disconnect_error_t do_socket_read(network_client_t *client, fd_set *read_fds)
 {
     if (FD_ISSET(client->socket, read_fds)) {
         if (read_socket(client->socket, client->read_buffer) <= 0) {
-            //client->on_disconnect(client->user_data,
-            //client->protocol_data, DISCONNECTED);
+            client->on_disconnect(client->user_data,
+            client->protocol_data, DISCONNECTED);
             destroy_network_client(client);
             return DISCONNECTED;
         }
@@ -47,8 +47,8 @@ on_disconnect_error_t do_socket_except(network_client_t *client,
 fd_set *except_fds, network_server_t *server)
 {
     if (FD_ISSET(client->socket, except_fds)) {
-        //client->on_disconnect(client->user_data,
-        //client->protocol_data, SOCKET_ERROR);
+        client->on_disconnect(client->user_data,
+        client->protocol_data, SOCKET_ERROR);
         destroy_network_client(client);
         find_new_max_fd(&server->max_fd, server->clients);
         return SOCKET_ERROR;

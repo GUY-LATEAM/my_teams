@@ -13,7 +13,7 @@
 void set_new_con_protocol_logic(server_t *serv)
 {
     network_client_t *new_con = NULL;
-    
+
     new_con = get_list_i_data(serv->network_server->clients,
     serv->network_server->clients->len - 1);
     new_con->user_data = NULL;
