@@ -26,5 +26,6 @@
     broadcast_thread_created_t *get_broadcast_thread_created(char *args);
     int destroy_broadcast_thread_created(
         broadcast_thread_created_t *to_destroy);
+    time_t string_to_time(const char *timestamp_str);
 
 #endif /* !BROADCAST_MISC_H */

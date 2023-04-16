@@ -9,7 +9,7 @@
 #include "libstr.h"
 #include "broadcast_misc.h"
 
-static time_t string_to_time(const char *timestamp_str)
+time_t string_to_time(const char *timestamp_str)
 {
     long read_long = 0;
     int result;
