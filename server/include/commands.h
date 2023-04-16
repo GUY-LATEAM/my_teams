@@ -10,6 +10,8 @@
     #include "circular_buffer.h"
     #include "my_teams_server.h"
 
+    #define ERROR_404 "ERROR 404"
+    #define OK_200 "OK 200"
     #define UNKNOW_COMMAND "ERROR 400 Unknown command"
 
     int help_command(void *user_data, void *protocol_data, char *args,
