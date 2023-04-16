@@ -95,6 +95,23 @@ SRC 	:=	main.c \
 			protocol_logic/check_unknown_channel_cmd.c \
 			protocol_logic/check_unknown_thread_cmd.c \
 
+SRC_BROADCAST_COMMANDS	:=	broadcast_client_event_logged_in.c \
+							broadcast_client_event_logged_out.c \
+							broadcast_client_event_private_message_received.c \
+							broadcast_client_print_subscribed.c \
+							broadcast_client_event_channel_created.c \
+							broadcast_client_event_team_created.c \
+							broadcast_client_event_thread_reply_received.c \
+							broadcast_client_event_thread_created.c
+SRC_BROADCAST_COMMANDS	:=	$(addprefix broadcast_commands/,\
+$(SRC_BROADCAST_COMMANDS))
+
+SRC_CMD_CLIENT	:=	cmd_client_manager.c	\
+					broadcast_misc.c
+SRC_CMD_CLIENT	+=	$(SRC_BROADCAST_COMMANDS)
+SRC_CMD_CLIENT	:=	$(addprefix cmd_client/, $(SRC_CMD_CLIENT))
+
+SRC		+=	$(SRC_CMD_CLIENT)
 SRC		:= $(addprefix src/, $(SRC))
 
 CFLAGS	=	-Wall -Wextra -pedantic -I./include -I../libs/list_lib/include \

@@ -7,6 +7,7 @@
 
 #include <string.h>
 #include "manage_response_client.h"
+#include "cmd_client_manager.h"
 #include "protocol_logic.h"
 
 //manage_cmd_client(protocol_data, data, write);
@@ -22,6 +23,7 @@ circular_buffer_t *read, __attribute__((unused)) circular_buffer_t *write)
     if (strstr(data, "OK") != NULL || strstr(data, "ERROR") != NULL) {
         manage_response(protocol_data, data);
     } else {
-        return;
+        manage_cmd_client(data);
     }
+    free(data);
 }
