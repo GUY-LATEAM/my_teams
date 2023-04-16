@@ -56,9 +56,44 @@ SRC 	:=	main.c \
 			protocol_input/display_error.c \
 			protocol_input/logic_input.c \
 			protocol_input/use_logic.c \
+			protocol_input/subscribe_logic.c \
+			protocol_input/info_logic.c \
+			protocol_input/list_logic.c \
+			protocol_input/create_logic.c \
+			protocol_input/context_cmd_logic.c \
 			protocol_logic/receive_func.c \
 			protocol_logic/manage_response.c \
-			protocol_logic/parse_no_info_resp.c \
+			protocol_logic/parse_users_resp.c \
+			protocol_logic/parse_user_resp.c \
+			protocol_logic/parse_message_resp.c \
+			protocol_logic/parse_login_resp.c \
+			protocol_logic/parse_logout_resp.c \
+			protocol_logic/parse_use_resp.c \
+			protocol_logic/parse_send_resp.c \
+			protocol_logic/parse_subscribe_resp.c \
+			protocol_logic/parse_subscribed_team_resp.c \
+			protocol_logic/parse_subscribed_user_resp.c \
+			protocol_logic/parse_unsubscribe_resp.c \
+			protocol_logic/parse_create_team_resp.c \
+			protocol_logic/parse_create_channel_resp.c \
+			protocol_logic/parse_create_thread_resp.c \
+			protocol_logic/parse_create_reply_resp.c \
+			protocol_logic/parse_list_team_resp.c \
+			protocol_logic/parse_list_channel_resp.c \
+			protocol_logic/parse_list_thread_resp.c \
+			protocol_logic/parse_list_reply_resp.c \
+			protocol_logic/parse_info_team_resp.c \
+            protocol_logic/parse_info_channel_resp.c \
+  			protocol_logic/parse_info_thread_resp.c \
+            protocol_logic/parse_info_user_resp.c \
+            protocol_logic/parse_help_resp.c \
+			protocol_logic/parse_misc_func.c \
+			protocol_logic/check_already_exist_cmd.c \
+			protocol_logic/check_unauthorized_cmd.c \
+			protocol_logic/check_unknown_user_cmd.c \
+			protocol_logic/check_unknown_team_cmd.c \
+			protocol_logic/check_unknown_channel_cmd.c \
+			protocol_logic/check_unknown_thread_cmd.c \
 
 SRC		:= $(addprefix src/, $(SRC))
 

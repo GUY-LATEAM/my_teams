@@ -34,16 +34,15 @@ circular_buffer_t *create_circular_buffer(size_t size, const char *pattern)
 bool write_circular_buffer(circular_buffer_t *cbuff, const char *data)
 {
     size_t data_len = strlen(data);
-    if (data_len > get_available_space_circular_buffer(cbuff))
-        return false;
+    size_t i = 0;
 
-    size_t bytes_to_end = cbuff->size - cbuff->cursor_write;
-    if (bytes_to_end >= data_len) {
-        memcpy(cbuff->buffer + cbuff->cursor_write, data, data_len);
-    } else {
-        memcpy(cbuff->buffer + cbuff->cursor_write, data, bytes_to_end);
-        memcpy(cbuff->buffer, data + bytes_to_end, data_len - bytes_to_end);
+    while (i < data_len) {
+        if (is_circular_buffer_full(cbuff)) {
+            cbuff->cursor_write = 0;
+        }
+        cbuff->buffer[cbuff->cursor_write] = data[i];
+        cbuff->cursor_write = (cbuff->cursor_write + 1) % cbuff->size;
+        i++;
     }
-    cbuff->cursor_write = (cbuff->cursor_write + data_len) % cbuff->size;
     return true;
 }

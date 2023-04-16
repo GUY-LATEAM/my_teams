@@ -39,8 +39,15 @@ size_t get_used_space_circular_buffer(circular_buffer_t *cbuff)
 
 bool is_circular_buffer_completed(circular_buffer_t *cbuff)
 {
-    if (strstr(cbuff->buffer + cbuff->cursor_read, cbuff->end_pattern))
-        return true;
-    else
-        return false;
+    int i = 0;
+
+    while (cbuff->cursor_read + i != cbuff->cursor_write) {
+        if (strncmp(cbuff->buffer + cbuff->cursor_read + i, \
+        cbuff->end_pattern, strlen(cbuff->end_pattern)) == 0)
+            return true;
+        i++;
+        if (cbuff->cursor_read + i == cbuff->size - 1)
+            i = 0;
+    }
+    return false;
 }
