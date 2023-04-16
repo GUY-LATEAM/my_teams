@@ -12,7 +12,7 @@
 #include "libstr.h"
 #include "protocol_logic.h"
 
-char *get_status(char *response)
+static char *get_status(char *response)
 {
     char *status = NULL;
 
@@ -20,7 +20,7 @@ char *get_status(char *response)
     return (status);
 }
 
-char *get_code(char *response)
+static char *get_code(char *response)
 {
     char *code = NULL;
 
@@ -28,7 +28,7 @@ char *get_code(char *response)
     return (code);
 }
 
-char **get_argument_parse(char *args)
+static char **get_argument_parse(char *args)
 {
     char **tab = NULL;
     char **users_args = NULL;
@@ -44,4 +44,20 @@ char **get_argument_parse(char *args)
     if (!users_args)
         return (NULL);
     return (users_args);
+}
+
+bool parse_resp(char **status, char **code, char ***users_args, char *args)
+{
+    *status = get_status(args);
+    if (!*status)
+        return false;
+    args = args + strlen(*status) + 1;
+    *code = get_code(args);
+    if (!*code)
+        return false;
+    args = args + strlen(*code) + 1;
+    *users_args = get_argument_parse(args);
+    if (!*users_args)
+        return false;
+    return true;
 }

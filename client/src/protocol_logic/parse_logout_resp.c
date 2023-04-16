@@ -20,11 +20,8 @@ void parse_logout(client_t *client, char *args)
     char **users_args = NULL;
     network_client_t *cli = NULL;
 
-    status = get_status(args);
-    args = args + strlen(status) + 1;
-    code = get_code(args);
-    args = args + strlen(code) + 1;
-    users_args = get_argument_parse(args);
+    if (parse_resp(&status, &code, &users_args, args) == false)
+        return;
     if (check_unauthorized_cmd(status, code, users_args))
         return;
     cli = get_list_i_data(client->network_client->clients, 0);

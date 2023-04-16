@@ -40,8 +40,7 @@
 
     void apply_logic_cmd(client_t *client, char *cmd, char **args,
     int *nb_args);
-    char *get_cmd(char *input, int *nb_args);
-    char **get_args(int nb_args);
+    bool parse_resp(char **status, char **code, char ***users_args, char *args);
     void add_context_to_args(client_t *client, char **args, int *nb_args);
 
     // Cmd logic

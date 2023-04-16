@@ -51,14 +51,14 @@
     int get_status_use(char *buffer);
 
     // Error func for parse
-    bool check_unauthorized_cmd(char *status, char *code, char **args);
-    bool check_already_exist_cmd(char *status, char *code, char **args);
-    bool check_unknown_thread_cmd(client_t *client, char *status,
-    char *code, char **args);
-    bool check_unknown_team_cmd(client_t *client, char *status,
-    char *code, char **args);
-    bool check_unknown_channel_cmd(client_t *client, char *status,
-    char *code, char **args);
-    bool check_unknown_user_cmd(char *status, char *code, char **args);
+    bool check_unauthorized_cmd(const char *status, const char *code, const char **args);
+    bool check_already_exist_cmd(const char *status, const char *code, const char **args);
+    bool check_unknown_thread_cmd(const client_t *client, const char *status,
+    const char *code, const char **args);
+    bool check_unknown_team_cmd(const client_t *client, const char *status,
+                                const char *code, const char **args);
+    bool check_unknown_channel_cmd(const client_t *client, const char *status,
+                                   const char *code, const char **args);
+    bool check_unknown_user_cmd(const char *status, const char *code, const char **args);
 
 #endif /* !PARSE_LOGIC_H_ */

@@ -11,9 +11,9 @@
 #include "logging_client.h"
 #include "parse_logic.h"
 
-bool check_unknown_team_cmd(client_t *client,
-__attribute__((unused)) char *status,
-__attribute__((unused)) char *code, char **args)
+bool check_unknown_team_cmd(const client_t *client,
+__attribute__((unused)) const char *status,
+__attribute__((unused)) const char *code, const char **args)
 {
     if (client->context->team_valid) {
         client_error_unknown_team(args[0]);

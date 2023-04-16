@@ -19,10 +19,7 @@ void parse_help(__attribute__((unused)) client_t *client, char *args)
     char *code = NULL;
     char **users_args = NULL;
 
-    status = get_status(args);
-    args = args + strlen(status) + 1;
-    code = get_code(args);
-    args = args + strlen(code) + 1;
-    users_args = get_argument_parse(args);
+    if (parse_resp(&status, &code, &users_args, args) == false)
+        return;
     printf("%s", users_args[0]);
 }
