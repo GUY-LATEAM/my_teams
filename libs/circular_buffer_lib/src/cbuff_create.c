@@ -34,7 +34,7 @@ circular_buffer_t *create_circular_buffer(size_t size, const char *pattern)
 bool write_circular_buffer(circular_buffer_t *cbuff, const char *data)
 {
     size_t data_len = strlen(data);
-    int i = 0;
+    size_t i = 0;
 
     while (i < data_len) {
         if (is_circular_buffer_full(cbuff)) {

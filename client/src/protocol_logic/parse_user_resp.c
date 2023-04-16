@@ -10,7 +10,7 @@
 #include "parse_logic.h"
 #include "my_teams_client.h"
 
-void parse_user(client_t *client, char *args)
+void parse_user(__attribute__((unused)) client_t *client, char *args)
 {
     char *status = NULL;
     char *code = NULL;

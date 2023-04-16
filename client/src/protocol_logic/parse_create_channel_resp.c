@@ -18,7 +18,6 @@ void parse_create_channel(client_t *client, char *args)
     char *status = NULL;
     char *code = NULL;
     char **users_args = NULL;
-    network_client_t *cli = NULL;
 
     status = get_status(args);
     args = args + strlen(status) + 1;

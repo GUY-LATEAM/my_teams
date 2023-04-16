@@ -9,6 +9,7 @@
 #include "logging_client.h"
 #include "parse_logic.h"
 #include "list_lib.h"
+#include "libstr.h"
 #include "client_func.h"
 #include "my_teams_client.h"
 #include "signal_management_client.h"
@@ -18,7 +19,6 @@ void parse_list_threads(client_t *client, char *args)
     char *status = NULL;
     char *code = NULL;
     char **users_args = NULL;
-    network_client_t *cli = NULL;
 
     status = get_status(args);
     args = args + strlen(status) + 1;
@@ -31,6 +31,6 @@ void parse_list_threads(client_t *client, char *args)
     if (my_arrlen(users_args) % 5 != 0)
         return;
     for (int i = 0; users_args[i]; i += 5)
-        client_print_thread(users_args[i], users_args[i + 1], users_args[i + 2],
+        client_print_thread(users_args[i], users_args[i + 1], 0,
         users_args[i + 3], users_args[i + 4]);
 }

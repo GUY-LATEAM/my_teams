@@ -12,7 +12,7 @@
 //manage_cmd_client(protocol_data, data, write);
 
 void receive_client(void *user_data, void *protocol_data,
-circular_buffer_t *read, circular_buffer_t *write)
+circular_buffer_t *read, __attribute__((unused)) circular_buffer_t *write)
 {
     char *data = NULL;
 

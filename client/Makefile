@@ -63,7 +63,6 @@ SRC 	:=	main.c \
 			protocol_input/context_cmd_logic.c \
 			protocol_logic/receive_func.c \
 			protocol_logic/manage_response.c \
-			protocol_logic/parse_create_resp.c \
 			protocol_logic/parse_users_resp.c \
 			protocol_logic/parse_user_resp.c \
 			protocol_logic/parse_message_resp.c \

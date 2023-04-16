@@ -11,7 +11,7 @@
 #include "libstr.h"
 #include "my_teams_client.h"
 
-void parse_message(client_t *client, char *args)
+void parse_message(__attribute__((unused)) client_t *client, char *args)
 {
     char *status = NULL;
     char *code = NULL;

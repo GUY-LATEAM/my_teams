@@ -9,7 +9,8 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include "my_teams_client.h"
-#include "protocol_logic.h
+#include "libstr.h"
+#include "protocol_logic.h"
 
 char *get_status(char *response)
 {

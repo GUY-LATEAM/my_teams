@@ -11,7 +11,8 @@
 #include "logging_client.h"
 #include "parse_logic.h"
 
-bool is_unauthorized_cmd(char *status, char *code, char **args)
+bool is_unauthorized_cmd(char *status, char *code,
+__attribute__((unused)) char **args)
 {
     if (strcmp(status, "ERROR") == 0 && strcmp(code, "401") == 0)
         return true;

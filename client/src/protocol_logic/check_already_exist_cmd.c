@@ -10,7 +10,8 @@
 #include "logging_client.h"
 #include "parse_logic.h"
 
-static bool is_already_exist(char *status, char *code, char **args)
+static bool is_already_exist(char *status, char *code,
+__attribute__((unused)) char **args)
 {
     if (strcmp(status, "ERROR") == 0 && strcmp(code, "409") == 0)
         return true;

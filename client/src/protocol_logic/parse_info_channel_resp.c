@@ -9,6 +9,7 @@
 #include "logging_client.h"
 #include "parse_logic.h"
 #include "list_lib.h"
+#include "libstr.h"
 #include "client_func.h"
 #include "my_teams_client.h"
 #include "signal_management_client.h"
@@ -18,7 +19,6 @@ void parse_info_channel(client_t *client, char *args)
     char *status = NULL;
     char *code = NULL;
     char **users_args = NULL;
-    network_client_t *cli = NULL;
 
     status = get_status(args);
     args = args + strlen(status) + 1;

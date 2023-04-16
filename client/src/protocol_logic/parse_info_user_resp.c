@@ -18,7 +18,6 @@ void parse_info_user(client_t *client, char *args)
     char *status = NULL;
     char *code = NULL;
     char **users_args = NULL;
-    network_client_t *cli = NULL;
 
     status = get_status(args);
     args = args + strlen(status) + 1;
@@ -28,5 +27,5 @@ void parse_info_user(client_t *client, char *args)
     if (check_unauthorized_cmd(status, code, users_args)
         || check_unknown_team_cmd(client, status, code, users_args))
         return;
-    client_print_user(users_args[0], users_args[1], users_args[2])
+    client_print_user(users_args[0], users_args[1], atoi(users_args[2]));
 }
