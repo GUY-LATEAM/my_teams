@@ -47,11 +47,11 @@ static int login_broadcast(circular_buffer_t *write_buffer, user_t *user)
 {
     char *message = NULL;
 
-    if (write_success(write_buffer, "200", "OK: The command \
+    if (write_success(write_buffer, "200", "The command \
 was successfully processed.") == false)
         return false;
     message = malloc(sizeof(char) * (strlen(user->uuid) +\
-    strlen(user->name) + 19));
+    strlen(user->name) + strlen(GUY) + 18));
     if (message == NULL)
         return false;
     sprintf(message, "broadcast LOGIN %s %s%s", user->uuid, user->name, GUY);
@@ -73,9 +73,9 @@ circular_buffer_t *write_buffer, char *name)
     }
     server_event_user_logged_in(user->uuid);
     if ((link_user_to_client(server, user) == false) ||
-    (login_broadcast(write_buffer, user) == false) ||
-    write_error(write_buffer, "500", " An error occurred on the \
-server side while processing the command.") == false) {
+    (login_broadcast(write_buffer, user) == false)) {
+        write_error(write_buffer, "500", " An error occurred on the \
+server side while processing the command.");
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
@@ -89,9 +89,9 @@ char *args, circular_buffer_t *write_buffer)
 
     server = (server_t *) protocol_data;
     name = strtok(args, "\"");
-    if (name == NULL ||
-    write_error(write_buffer, "400", "Bad Request: The received \
-command is malformed or invalid.") == false) {
+    if (name == NULL) {
+        write_error(write_buffer, "400", "Bad Request: The received \
+command is malformed or invalid.");
         return EXIT_FAILURE;
     }
     if (login_command_annexe(server, write_buffer, name) == EXIT_FAILURE)

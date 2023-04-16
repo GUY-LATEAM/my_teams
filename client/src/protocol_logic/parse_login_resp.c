@@ -14,4 +14,5 @@
 void parse_login(__attribute__((unused)) client_t *client,
 __attribute__((unused)) char *args)
 {
+    printf("Success to login \n");
 }
