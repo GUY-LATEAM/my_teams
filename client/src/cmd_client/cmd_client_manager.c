@@ -52,7 +52,6 @@ static char *get_broadcast_args(char *data)
     return args;
 }
 
-
 static int handle_broadcast_cmd(char *cmd, char *args)
 {
     static int (*broadcast_funcs[])(char *cmd) = {
