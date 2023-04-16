@@ -7,13 +7,14 @@
 
 #include <stdio.h>
 #include "client_func.h"
+#include "my_teams_client.h"
 #include "server_func.h"
 #include "list_lib.h"
 #include "protocol_logic.h"
 #include "socket_manipulation.h"
 #include "protocol_func.h"
 
-int create_client_protocol(network_server_t *client, char *ip, int port)
+int create_client_protocol(client_t *client, char *ip, int port)
 {
     network_client_t *cli = NULL;
 
@@ -25,7 +26,9 @@ int create_client_protocol(network_server_t *client, char *ip, int port)
         return EXIT_FAILURE;
     }
     set_network_client_methods_dialogue(cli, &receive_client);
-    list_add_last(client->clients, cli);
-    client->max_fd = cli->socket;
+    list_add_last(client->network_client->clients, cli);
+    cli->user_data = NULL;
+    cli->protocol_data = client;
+    client->network_client->max_fd = cli->socket;
     return EXIT_SUCCESS;
 }

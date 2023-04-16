@@ -30,5 +30,5 @@ void parse_list_threads(client_t *client, char *args)
     for (int i = 0; users_args[i]; i += 5)
         client_print_thread(users_args[i], users_args[i + 1], 0,
         users_args[i + 3], users_args[i + 4]);
-    destroy_array(args);
+    destroy_array(users_args);
 }

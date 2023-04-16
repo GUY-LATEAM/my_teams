@@ -9,6 +9,7 @@
 #include "logging_client.h"
 #include "parse_logic.h"
 #include "list_lib.h"
+#include "libstr.h"
 #include "client_func.h"
 #include "my_teams_client.h"
 #include "signal_management_client.h"
@@ -25,5 +26,5 @@ void parse_info_user(client_t *client, char *args)
         || check_unknown_team_cmd(client, status, code, users_args))
         return;
     client_print_user(users_args[0], users_args[1], atoi(users_args[2]));
-    destroy_array(args);
+    destroy_array(users_args);
 }

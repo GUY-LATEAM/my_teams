@@ -8,6 +8,7 @@
 #include <string.h>
 #include "logging_client.h"
 #include "parse_logic.h"
+#include "libstr.h"
 #include "my_teams_client.h"
 
 void parse_user(__attribute__((unused)) client_t *client, char *args)
@@ -22,5 +23,5 @@ void parse_user(__attribute__((unused)) client_t *client, char *args)
     || check_unknown_user_cmd(status, code, users_args))
         return;
     client_print_user(users_args[0], users_args[1], atoi(users_args[2]));
-    destroy_array(args);
+    destroy_array(users_args);
 }

@@ -25,7 +25,7 @@ int do_myteams_client(char **av)
     if (!client)
         return (EXIT_FAILURE);
     signal(SIGINT, handle_signal);
-    if (create_client_protocol(client->network_client,
+    if (create_client_protocol(client,
     av[1], atoi(av[2])) != 0) {
         destroy_client(client);
         return (EXIT_FAILURE);

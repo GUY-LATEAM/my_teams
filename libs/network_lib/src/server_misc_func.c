@@ -16,9 +16,9 @@ int server_receive_new_con(network_server_t *server, int buff_size,
 {
     if (FD_ISSET(server->socket, &server->read_fds)) {
         accept_network_client(server, create_client(buff_size, pattern));
-        return EXIT_FAILURE;
+        return EXIT_SUCCESS;
     }
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
 }
 
 void server_loop_client(network_server_t *server)
