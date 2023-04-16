@@ -27,4 +27,5 @@ void parse_logout(client_t *client, char *args)
     cli = get_list_i_data(client->network_client->clients, 0);
     destroy_network_client(cli);
     SET_SIGNAL_FLAG(SIGINT_RECEIVED);
+    destroy_array(args);
 }

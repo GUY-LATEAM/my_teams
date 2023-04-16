@@ -22,4 +22,5 @@ void parse_help(__attribute__((unused)) client_t *client, char *args)
     if (parse_resp(&status, &code, &users_args, args) == false)
         return;
     printf("%s", users_args[0]);
+    destroy_array(args);
 }

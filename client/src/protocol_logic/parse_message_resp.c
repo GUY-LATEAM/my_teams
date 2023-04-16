@@ -25,4 +25,5 @@ void parse_message(__attribute__((unused)) client_t *client, char *args)
     for (int i = 0; i < my_arrlen(users_args) / 3; i++)
         client_private_message_print_messages(users_args[i * 3], 0,
         users_args[i * 3 + 2]);
+    destroy_array(args);
 }

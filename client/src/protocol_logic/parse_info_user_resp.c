@@ -25,4 +25,5 @@ void parse_info_user(client_t *client, char *args)
         || check_unknown_team_cmd(client, status, code, users_args))
         return;
     client_print_user(users_args[0], users_args[1], atoi(users_args[2]));
+    destroy_array(args);
 }

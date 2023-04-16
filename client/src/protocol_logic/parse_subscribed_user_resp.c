@@ -24,4 +24,5 @@ char *args)
         return;
     client_print_users(users_args[0], users_args[1],
     atoi(users_args[2]));
+    destroy_array(args);
 }

@@ -24,4 +24,5 @@ void parse_use(client_t *client, char *args)
     client->context->team_valid = strcmp(&args[0], "OK") == 0 ? true : false;
     client->context->channel_valid = strcmp(&args[1], "OK") == 0 ? true : false;
     client->context->thread_valid = strcmp(&args[2], "OK") == 0 ? true : false;
+    destroy_array(args);
 }

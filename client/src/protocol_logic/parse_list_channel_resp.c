@@ -30,4 +30,5 @@ void parse_list_channel(client_t *client, char *args)
     for (int i = 0; users_args[i]; i += 3)
         client_print_channel(users_args[i], users_args[i + 1],
         users_args[i + 2]);
+    destroy_array(args);
 }

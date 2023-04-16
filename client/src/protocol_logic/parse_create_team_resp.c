@@ -26,4 +26,5 @@ char *args)
     || check_already_exist_cmd(status, code, users_args))
         return;
     client_print_team_created(users_args[0], users_args[1], users_args[2]);
+    destroy_array(args);
 }
