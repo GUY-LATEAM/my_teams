@@ -55,7 +55,8 @@ was successfully processed.") == false)
     strlen(user->name) + strlen(GUY) + 21));
     if (message == NULL)
         return false;
-    sprintf(message, "broadcast LOGIN \"%s:%s\"%s", user->uuid, user->name, GUY);
+    sprintf(message, "broadcast LOGIN \"%s:%s\"%s", user->uuid,
+    user->name, GUY);
     if (broadcast_all_user(server, message) == false)
         return false;
     free(message);
