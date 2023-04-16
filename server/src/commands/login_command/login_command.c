@@ -43,7 +43,8 @@ static bool link_user_to_client(server_t *server, user_t *user)
     return false;
 }
 
-static int login_broadcast(circular_buffer_t *write_buffer, user_t *user)
+static int login_broadcast(server_t *server, circular_buffer_t *write_buffer,
+user_t *user)
 {
     char *message = NULL;
 
@@ -51,11 +52,12 @@ static int login_broadcast(circular_buffer_t *write_buffer, user_t *user)
 was successfully processed.") == false)
         return false;
     message = malloc(sizeof(char) * (strlen(user->uuid) +\
-    strlen(user->name) + strlen(GUY) + 18));
+    strlen(user->name) + strlen(GUY) + 21));
     if (message == NULL)
         return false;
-    sprintf(message, "broadcast LOGIN %s %s%s", user->uuid, user->name, GUY);
-    write_circular_buffer(write_buffer, message);
+    sprintf(message, "broadcast LOGIN \"%s:%s\"%s", user->uuid, user->name, GUY);
+    if (broadcast_all_user(server, message) == false)
+        return false;
     free(message);
     return true;
 }
@@ -73,7 +75,7 @@ circular_buffer_t *write_buffer, char *name)
     }
     server_event_user_logged_in(user->uuid);
     if ((link_user_to_client(server, user) == false) ||
-    (login_broadcast(write_buffer, user) == false)) {
+    (login_broadcast(server, write_buffer, user) == false)) {
         write_error(write_buffer, "500", " An error occurred on the \
 server side while processing the command.");
         return EXIT_FAILURE;
@@ -92,6 +94,10 @@ char *args, circular_buffer_t *write_buffer)
     if (name == NULL) {
         write_error(write_buffer, "400", "Bad Request: The received \
 command is malformed or invalid.");
+        return EXIT_FAILURE;
+    }
+    if (check_is_user_login(server, user_data, write_buffer) == EXIT_FAILURE) {
+        write_success(write_buffer, "201", "Already connected");
         return EXIT_FAILURE;
     }
     if (login_command_annexe(server, write_buffer, name) == EXIT_FAILURE)

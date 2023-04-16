@@ -50,13 +50,14 @@ static int logout_broadcast(server_t *server, user_t *user)
     char *message = NULL;
 
     message = malloc(sizeof(char) * (strlen(user->uuid) + \
-    (strlen(user->name) + (strlen(GUY)) + 19)));
+    (strlen(user->name) + (strlen(GUY)) + 21)));
     if (message == NULL)
         return EXIT_FAILURE;
-    if (sprintf(message, "broadcast LOGOUT %s %s%s", user->uuid,
+    if (sprintf(message, "broadcast LOGOUT \"%s:%s\"%s", user->uuid,
     user->name, GUY) < 0)
         return EXIT_FAILURE;
-    broadcast_all_user(server, message);
+    if (broadcast_all_user(server, message) == false)
+        return EXIT_FAILURE;
     return EXIT_SUCCESS;
 }
 
