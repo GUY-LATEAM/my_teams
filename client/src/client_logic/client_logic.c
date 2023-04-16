@@ -13,7 +13,6 @@
 #include "server_func.h"
 #include "client_func.h"
 #include "init_struct.h"
-#include "save_struck.h"
 #include "destroy_struct.h"
 #include "list_lib.h"
 #include "socket_management_func.h"

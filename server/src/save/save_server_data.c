@@ -66,7 +66,7 @@ bool is_file_not_empty(const char *filename)
 bool save_file_data(server_t *server, const char *filepath_user,
 const char *filepath_server)
 {
-    if (is_file_not_empty(filepath_user) == false  ||
+    if (is_file_not_empty(filepath_user) == false ||
         is_file_not_empty(filepath_server) == false) {
         return false;
     }
