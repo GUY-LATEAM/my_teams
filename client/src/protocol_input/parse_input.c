@@ -60,13 +60,16 @@ void parse_input(client_t *client, network_client_t *net_client, char *input)
 
     cmd = get_cmd(input, &nb_args);
     args = get_args(nb_args);
+    for (int i = 0; i < nb_args; i++) {
+        printf("%s", args[i]);
+    }
     if (!net_client || !cmd || !args) {
         display_error(cmd, args);
         free_parse_info(cmd, args);
         return;
     }
     apply_logic_cmd(client, cmd, args, &nb_args);
-    write_circular_buffer(net_client->write_buffer, cmd);
+    write_circular_buffer(net_client->write_buffer, cmd + 1);
     write_circular_buffer(net_client->write_buffer, SP);
     write_args(net_client, args, nb_args);
     write_circular_buffer(net_client->write_buffer, GUY);

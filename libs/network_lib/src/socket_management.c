@@ -26,6 +26,7 @@ on_disconnect_error_t do_socket_read(network_client_t *client, fd_set *read_fds)
             printf("Received ! : %s\n", client->read_buffer->buffer);
             client->receive(client->user_data, client->protocol_data,
             client->read_buffer, client->write_buffer);
+            printf("Yea\n");
             clear_circular_buffer(client->read_buffer);
         }
     }

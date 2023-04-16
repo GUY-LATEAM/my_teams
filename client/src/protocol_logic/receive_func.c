@@ -9,13 +9,14 @@
 #include "manage_response_client.h"
 #include "cmd_client_manager.h"
 #include "protocol_logic.h"
+#include "socket_manipulation.h"
 
 //manage_cmd_client(protocol_data, data, write);
 
 void receive_client(void *user_data, void *protocol_data,
 circular_buffer_t *read, __attribute__((unused)) circular_buffer_t *write)
 {
-    char *data = NULL;
+    char data[BUFF_SIZE] = {0};
 
     if (user_data != protocol_data)
         return;
@@ -25,5 +26,4 @@ circular_buffer_t *read, __attribute__((unused)) circular_buffer_t *write)
     } else {
         manage_cmd_client(data);
     }
-    free(data);
 }

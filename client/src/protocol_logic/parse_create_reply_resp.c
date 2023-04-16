@@ -9,6 +9,7 @@
 #include "logging_client.h"
 #include "parse_logic.h"
 #include "list_lib.h"
+#include "libstr.h"
 #include "client_func.h"
 #include "my_teams_client.h"
 #include "signal_management_client.h"
@@ -26,5 +27,5 @@ void parse_create_reply(client_t *client, char *args)
     || check_unknown_thread_cmd(client, status, code, users_args))
         return;
     client_print_reply_created(users_args[0], users_args[1], 0, users_args[3]);
-    destroy_array(args);
+    destroy_array(users_args);
 }

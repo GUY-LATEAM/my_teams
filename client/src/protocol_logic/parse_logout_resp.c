@@ -9,6 +9,7 @@
 #include "logging_client.h"
 #include "parse_logic.h"
 #include "list_lib.h"
+#include "libstr.h"
 #include "client_func.h"
 #include "my_teams_client.h"
 #include "signal_management_client.h"
@@ -27,5 +28,5 @@ void parse_logout(client_t *client, char *args)
     cli = get_list_i_data(client->network_client->clients, 0);
     destroy_network_client(cli);
     SET_SIGNAL_FLAG(SIGINT_RECEIVED);
-    destroy_array(args);
+    destroy_array(users_args);
 }

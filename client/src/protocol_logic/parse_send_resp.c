@@ -23,5 +23,5 @@ void parse_send(__attribute__((unused)) client_t *client, char *args)
     if (check_unauthorized_cmd(status, code, users_args)
         || check_unknown_user_cmd(status, code, users_args))
         return;
-    destroy_array(args);
+    destroy_array(users_args);
 }

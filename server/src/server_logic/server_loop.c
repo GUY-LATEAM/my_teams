@@ -19,6 +19,7 @@
 #include "socket_management_func.h"
 #include "protocol_logic.h"
 #include "socket_manipulation.h"
+#include "receive_handler.h"
 
 int do_myteams_server(char **av)
 {
@@ -52,8 +53,9 @@ void loop_server(server_t *srv)
     &srv->network_server->except_fds) != 0)
             return;
     if (server_receive_new_con(srv->network_server, BUFF_SIZE,
-    GUY) != EXIT_SUCCESS) {
+    GUY) == EXIT_SUCCESS) {
         printf("New client connected\n");
+        set_new_con_protocol_logic(srv);
     }
     server_loop_client(srv->network_server);
 }

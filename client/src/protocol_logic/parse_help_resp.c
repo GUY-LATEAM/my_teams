@@ -10,6 +10,7 @@
 #include "logging_client.h"
 #include "parse_logic.h"
 #include "list_lib.h"
+#include "libstr.h"
 #include "client_func.h"
 #include "my_teams_client.h"
 
@@ -22,5 +23,5 @@ void parse_help(__attribute__((unused)) client_t *client, char *args)
     if (parse_resp(&status, &code, &users_args, args) == false)
         return;
     printf("%s", users_args[0]);
-    destroy_array(args);
+    destroy_array(users_args);
 }

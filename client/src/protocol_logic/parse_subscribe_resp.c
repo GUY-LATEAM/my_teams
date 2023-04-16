@@ -23,5 +23,5 @@ void parse_subscribe(client_t *client, char *args)
             check_unknown_team_cmd(client, status, code, users_args))
         return;
     client_print_subscribed(users_args[0], users_args[1]);
-    destroy_array(args);
+    destroy_array(users_args);
 }
