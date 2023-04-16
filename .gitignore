@@ -66,3 +66,4 @@ my_teams_server
 # Codding style check
 
 *.log
+.clang-format
