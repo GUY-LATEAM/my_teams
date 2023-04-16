@@ -31,5 +31,6 @@ void parse_info_channel(client_t *client, char *args)
     if (my_arrlen(users_args) % 3 != 0)
         return;
     for (int i = 0; users_args[i]; i += 3)
-        client_print_channel(users_args[i], users_args[i + 1], users_args[i + 2]);
+        client_print_channel(users_args[i], users_args[i + 1],
+        users_args[i + 2]);
 }

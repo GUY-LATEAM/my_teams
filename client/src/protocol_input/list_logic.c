@@ -15,11 +15,13 @@ void list_logic(client_t *client, __attribute__((unused)) enum cmd_e cmd
 {
     if (client->context->thread_valid)
         client->requested_cmd = LIST_REPLY;
-    else if (client->context->channel_valid)
+    if (client->context->channel_valid && !client->context->thread_valid)
         client->requested_cmd = LIST_THREAD;
-    else if (client->context->team_valid)
+    if (client->context->team_valid && !client->context->channel_valid &&
+    !client->context->thread_valid)
         client->requested_cmd = LIST_CHANNEL;
-    else
+    if (!client->context->team_valid && !client->context->channel_valid &&
+    !client->context->thread_valid)
         client->requested_cmd = LIST_TEAM;
     add_context_to_args(client, args, nb_args);
 }

@@ -8,10 +8,9 @@
 #include <string.h>
 #include "protocol_logic.h"
 
-static void attribute_cmd(client_t *client, enum cmd_e cmd, __attribute__((unused)) char **args, __attribute__((unused)) int *nb_args)
-{
-    client->requested_cmd = cmd;
-}
+static void attribute_cmd(client_t *client, enum cmd_e cmd,
+__attribute__((unused)) char **args,
+__attribute__((unused)) int *nb_args);
 
 static const cmd_t CMD_TAB[] = {
     {LOGIN ,"/login", 1, &attribute_cmd},
@@ -30,6 +29,13 @@ static const cmd_t CMD_TAB[] = {
     {HELP, "/help", 0, attribute_cmd},
     {UNKNOWN, NULL, 0, NULL}
 };
+
+static void attribute_cmd(client_t *client, enum cmd_e cmd,
+__attribute__((unused)) char **args,
+__attribute__((unused)) int *nb_args)
+{
+    client->requested_cmd = cmd;
+}
 
 char *get_cmd(char *input, int *nb_args)
 {
@@ -56,4 +62,3 @@ void apply_logic_cmd(client_t *client, char *cmd, char **args, int *nb_args)
         }
     }
 }
-

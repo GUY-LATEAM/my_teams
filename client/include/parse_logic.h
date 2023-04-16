@@ -25,7 +25,7 @@
     void parse_list_team(client_t *client, char *args);
     void parse_list_threads(client_t *client, char *args);
     void parse_login(__attribute__((unused)) client_t *client,
-                     __attribute__((unused)) char *args);
+    __attribute__((unused)) char *args);
     void parse_logout(client_t *client, char *args);
     void parse_message(client_t *client, char *args);
     void parse_send(client_t *client, char *args);
@@ -53,9 +53,12 @@
     // Error func for parse
     bool check_unauthorized_cmd(char *status, char *code, char **args);
     bool check_already_exist_cmd(char *status, char *code, char **args);
-    bool check_unknown_thread_cmd(client_t *client, char *status, char *code, char **args);
-    bool check_unknown_team_cmd(client_t *client, char *status, char *code, char **args);
-    bool check_unknown_channel_cmd(client_t *client, char *status, char *code, char **args);
+    bool check_unknown_thread_cmd(client_t *client, char *status,
+    char *code, char **args);
+    bool check_unknown_team_cmd(client_t *client, char *status,
+    char *code, char **args);
+    bool check_unknown_channel_cmd(client_t *client, char *status,
+    char *code, char **args);
     bool check_unknown_user_cmd(char *status, char *code, char **args);
 
 #endif /* !PARSE_LOGIC_H_ */
