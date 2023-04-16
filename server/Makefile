@@ -104,6 +104,7 @@ SRC_COMMANDS :=	command_not_found/command_not_found.c	\
 				info_command/info_command.c		\
 				list_command/list_command.c		\
 				login_command/login_command.c		\
+				login_command/login_utils.c		\
 				logout_command/logout_command.c	\
 				messages_command/messages_command.c	\
 				send_command/send_command.c		\
@@ -115,6 +116,7 @@ SRC_COMMANDS :=	command_not_found/command_not_found.c	\
 				users_command/users_command.c \
 				broadcast/broadcast_all_users.c \
 				broadcast/broadcast_teams.c \
+				command_utils.c \
 				find_user.c
 SRC_COMMANDS	:=	$(addprefix commands/, $(SRC_COMMANDS))
 
