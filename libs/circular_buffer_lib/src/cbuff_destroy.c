@@ -17,7 +17,8 @@ size_t read_circular_buffer(circular_buffer_t *cbuff, char *data)
 
     if (is_circular_buffer_empty(cbuff))
         return 0;
-    end_pattern = strstr(cbuff->buffer + cbuff->cursor_read, cbuff->end_pattern);
+    end_pattern = strstr(cbuff->buffer + cbuff->cursor_read,
+    cbuff->end_pattern);
     if (end_pattern == NULL)
         end_pattern = strstr(cbuff->buffer, cbuff->end_pattern);
     end_pattern += strlen(cbuff->end_pattern);
