@@ -9,6 +9,7 @@
     #define add_struct_H
 
     #include "my_teams_server.h"
+    #include <stdbool.h>
 
     bool add_conversation_to_user(user_t *user, conversation_t *conversation);
     bool add_message_to_conversation(conversation_t *conversation,

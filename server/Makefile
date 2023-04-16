@@ -112,7 +112,10 @@ SRC_COMMANDS :=	command_not_found/command_not_found.c	\
 				unsubscribe_command/unsubscribe_command.c	\
 				use_command/use_command.c		\
 				user_command/user_command.c		\
-				users_command/users_command.c
+				users_command/users_command.c \
+				broadcast/broadcast_all_users.c \
+				broadcast/broadcast_teams.c \
+				find_user.c
 SRC_COMMANDS	:=	$(addprefix commands/, $(SRC_COMMANDS))
 
 SRC_RECEIVE	:=	receive_handler.c
@@ -123,9 +126,9 @@ SRC		:= $(addprefix src/, $(SRC))
 
 CFLAGS	=	-Wall -Wextra -pedantic -I./include -I../libs/list_lib/include \
 	-I../libs/network_lib/include -I../libs/circular_buffer_lib/include	\
-	-I../libs/my_lib/include
+	-I../libs/my_lib/include -I../libs/myteams
 
-LDFLAGS	=	-L ../libs -lall -luuid
+LDFLAGS	=	-L ../libs -lall -luuid -L../libs/myteams -lmyteams
 
 RM_ARRAY	:=	*~ a.out *.gcno *.gcda unit_tests *\# \#*
 FRM_ARRAY	=	$(RM_ARRAY) $(OBJ) $(COMPILATION)
