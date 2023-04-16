@@ -12,16 +12,18 @@
 
 size_t read_circular_buffer(circular_buffer_t *cbuff, char *data)
 {
-    size_t used_space = get_used_space_circular_buffer(cbuff);
+    size_t i = 0;
 
-    if (used_space == 0)
-        return EXIT_SUCCESS;
-
-    for (size_t i = 0; i < used_space; i++) {
-        data[i] = cbuff->buffer[(cbuff->cursor_read + i) % cbuff->size];
+    if (is_circular_buffer_empty(cbuff))
+        return 0;
+    while (cbuff->cursor_read != cbuff->cursor_write) {
+        data[i] = cbuff->buffer[cbuff->cursor_read];
+        cbuff->cursor_read = (cbuff->cursor_read + 1) % cbuff->size;
+        i++;
+        if (cbuff->cursor_read == cbuff->size - 1)
+            cbuff->cursor_read = 0;
     }
-    cbuff->cursor_read = (cbuff->cursor_read + used_space) % cbuff->size;
-    return used_space;
+    return i;
 }
 
 void destroy_circular_buffer(circular_buffer_t *cbuff)

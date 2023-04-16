@@ -20,8 +20,7 @@ static const cmd_code_t CMD_CODE_TAB[] = {
         {SEND, "204"},
         {MESSAGES, "200"},
         {SUBSCRIBE, "204"},
-        {SUBSCRIBED_USERS, "200"},
-        {SUBSCRIBED_TEAMS, "200"},
+        {SUBSCRIBED, "200"},
         {UNSUBSCRIBE, "200"},
         {USE, "200"},
         {CREATE, "201"},
@@ -31,40 +30,40 @@ static const cmd_code_t CMD_CODE_TAB[] = {
         {UNKNOWN, "0"}
 };
 
-static const cmd_parse_t NO_INFO[] = {
-        {LOGIN, parse_no_info},
+static const cmd_parse_t parse_tab[] = {
+        {LOGIN, parse_login},
         {LOGOUT, parse_logout},
-        {SEND, parse_no_info},
-        {SUBSCRIBE, parse_no_info},
-        {UNSUBSCRIBE, parse_no_info},
-        {CREATE, parse_no_info},
-        {UNKNOWN, NULL}
-};
-
-static const cmd_parse_t WITH_INFO[] = {
-        {USER, NULL},
-        {USERS, NULL},
-        {SUBSCRIBED_USERS, NULL},
-        {SUBSCRIBED_TEAMS, NULL},
-        {USE, NULL},
-        {LIST, NULL},
-        {INFO, NULL},
-        {HELP, NULL},
+        {SEND, parse_send},
+        {SUBSCRIBE, parse_subscribe},
+        {UNSUBSCRIBE, parse_unsubscribe},
+        {CREATE_TEAM, parse_create_team},
+        {CREATE_CHANNEL, parse_create_channel},
+        {CREATE_THREAD, parse_create_thread},
+        {CREATE_REPLY, parse_create_reply},
+        {USER, parse_user},
+        {USERS, parse_users},
+        {SUBSCRIBED_TEAMS, parse_subscribed_team},
+        {SUBSCRIBED_USERS, parse_subscribed_user},
+        {USE, parse_use},
+        {LIST_TEAM, parse_list_team},
+        {LIST_CHANNEL, parse_list_channel},
+        {LIST_THREAD, parse_list_threads},
+        {LIST_REPLY, parse_list_reply},
+        {INFO_TEAM, parse_info_team},
+        {INFO_CHANNEL, parse_info_channel},
+        {INFO_THREAD, parse_info_thread},
+        {INFO_USER, parse_info_user},
+        {HELP, parse_help},
+        {MESSAGES, parse_message},
         {UNKNOWN, NULL}
 };
 
 
 void manage_response(client_t *protocol, char *response)
 {
-    for (int i = 0; NO_INFO[i].id != UNKNOWN; i++) {
-        if (protocol->requested_cmd == NO_INFO[i].id) {
-            NO_INFO[i].check(protocol, response);
-            return;
-        }
-    }
-    for (int i = 0; WITH_INFO[i].id != UNKNOWN; i++) {
-        if (protocol->requested_cmd == WITH_INFO[i].id) {
-            WITH_INFO[i].check(protocol, response);
+    for (int i = 0; parse_tab[i].id != UNKNOWN; i++) {
+        if (protocol->requested_cmd == parse_tab[i].id) {
+            parse_tab[i].check(protocol, response);
             return;
         }
     }

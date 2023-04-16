@@ -65,7 +65,7 @@ void parse_input(client_t *client, network_client_t *net_client, char *input)
         free_parse_info(cmd, args);
         return;
     }
-    apply_logic_cmd(client, cmd, args);
+    apply_logic_cmd(client, cmd, args, &nb_args);
     write_circular_buffer(net_client->write_buffer, cmd);
     write_circular_buffer(net_client->write_buffer, SP);
     write_args(net_client, args, nb_args);

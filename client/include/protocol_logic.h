@@ -18,7 +18,7 @@
         enum cmd_e id;
         char *cmd;
         int nb_args;
-        void (*logic)(client_t *client, char **args);
+        void (*logic)(client_t *client, enum cmd_e id, char **args, int *nb_args);
     } cmd_t;
 
     typedef struct cmd_code_s {
@@ -36,9 +36,19 @@
 
     void manage_input(client_t *client);
 
-    void apply_logic_cmd(client_t *client, char *cmd, char **args);
+    void apply_logic_cmd(client_t *client, char *cmd, char **args, int *nb_args);
     char *get_cmd(char *input, int *nb_args);
     char **get_args(int nb_args);
+    void add_context_to_args(client_t *client, char **args, int *nb_args);
+
+    // Cmd logic
+
+    void use_logic(client_t *client, enum cmd_e, char **args, int *nb_args);
+    void info_logic(client_t *client, enum cmd_e cmd ,char **args, int *nb_args);
+    void list_logic(client_t *client, enum cmd_e cmd ,char **args, int *nb_args);
+    void create_logic(client_t *client, enum cmd_e cmd ,char **args, int *nb_args);
+    void subscribe_logic(__attribute__((unused)) client_t *client, enum cmd_e cmd ,char **args, __attribute__((unused)) int *nb_args);
+
 
     void display_error(char *cmd, char **args);
 
