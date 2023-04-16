@@ -13,6 +13,7 @@
 #include "server_func.h"
 #include "client_func.h"
 #include "init_struct.h"
+#include "save_struck.h"
 #include "destroy_struct.h"
 #include "list_lib.h"
 #include "socket_management_func.h"
@@ -20,8 +21,9 @@
 
 int do_myteams_client(char **av)
 {
-    client_t *client = init_client();
+    client_t *client = NULL;
 
+    client = init_client();
     if (!client)
         return (EXIT_FAILURE);
     signal(SIGINT, handle_signal);

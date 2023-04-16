@@ -31,25 +31,6 @@ time_t string_to_time(const char *timestamp_str)
     return (time_t)read_long;
 }
 
-bool is_file_not_empty(const char *filename)
-{
-    FILE *file = NULL;
-    long file_size = 0;
-
-    file = fopen(filename, "r");
-    if (file == NULL) {
-        perror("Error opening file");
-        return false;
-    }
-    fseek(file, 0, SEEK_END);
-    file_size = ftell(file);
-    fclose(file);
-    if (file_size == 0) {
-        return false;
-    }
-    return true;
-}
-
 void remove_newline(char *str)
 {
     int len = 0;

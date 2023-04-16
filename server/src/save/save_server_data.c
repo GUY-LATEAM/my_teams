@@ -43,3 +43,35 @@ bool clear_file_content(const char *filename)
     fclose(file);
     return true;
 }
+
+bool is_file_not_empty(const char *filename)
+{
+    FILE *file = NULL;
+    long file_size = 0;
+
+    file = fopen(filename, "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return false;
+    }
+    fseek(file, 0, SEEK_END);
+    file_size = ftell(file);
+    fclose(file);
+    if (file_size == 0) {
+        return false;
+    }
+    return true;
+}
+
+bool save_file_data(server_t *server, const char *filepath_user,
+const char *filepath_server)
+{
+    if (is_file_not_empty(filepath_user) == false  ||
+        is_file_not_empty(filepath_server) == false) {
+        return false;
+    }
+    if (save_server_data(server, filepath_user, filepath_server) == false) {
+        return false;
+    }
+    return true;
+}
