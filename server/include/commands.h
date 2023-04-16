@@ -42,9 +42,13 @@
         circular_buffer_t *write_buffer);
     int command_not_found(void *user_data, void *protocol_data, char *args,
         circular_buffer_t *write_buffer);
-
     user_t *find_user(server_t *server, char *uuid);
     bool broadcast_teams(server_t *server, user_t *user, const char *message);
-bool broadcast_all_user(server_t *server, const char *message);
-
+    bool broadcast_all_user(server_t *server, const char *message);
+    int write_error(circular_buffer_t *write_buffer, const char *code,
+        const char *message);
+    int write_success(circular_buffer_t *write_buffer, const char *code,
+        const char *message);
+    int check_is_user_login(server_t *server, user_t *user,
+        circular_buffer_t *write_buffer);
 #endif //MY_TEAMS_COMMANDS_H
