@@ -20,8 +20,9 @@
 
 int do_myteams_client(char **av)
 {
-    client_t *client = init_client();
+    client_t *client = NULL;
 
+    client = init_client();
     if (!client)
         return (EXIT_FAILURE);
     signal(SIGINT, handle_signal);
