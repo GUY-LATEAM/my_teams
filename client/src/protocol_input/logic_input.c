@@ -41,7 +41,7 @@ char *get_cmd(char *input, int *nb_args)
 {
     char *cmd_token = NULL;
 
-    cmd_token = strtok(input, SEPARATORS);
+    cmd_token = strtok(input, "\n\" ");
     if (!cmd_token)
         return NULL;
     for (int i = 0; CMD_TAB[i].cmd; i++) {
@@ -57,8 +57,8 @@ void apply_logic_cmd(client_t *client, char *cmd, char **args, int *nb_args)
 {
     for (int i = 0; CMD_TAB[i].cmd; i++) {
         if (strcasecmp(cmd, CMD_TAB[i].cmd) == 0 && CMD_TAB[i].logic) {
-                CMD_TAB[i].logic(client, CMD_TAB[i].id, args, nb_args);
-                return;
+            CMD_TAB[i].logic(client, CMD_TAB[i].id, args, nb_args);
+            return;
         }
     }
 }
