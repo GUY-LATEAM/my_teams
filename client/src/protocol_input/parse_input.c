@@ -60,9 +60,6 @@ void parse_input(client_t *client, network_client_t *net_client, char *input)
 
     cmd = get_cmd(input, &nb_args);
     args = get_args(nb_args);
-    for (int i = 0; i < nb_args; i++) {
-        printf("%s", args[i]);
-    }
     if (!net_client || !cmd || !args) {
         display_error(cmd, args);
         free_parse_info(cmd, args);

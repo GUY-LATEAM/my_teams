@@ -12,6 +12,7 @@ int broadcast_client_event_logged_in(char *raw_args)
     char **args = NULL;
     int result = 0;
 
+    printf("In Broadcast :%s\n", raw_args);
     if (raw_args == NULL) {
         return EXIT_FAILURE;
     }
