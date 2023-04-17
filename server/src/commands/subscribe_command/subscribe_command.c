@@ -6,6 +6,7 @@
 */
 
 #include <string.h>
+#include <stdio.h>
 #include "commands.h"
 #include "libstr.h"
 #include "logging_server.h"
@@ -67,11 +68,21 @@ static char *get_subscribe_team_uuid(char *args)
 static void broadcast_subscribe_user(
 void *user_data, void *protocol_data, char *team_uuid)
 {
-    broadcast_teams(user_data, protocol_data, SUBSCRIBED_BROADCAST SP "\"");
-    broadcast_teams(user_data, protocol_data, ((user_t *) protocol_data)->uuid);
-    broadcast_teams(user_data, protocol_data, ":");
-    broadcast_teams(user_data, protocol_data, team_uuid);
-    broadcast_teams(user_data, protocol_data, "\"" GUY);
+    size_t len_message = 0;
+    char *message = NULL;
+
+    len_message += strlen(SUBSCRIBED_BROADCAST SP "\"");
+    len_message += strlen(((user_t *) protocol_data)->uuid);
+    len_message += strlen(":");
+    len_message += strlen(team_uuid);
+    len_message += strlen("\"" GUY);
+    message = malloc(sizeof(char) * (len_message + 1));
+    if (!message)
+        return;
+    sprintf(message, SUBSCRIBED_BROADCAST SP "\"%s:%s\"" GUY,
+    ((user_t *) protocol_data)->uuid, team_uuid);
+    broadcast_teams(user_data, protocol_data, message);
+    free(message);
 }
 
 int subscribe_command(void *user_data, void *protocol_data, char *args,
