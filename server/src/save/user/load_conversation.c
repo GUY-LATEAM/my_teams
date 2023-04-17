@@ -83,7 +83,7 @@ list_ptr_t *create_conversation_list_from_line(char *conv_info, const char sep)
 
     splitted = str_split(conv_info, sep);
     if (splitted == NULL) {
-        return NULL;
+        return list_create();
     }
     conv = create_conversation_list(splitted, sep + 1);
     if (conv == NULL) {

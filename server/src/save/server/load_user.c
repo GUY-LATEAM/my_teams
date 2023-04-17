@@ -35,7 +35,7 @@ list_ptr_t *create_user_list_from_line(char *line, const char sep)
 
     splitted = str_split(line, sep);
     if (splitted == NULL) {
-        return NULL;
+        return list_create();
     }
     users = create_user_list(splitted);
     if (users == NULL) {

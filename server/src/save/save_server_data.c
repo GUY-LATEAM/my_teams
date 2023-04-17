@@ -28,7 +28,10 @@ const char *teams_filename)
     server->teams = list_create();
     users_loaded = load_users_from_file(server->all_users, users_filename);
     teams_loaded = load_server_from_file(server->teams, teams_filename);
-    return users_loaded && teams_loaded;
+    printf("%d %d\n", users_loaded, teams_loaded);
+    if (users_loaded == false && teams_loaded == false)
+        return false;
+    return true;
 }
 
 bool clear_file_content(const char *filename)
@@ -68,6 +71,7 @@ const char *filepath_server)
 {
     if (is_file_not_empty(filepath_user) == false ||
         is_file_not_empty(filepath_server) == false) {
+        
         return true;
     }
     if (load_server_data(server, filepath_user, filepath_server) == false) {

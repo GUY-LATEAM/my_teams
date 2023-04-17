@@ -20,7 +20,8 @@ bool save_server_to_file(list_ptr_t *teams, const char *filename)
         perror("Error opening file for saving users");
         return false;
     }
-    if (save_team_loop(teams, file, sep) == false || (!fclose(file))) {
+    if (save_team_loop(teams, file, sep) == false ||
+    (fclose(file) != EXIT_SUCCESS)) {
         return false;
     }
     return true;

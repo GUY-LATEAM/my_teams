@@ -20,7 +20,8 @@ bool save_users_to_file(list_ptr_t *users, const char *filename)
         perror("Error opening file for saving users");
         return false;
     }
-    if (save_user_loop(users, file, sep) == false || (!fclose(file))) {
+    if (save_user_loop(users, file, sep) == false ||
+    (fclose(file) != EXIT_SUCCESS)) {
         return false;
     }
     return true;

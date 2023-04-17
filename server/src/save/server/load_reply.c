@@ -89,7 +89,7 @@ list_ptr_t *create_reply_list_from_line(char *line, const char sep)
     }
     splitted = str_split(line, sep);
     if (splitted == NULL) {
-        return NULL;
+        return list_create();
     }
     replies = create_reply_list(splitted, sep + 1);
     if (replies == NULL) {
