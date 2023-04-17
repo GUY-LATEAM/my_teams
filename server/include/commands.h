@@ -51,4 +51,5 @@
         const char *message);
     int check_is_user_login(server_t *server, user_t *user,
         circular_buffer_t *write_buffer);
+    bool is_user_login(server_t *server, const char *name);
 #endif //MY_TEAMS_COMMANDS_H

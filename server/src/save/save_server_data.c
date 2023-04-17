@@ -28,7 +28,10 @@ const char *teams_filename)
     server->teams = list_create();
     users_loaded = load_users_from_file(server->all_users, users_filename);
     teams_loaded = load_server_from_file(server->teams, teams_filename);
-    return users_loaded && teams_loaded;
+    printf("%d %d\n", users_loaded, teams_loaded);
+    if (users_loaded == false && teams_loaded == false)
+        return false;
+    return true;
 }
 
 bool clear_file_content(const char *filename)
@@ -49,7 +52,7 @@ bool is_file_not_empty(const char *filename)
     FILE *file = NULL;
     long file_size = 0;
 
-    file = fopen(filename, "r");
+    file = fopen(filename, "a+");
     if (file == NULL) {
         perror("Error opening file");
         return false;
@@ -63,14 +66,14 @@ bool is_file_not_empty(const char *filename)
     return true;
 }
 
-bool save_file_data(server_t *server, const char *filepath_user,
+bool load_file_data(server_t *server, const char *filepath_user,
 const char *filepath_server)
 {
     if (is_file_not_empty(filepath_user) == false ||
         is_file_not_empty(filepath_server) == false) {
-        return false;
+        return true;
     }
-    if (save_server_data(server, filepath_user, filepath_server) == false) {
+    if (load_server_data(server, filepath_user, filepath_server) == false) {
         return false;
     }
     return true;

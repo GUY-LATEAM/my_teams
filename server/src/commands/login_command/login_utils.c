@@ -15,7 +15,7 @@
 #include "protocol_logic.h"
 #include "commands.h"
 
-static bool is_user_login(server_t *server, const char *name)
+bool is_user_login(server_t *server, const char *name)
 {
     user_t *user = NULL;
 
@@ -31,7 +31,7 @@ static bool is_user_login(server_t *server, const char *name)
 int check_is_user_login(server_t *server, user_t *user,
 circular_buffer_t *write_buffer)
 {
-    if (is_user_login(server, user->name) != true) {
+    if (user == NULL || is_user_login(server, user->name) != true) {
         write_error(write_buffer, "401", "Unauthorized: The client needs to\
 authenticate before performing this action.");
         return EXIT_FAILURE;

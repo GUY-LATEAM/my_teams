@@ -90,15 +90,15 @@ char *args, circular_buffer_t *write_buffer)
     char *name = NULL;
     server_t *server = NULL;
 
+    if (user_data != NULL) {
+        write_success(write_buffer, "201", "Already connected");
+        return EXIT_FAILURE;
+    }
     server = (server_t *) protocol_data;
     name = strtok(args, "\"");
     if (name == NULL) {
         write_error(write_buffer, "400", "Bad Request: The received \
 command is malformed or invalid.");
-        return EXIT_FAILURE;
-    }
-    if (check_is_user_login(server, user_data, write_buffer) == EXIT_FAILURE) {
-        write_success(write_buffer, "201", "Already connected");
         return EXIT_FAILURE;
     }
     if (login_command_annexe(server, write_buffer, name) == EXIT_FAILURE)

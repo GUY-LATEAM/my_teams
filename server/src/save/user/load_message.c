@@ -83,7 +83,7 @@ list_ptr_t *create_message_list_from_line(char *message_info, const char sep)
 
     splitted = str_split(message_info, sep);
     if (splitted == NULL) {
-        return NULL;
+        return list_create();
     }
     messages = create_message_list(splitted, sep + 1);
     if (messages == NULL) {
