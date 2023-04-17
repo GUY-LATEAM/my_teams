@@ -19,6 +19,5 @@ circular_buffer_t *write_buffer)
         write_error(write_buffer, "401", "The client needs to authenticate");
         return EXIT_FAILURE;
     }
-    
     return EXIT_SUCCESS;
 }

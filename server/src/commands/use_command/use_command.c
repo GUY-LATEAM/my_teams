@@ -13,20 +13,20 @@
 #include "protocol_logic.h"
 #include "libstr.h"
 
-static void resolve_context_thread(channel_t *channel, char **args, char *context,
-bool *bad_context)
+static void resolve_context_thread(channel_t *channel, char **args,
+char *context, bool *bad_context)
 {
     thread_t *thread = NULL;
 
     if (my_arrlen(args) <= 2) {
         strcat(context, "UN");
-        return ;
+        return;
     } else {
         thread = get_thread_by_uuid(channel->threads, args[2]);
         if (thread == NULL) {
             strcat(context, "KO");
             *bad_context = true;
-            return ;
+            return;
         }
         strcat(context, "OK");
     }

@@ -31,10 +31,16 @@ static char *get_code(char *response)
 static char **get_argument_parse(char *args)
 {
     char **tab = NULL;
+    char *guy_ptr = NULL;
 
     if (!args)
         return (NULL);
-    tab = str_to_word_array(args, "\":\g");
+    tab = str_to_word_array(args, "\":");
+    for (int i = 0; tab[i]; i++) {
+        guy_ptr = strstr(tab[i], GUY);
+        if (guy_ptr != NULL)
+            tab[i][guy_ptr - tab[i]] = '\0';
+    }
     return (tab);
 }
 
