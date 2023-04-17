@@ -72,6 +72,7 @@ SRC 	+= 	add/add_conversation_to_user.c \
 			destroy/destroy_user.c \
 			checks/check_args_server.c \
 			server_logic/server_loop.c \
+			server_logic/new_con_func.c \
 			signals/handle_signal.c \
 			save/server/load_channel.c \
 			save/server/load_reply.c \

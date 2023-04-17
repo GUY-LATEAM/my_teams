@@ -31,5 +31,5 @@ void parse_list_reply(client_t *client, char *args)
         client_thread_print_replies(users_args[i], users_args[i + 1],
             0, users_args[i + 3]);
     }
-    destroy_array(args);
+    destroy_array(users_args);
 }

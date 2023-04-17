@@ -28,5 +28,5 @@ void parse_info_team(__attribute__((unused)) client_t *client, char *args)
         return;
     for (int i = 0; users_args[i]; i += 3)
         client_print_team(users_args[i], users_args[i + 1], users_args[i + 2]);
-    destroy_array(args);
+    destroy_array(users_args);
 }

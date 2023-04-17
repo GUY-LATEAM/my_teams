@@ -9,6 +9,7 @@
 #include "logging_client.h"
 #include "parse_logic.h"
 #include "list_lib.h"
+#include "libstr.h"
 #include "client_func.h"
 #include "my_teams_client.h"
 #include "signal_management_client.h"
@@ -26,5 +27,5 @@ char *args)
     || check_already_exist_cmd(status, code, users_args))
         return;
     client_print_team_created(users_args[0], users_args[1], users_args[2]);
-    destroy_array(args);
+    destroy_array(users_args);
 }

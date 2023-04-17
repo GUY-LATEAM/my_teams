@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include "signal_management_server.h"
+#include "save_struck.h"
 
 static const signal_dict_t signal_tab[] = {
     {SIGINT_RECEIVED, &save_server_config},
@@ -25,8 +26,10 @@ signal_t signal_flag(signal_t signal, bool set)
 
 void save_server_config(server_t *server)
 {
-    if (server)
+    if (server) {
         printf("Saving server config...\n");
+        save_server_data(server, "data/users.txt", "data/teams.txt");
+    }
     return;
 }
 

@@ -50,13 +50,14 @@ static int logout_broadcast(server_t *server, user_t *user)
     char *message = NULL;
 
     message = malloc(sizeof(char) * (strlen(user->uuid) + \
-    (strlen(user->name) + 19)));
+    (strlen(user->name) + (strlen(GUY)) + 21)));
     if (message == NULL)
         return EXIT_FAILURE;
-    if (sprintf(message, "broadcast LOGOUT %s %s%s", user->uuid,
+    if (sprintf(message, "broadcast LOGOUT \"%s:%s\"%s", user->uuid,
     user->name, GUY) < 0)
         return EXIT_FAILURE;
-    broadcast_all_user(server, message);
+    if (broadcast_all_user(server, message) == false)
+        return EXIT_FAILURE;
     return EXIT_SUCCESS;
 }
 
@@ -64,9 +65,9 @@ static int logout_command_annexe(server_t *server, user_t *user,
 circular_buffer_t *write_buffer)
 {
     if ((find_user_in_network(server, user) == false) ||
-    (find_user_in_users(server, user) != LIST_OK) ||
-            write_error(write_buffer, "500", "Internal Server Error: An \
-error occurred on the server side while processing the command.") == false) {
+    (find_user_in_users(server, user) != LIST_OK)) {
+        write_error(write_buffer, "500", "Internal Server Error: An \
+error occurred on the server side while processing the command.");
         return EXIT_FAILURE;
     }
     if (write_success(write_buffer, "200", "OK: The command \
@@ -84,10 +85,6 @@ __attribute__((unused)) char *args, circular_buffer_t *write_buffer)
 
     user = (user_t *) user_data;
     server = (server_t *) protocol_data;
-    if (write_error(write_buffer, "400", "Bad Request: The received \
-command is malformed or invalid.") == false) {
-        return EXIT_FAILURE;
-    }
     if ((check_is_user_login(server, user, write_buffer) == EXIT_FAILURE) ||
     (logout_command_annexe(server, user, write_buffer) == EXIT_FAILURE) ||
     (logout_broadcast(server, user) == EXIT_FAILURE))

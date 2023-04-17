@@ -16,9 +16,11 @@
 #include "signal_management_server.h"
 #include "init_struct.h"
 #include "destroy_struct.h"
+#include "save_struck.h"
 #include "socket_management_func.h"
 #include "protocol_logic.h"
 #include "socket_manipulation.h"
+#include "receive_handler.h"
 
 int do_myteams_server(char **av)
 {
@@ -26,6 +28,8 @@ int do_myteams_server(char **av)
 
     srv = init_server(atoi(av[1]));
     if (!srv)
+        return 84;
+    if (save_file_data(srv, USERS_FILEPATH, SERVER_FILEPATH) == false)
         return 84;
     signal(SIGINT, handle_signal);
     while (SIGNAL_FLAG == NOTHING_RECEIVED) {
@@ -52,8 +56,9 @@ void loop_server(server_t *srv)
     &srv->network_server->except_fds) != 0)
             return;
     if (server_receive_new_con(srv->network_server, BUFF_SIZE,
-    GUY) != EXIT_SUCCESS) {
+    GUY) == EXIT_SUCCESS) {
         printf("New client connected\n");
+        set_new_con_protocol_logic(srv);
     }
     server_loop_client(srv->network_server);
 }

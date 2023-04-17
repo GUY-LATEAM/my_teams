@@ -8,6 +8,9 @@
 #ifndef save_struck_H
     #define save_struck_H
 
+    #define  SERVER_FILEPATH "data/server.txt"
+    #define  USERS_FILEPATH "data/users.txt"
+
     #include <stdio.h>
     #include <string.h>
     #include "list_lib.h"
@@ -54,5 +57,7 @@
     void fill_tokens(char **tokens, char *str, const char separator,
     size_t count);
     bool duplication_string(char *line, char **str, char **tmp);
+    bool save_file_data(server_t *server, const char *filepath_user,
+    const char *filepath_server);
 
 #endif /* !save_struck_H */

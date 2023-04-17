@@ -24,5 +24,5 @@ void parse_users(__attribute__((unused)) client_t *client, char *args)
     for (int i = 0; i < my_arrlen(users_args) / 3; i++)
         client_print_users(users_args[i * 3], users_args[i * 3 + 1],
         atoi(users_args[i * 3 + 2]));
-    destroy_array(args);
+    destroy_array(users_args);
 }

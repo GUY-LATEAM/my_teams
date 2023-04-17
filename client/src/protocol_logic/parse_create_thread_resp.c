@@ -10,6 +10,7 @@
 #include "parse_logic.h"
 #include "list_lib.h"
 #include "client_func.h"
+#include "libstr.h"
 #include "my_teams_client.h"
 #include "signal_management_client.h"
 
@@ -26,5 +27,5 @@ void parse_create_thread(client_t *client, char *args)
     || check_unknown_channel_cmd(client, status, code, users_args))
         return;
     client_print_channel_created(users_args[0], users_args[1], users_args[2]);
-    destroy_array(args);
+    destroy_array(users_args);
 }

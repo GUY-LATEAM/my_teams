@@ -11,6 +11,7 @@
 #include "logging_server.h"
 #include "commands.h"
 #include "receive_handler.h"
+#include "socket_manipulation.h"
 
 static const char *commands[] = {"help", "login", "logout", "users", "user",
 "send", "messages", "subscribe", "subscribed", "unsubscribe", "use", "create",
@@ -41,7 +42,7 @@ static char *get_args_before_guy(char *str)
 
 static int get_command(circular_buffer_t *read_buffer, command_t *command)
 {
-    char *buffer = NULL;
+    char buffer[BUFF_SIZE] = {0};
     char *tmp = NULL;
 
     read_circular_buffer(read_buffer, buffer);
@@ -52,7 +53,6 @@ static int get_command(circular_buffer_t *read_buffer, command_t *command)
     tmp = my_split(buffer, SP, RIGHT);
     command->args = get_args_before_guy(tmp);
     free(tmp);
-    free(buffer);
     return EXIT_SUCCESS;
 }
 
