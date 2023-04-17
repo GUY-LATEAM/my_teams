@@ -28,7 +28,7 @@ void save_server_config(server_t *server)
 {
     if (server) {
         printf("Saving server config...\n");
-        save_server_data(server, "data/users.txt", "data/teams.txt");
+        save_server_data(server, USERS_FILEPATH, SERVER_FILEPATH);
     }
     return;
 }

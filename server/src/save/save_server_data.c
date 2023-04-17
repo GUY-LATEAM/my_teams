@@ -51,7 +51,7 @@ bool is_file_not_empty(const char *filename)
 
     file = fopen(filename, "a+");
     if (file == NULL) {
-        perror("Error dsdopening file");
+        perror("Error opening file");
         return false;
     }
     fseek(file, 0, SEEK_END);
