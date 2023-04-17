@@ -71,7 +71,6 @@ const char *filepath_server)
 {
     if (is_file_not_empty(filepath_user) == false ||
         is_file_not_empty(filepath_server) == false) {
-        
         return true;
     }
     if (load_server_data(server, filepath_user, filepath_server) == false) {
