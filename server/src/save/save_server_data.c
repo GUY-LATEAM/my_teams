@@ -47,31 +47,27 @@ bool clear_file_content(const char *filename)
     return true;
 }
 
-bool is_file_not_empty(const char *filename)
+static bool create_file_if_not_exists(const char *filename)
 {
     FILE *file = NULL;
-    long file_size = 0;
 
-    file = fopen(filename, "a+");
+    file = fopen(filename, "a");
     if (file == NULL) {
         perror("Error opening file");
         return false;
     }
-    fseek(file, 0, SEEK_END);
-    file_size = ftell(file);
     fclose(file);
-    if (file_size == 0) {
-        return false;
-    }
     return true;
 }
 
 bool load_file_data(server_t *server, const char *filepath_user,
 const char *filepath_server)
 {
-    if (is_file_not_empty(filepath_user) == false ||
-        is_file_not_empty(filepath_server) == false) {
-        return true;
+    if (!create_file_if_not_exists(filepath_user)) {
+        printf("Failed to create or check file: %s\n", filepath_user);
+    }
+    if (!create_file_if_not_exists(filepath_server)) {
+        printf("Failed to create or check file: %s\n", filepath_server);
     }
     if (load_server_data(server, filepath_user, filepath_server) == false) {
         return false;
