@@ -29,13 +29,13 @@ static user_t *is_user_exist(server_t *server, const char *name)
     return NULL;
 }
 
-static bool link_user_to_client(server_t *server, user_t *user)
+static bool link_user_to_client(server_t *server, user_t *user, void *id)
 {
     network_client_t *client = NULL;
 
     for (int i = 0; i < server->network_server->clients->len; i++) {
         client = get_list_i_data(server->network_server->clients, i);
-        if (client->user_data == NULL) {
+        if (client->write_buffer == id) {
             client->user_data = user;
             return true;
         }
@@ -75,7 +75,7 @@ circular_buffer_t *write_buffer, char *name)
         server_event_user_created(user->uuid,user->name);
     }
     server_event_user_logged_in(user->uuid);
-    if ((link_user_to_client(server, user) == false) ||
+    if ((link_user_to_client(server, user, write_buffer) == false) ||
     (login_broadcast(server, write_buffer, user) == false)) {
         write_error(write_buffer, "500", " An error occurred on the \
 server side while processing the command.");

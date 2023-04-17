@@ -17,6 +17,7 @@ int read_socket(int socket, circular_buffer_t *read_buff)
     char buffer[BUFF_SIZE] = {0};
 
     read_size = read(socket, buffer, BUFF_SIZE);
+    printf("read on socket :%s\n", buffer);
     buffer[read_size] = '\0';
     if (read_size <= 0)
         return (read_size);
@@ -34,6 +35,7 @@ int write_socket(int socket, circular_buffer_t *write_buff)
     if (write_size <= 0) {
         return (write_size);
     }
+    printf("write on socket :%s\n", buffer);
     write_size = write(socket, buffer, write_size);
     return (write_size);
 }
