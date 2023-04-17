@@ -14,6 +14,10 @@
     #define CODE_200 "200"
     #define SUBSCRIBED_BROADCAST "broadcast SUBSCRIBED"
     #define UNKNOW_COMMAND "ERROR 400 Unknown command"
+    #define LOGOUT_BROADCAST "broadcast LOGOUT \""
+    #define LOGIN_BROADCAST "broadcast LOGIN \""
+    #define BROADCAST_MARK "\""
+    #define BROADCADT_COLON ":"
 
     int help_command(void *user_data, void *protocol_data, char *args,
         circular_buffer_t *write_buffer);

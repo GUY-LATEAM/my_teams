@@ -52,8 +52,8 @@ user_t *user)
 was successfully processed.") == false)
         return false;
     message = malloc(sizeof(char) * (strlen(user->uuid) +
-    strlen(user->name) +
-    strlen(GUY) + 21));
+    strlen(user->name) + strlen(LOGIN_BROADCAST) + strlen(BROADCAST_MARK) + \
+    strlen(BROADCADT_COLON) + strlen(GUY) + 1));
     if (message == NULL)
         return false;
     sprintf(message, "broadcast LOGIN \"%s:%s\"%s", user->uuid,
