@@ -47,10 +47,8 @@ bool clear_file_content(const char *filename)
     return true;
 }
 
-#include <stdio.h>
-#include <stdbool.h>
-
-static bool create_file_if_not_exists(const char *filename) {
+static bool create_file_if_not_exists(const char *filename)
+{
     FILE *file = NULL;
 
     file = fopen(filename, "a");
@@ -62,7 +60,8 @@ static bool create_file_if_not_exists(const char *filename) {
     return true;
 }
 
-bool load_file_data(server_t *server, const char *filepath_user, const char *filepath_server)
+bool load_file_data(server_t *server, const char *filepath_user,
+const char *filepath_server)
 {
     if (!create_file_if_not_exists(filepath_user)) {
         printf("Failed to create or check file: %s\n", filepath_user);
