@@ -16,7 +16,8 @@
 #include "protocol_logic.h"
 #include "commands.h"
 
-static int write_user_info(user_t *user, circular_buffer_t *write_buffer, char *uuid)
+static int write_user_info(user_t *user, circular_buffer_t *write_buffer,
+char *uuid)
 {
     if (strcmp(user->uuid, uuid) == 0) {
         if (write_success(write_buffer, "200" , uuid) == EXIT_FAILURE)
@@ -25,7 +26,8 @@ static int write_user_info(user_t *user, circular_buffer_t *write_buffer, char *
     return EXIT_SUCCESS;
 }
 
-static int find_users(server_t *server, circular_buffer_t *write_buffer, char uuid)
+static int find_users(server_t *server, circular_buffer_t *write_buffer,
+char uuid)
 {
     user_t *user = NULL;
 
