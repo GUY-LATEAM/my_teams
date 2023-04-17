@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <uuid/uuid.h>
 #include "list_lib.h"
 #include "my_teams_server.h"
@@ -14,7 +15,7 @@
 team_t *init_team(char *name, char *description)
 {
     team_t *team = malloc(sizeof(team_t));
-    uuid_t uuid;
+    uuid_t uuid = {0};
 
     if (!team)
         return NULL;
@@ -27,6 +28,6 @@ team_t *init_team(char *name, char *description)
     team->description[MAX_DESCRIPTION_LENGTH] = '\0';
     team->subscribed_users = list_create();
     team->channels = list_create();
-    team->users = list_create();
+    team->timestamp = time(NULL);
     return team;
 }

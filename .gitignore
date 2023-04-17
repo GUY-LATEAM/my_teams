@@ -28,7 +28,6 @@
 
 # Shared objects (inc. Windows DLLs)
 *.dll
-*.so
 *.so.*
 *.dylib
 
@@ -59,3 +58,14 @@ dkms.conf
 
 .vscode/
 report/
+.idea/
+
+my_teams_cli
+my_teams_server
+
+# Codding style check
+
+*.log
+.clang-format
+
+*.txt

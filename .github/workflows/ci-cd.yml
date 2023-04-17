@@ -7,20 +7,21 @@ on: [push, pull_request]
 
 env:
   MIRROR_URL: git@github.com:EpitechPromo2026/B-NWP-400-TLS-4-1-myteams-clement.lagasse.git
+  FILES_TO_DELETE: './libs/myteams'
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   check_repository_cleanliness:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: check good files & folders
         run : |
           paths=($(find . -name '#*#' -o -name '*-' -o -name '*.tmp' -o -name '*.o' -o -name '*.a' -o -name '*.so' -o -name '*.gcno' -o -name '*.gcda' -o -name '*.gcov' -o -type d -name 'tmp'))
           if [[ ! -z "$path" ]]; then
             IFS=$'\n'
-            unset IFS
             for FILE in "${paths[@]}"; do echo "::error title=Unwanted file detected,file=$FILE::$FILE"; done
+            unset IFS
             exit 1
           fi
 
@@ -29,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       
       - name: make for makefile
         run: timeout 2m make
@@ -38,12 +39,17 @@ jobs:
     needs: check_program_compilation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       
       - name: test norm
         run: |
-          if [[ -z "$(wget https://raw.githubusercontent.com/Epitech/coding-style-checker/main/coding-style.sh && echo "no" | bash coding-style.sh . . | grep "0 major, 0 minor")" ]]; then
-              echo "::error title=Norm not respected GUY"
+          rm -rf ${{ env.FILES_TO_DELETE }}
+          wget https://raw.githubusercontent.com/Epitech/coding-style-checker/main/coding-style.sh && echo "no" | bash coding-style.sh . .
+          if [[ ! -z "$(grep -E "MAJOR|MINOR" coding-style-reports.log)" ]]; then
+              IFS=$'\n'
+              paths=($(cat coding-style-reports.log))
+              unset IFS
+              for FILE in "${paths[@]}"; do echo "::error title=Norm error,file=$FILE::$FILE"; done
               exit 1
           fi
 
@@ -51,7 +57,7 @@ jobs:
     needs: check_norm
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - uses: pixta-dev/repository-mirroring-action@v1
