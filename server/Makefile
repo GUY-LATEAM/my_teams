@@ -122,7 +122,7 @@ SRC_COMMANDS :=	command_not_found/command_not_found.c	\
 SRC_COMMANDS	:=	$(addprefix commands/, $(SRC_COMMANDS))
 
 SRC_RECEIVE	:=	receive_handler.c \
-				disconnect_func.c 
+				disconnect_func.c
 SRC_RECEIVE	:=	$(addprefix receive/, $(SRC_RECEIVE))
 
 SRC 	+=	$(SRC_RECEIVE) $(SRC_COMMANDS)

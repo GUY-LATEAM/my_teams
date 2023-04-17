@@ -29,8 +29,8 @@ int do_myteams_server(char **av)
     srv = init_server(atoi(av[1]));
     if (!srv)
         return 84;
-    //if (save_file_data(srv, USERS_FILEPATH, SERVER_FILEPATH) == false)
-    //    return 84;
+    if (save_file_data(srv, USERS_FILEPATH, SERVER_FILEPATH) == false)
+        return 84;
     signal(SIGINT, handle_signal);
     while (SIGNAL_FLAG == NOTHING_RECEIVED) {
         loop_server(srv);
