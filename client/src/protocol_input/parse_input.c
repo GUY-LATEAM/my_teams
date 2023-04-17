@@ -7,37 +7,14 @@
 
 #include <string.h>
 #include "protocol_logic.h"
-
-char **get_args(int nb_args)
-{
-    char **args = NULL;
-    char *arg_token = NULL;
-
-    if (nb_args == 0)
-        return NULL;
-    args = malloc(sizeof(char *) * (nb_args + 1));
-    if (!args)
-        return NULL;
-    for (int i = 0; i < nb_args; i++) {
-        arg_token = strtok(NULL, SEPARATORS);
-        if (!arg_token) {
-            free_parse_info(NULL, args);
-            return NULL;
-        }
-        args[i] = strdup(arg_token);
-    }
-    args[nb_args] = NULL;
-    return args;
-}
+#include "libstr.h"
 
 void free_parse_info(char *cmd, char **args)
 {
     if (cmd)
         free(cmd);
     if (args) {
-        for (int i = 0; args[i]; i++)
-            free(args[i]);
-        free(args);
+        destroy_array(args);
     }
 }
 
@@ -59,7 +36,7 @@ void parse_input(client_t *client, network_client_t *net_client, char *input)
     int nb_args = 0;
 
     cmd = get_cmd(input, &nb_args);
-    args = get_args(nb_args);
+    args = str_to_word_array(input, "\" ");
     if (!net_client || !cmd || !args) {
         display_error(cmd, args);
         free_parse_info(cmd, args);

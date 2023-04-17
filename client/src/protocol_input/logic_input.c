@@ -41,7 +41,7 @@ char *get_cmd(char *input, int *nb_args)
 {
     char *cmd_token = NULL;
 
-    cmd_token = strtok(input, SP);
+    cmd_token = strtok(input, SEPARATORS);
     if (!cmd_token)
         return NULL;
     for (int i = 0; CMD_TAB[i].cmd; i++) {

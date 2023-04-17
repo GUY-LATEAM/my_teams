@@ -11,8 +11,6 @@
 #include "protocol_logic.h"
 #include "socket_manipulation.h"
 
-//manage_cmd_client(protocol_data, data, write);
-
 void receive_client(__attribute__((unused)) void *user_data,
 void *protocol_data, circular_buffer_t *read,
 __attribute__((unused)) circular_buffer_t *write)
