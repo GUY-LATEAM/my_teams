@@ -63,6 +63,7 @@ void manage_response(client_t *protocol, char *response)
 {
     for (int i = 0; parse_tab[i].id != UNKNOWN; i++) {
         if (protocol->requested_cmd == parse_tab[i].id) {
+            printf("cmd :%d\n", protocol->requested_cmd);
             parse_tab[i].check(protocol, response);
             return;
         }

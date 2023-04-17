@@ -31,19 +31,11 @@ static char *get_code(char *response)
 static char **get_argument_parse(char *args)
 {
     char **tab = NULL;
-    char **users_args = NULL;
 
     if (!args)
         return (NULL);
-    tab = str_to_word_array(args, "\"");
-    if (!tab)
-        return (NULL);
-    if (my_arrlen(tab) < 2)
-        return (NULL);
-    users_args = str_to_word_array(tab[1], ";");
-    if (!users_args)
-        return (NULL);
-    return (users_args);
+    tab = str_to_word_array(args, "\":\g");
+    return (tab);
 }
 
 bool parse_resp(char **status, char **code, char ***users_args, char *args)

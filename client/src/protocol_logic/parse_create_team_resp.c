@@ -25,7 +25,9 @@ char *args)
     || users_args == NULL)
         return;
     if (check_unauthorized_cmd(status, code, users_args)
-    || check_already_exist_cmd(status, code, users_args))
+    || check_unknown_team_cmd(client, status, code, users_args)
+    || check_unknown_channel_cmd(client, status, code, users_args)
+    || check_unknown_thread_cmd(client, status, code, users_args))
         return;
     client_print_team_created(users_args[0], users_args[1], users_args[2]);
     destroy_array(users_args);

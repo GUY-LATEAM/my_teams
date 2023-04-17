@@ -5,11 +5,20 @@
 ** create_command
 */
 
+#include "add_struct.h"
+#include "commands.h"
 #include "circular_buffer.h"
 
-int create_command(__attribute__((unused)) void *user_data,
+int create_command(void *user_data,
 __attribute__((unused)) void *protocol_data, __attribute__((unused)) char *args,
-__attribute__((unused)) circular_buffer_t *write_buffer)
+circular_buffer_t *write_buffer)
 {
+    server_t *server = NULL;
+
+    if (user_data == NULL) {
+        write_error(write_buffer, "401", "The client needs to authenticate");
+        return EXIT_FAILURE;
+    }
+    
     return EXIT_SUCCESS;
 }

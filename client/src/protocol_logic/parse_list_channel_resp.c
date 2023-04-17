@@ -24,7 +24,9 @@ void parse_list_channel(client_t *client, char *args)
     || users_args == NULL)
         return;
     if (check_unauthorized_cmd(status, code, users_args)
-        || check_unknown_team_cmd(client, status, code, users_args))
+    || check_unknown_team_cmd(client, status, code, users_args)
+    || check_unknown_channel_cmd(client, status, code, users_args)
+    || check_unknown_thread_cmd(client, status, code, users_args))
         return;
     if (my_arrlen(users_args) % 3 != 0)
         return;

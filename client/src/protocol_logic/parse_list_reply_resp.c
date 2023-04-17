@@ -24,8 +24,9 @@ void parse_list_reply(client_t *client, char *args)
     || users_args == NULL)
         return;
     if (check_unauthorized_cmd(status, code, users_args)
-        || check_unknown_channel_cmd(client, status, code, users_args))
-        return;
+    || check_unknown_team_cmd(client, status, code, users_args)
+    || check_unknown_channel_cmd(client, status, code, users_args)
+    || check_unknown_thread_cmd(client, status, code, users_args))
     if (my_arrlen(users_args) % 4 != 0)
         return;
     for (int i = 0; users_args[i]; i += 4) {

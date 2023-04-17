@@ -11,6 +11,17 @@
 #include "libstr.h"
 #include "my_teams_client.h"
 
+static void parse_state_ctx(char *state, enum context_state_e *ctx)
+{
+    if (!state)
+        return;
+    if (strcmp(state, "OK") == 0)
+        *ctx = VALID_CTX;
+    if (strcmp(state, "KO") == 0) {
+        *ctx = INVALID_CTX;
+    }
+}
+
 void parse_use(client_t *client, char *args)
 {
     char *status = NULL;
@@ -22,8 +33,8 @@ void parse_use(client_t *client, char *args)
         return;
     if (check_unauthorized_cmd(status, code, users_args))
         return;
-    client->context->team_valid = strcmp(&args[0], "OK") == 0 ? true : false;
-    client->context->channel_valid = strcmp(&args[1], "OK") == 0 ? true : false;
-    client->context->thread_valid = strcmp(&args[2], "OK") == 0 ? true : false;
+    parse_state_ctx(users_args[0], &client->context->team_valid);
+    parse_state_ctx(users_args[1], &client->context->channel_valid);
+    parse_state_ctx(users_args[2], &client->context->thread_valid);
     destroy_array(users_args);
 }
