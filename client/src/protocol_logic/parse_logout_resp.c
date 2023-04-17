@@ -21,12 +21,12 @@ void parse_logout(client_t *client, char *args)
     char **users_args = NULL;
     network_client_t *cli = NULL;
 
+
     if (parse_resp(&status, &code, &users_args, args) == false)
         return;
     if (check_unauthorized_cmd(status, code, users_args))
         return;
     cli = get_list_i_data(client->network_client->clients, 0);
-    destroy_network_client(cli);
     SET_SIGNAL_FLAG(SIGINT_RECEIVED);
     destroy_array(users_args);
 }

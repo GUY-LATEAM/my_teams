@@ -18,7 +18,8 @@ char *args)
     char *code = NULL;
     char **users_args = NULL;
 
-    if (parse_resp(&status, &code, &users_args, args) == false)
+    if (parse_resp(&status, &code, &users_args, args) == false
+    || users_args == NULL)
         return;
     if (check_unauthorized_cmd(status, code, users_args))
         return;

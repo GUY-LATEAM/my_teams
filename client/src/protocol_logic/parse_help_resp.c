@@ -20,7 +20,8 @@ void parse_help(__attribute__((unused)) client_t *client, char *args)
     char *code = NULL;
     char **users_args = NULL;
 
-    if (parse_resp(&status, &code, &users_args, args) == false)
+    if (parse_resp(&status, &code, &users_args, args) == false
+    || users_args == NULL)
         return;
     printf("%s", users_args[0]);
     destroy_array(users_args);

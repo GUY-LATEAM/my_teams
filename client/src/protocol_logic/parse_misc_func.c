@@ -49,6 +49,7 @@ static char **get_argument_parse(char *args)
 bool parse_resp(char **status, char **code, char ***users_args, char *args)
 {
     *status = get_status(args);
+
     if (!*status)
         return false;
     args = args + strlen(*status) + 1;
@@ -57,7 +58,5 @@ bool parse_resp(char **status, char **code, char ***users_args, char *args)
         return false;
     args = args + strlen(*code) + 1;
     *users_args = get_argument_parse(args);
-    if (!*users_args)
-        return false;
     return true;
 }

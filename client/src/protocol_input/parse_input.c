@@ -36,6 +36,7 @@ void parse_input(client_t *client, network_client_t *net_client, char *input)
     int nb_args = 0;
 
     cmd = get_cmd(input, &nb_args);
+    input += strlen(cmd) + 1;
     args = str_to_word_array(input, "\" ");
     if (!net_client || !cmd || !args) {
         display_error(cmd, args);
