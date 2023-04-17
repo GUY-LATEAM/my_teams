@@ -49,9 +49,9 @@ bool is_file_not_empty(const char *filename)
     FILE *file = NULL;
     long file_size = 0;
 
-    file = fopen(filename, "r");
+    file = fopen(filename, "a+");
     if (file == NULL) {
-        perror("Error opening file");
+        perror("Error dsdopening file");
         return false;
     }
     fseek(file, 0, SEEK_END);
@@ -63,14 +63,14 @@ bool is_file_not_empty(const char *filename)
     return true;
 }
 
-bool save_file_data(server_t *server, const char *filepath_user,
+bool load_file_data(server_t *server, const char *filepath_user,
 const char *filepath_server)
 {
     if (is_file_not_empty(filepath_user) == false ||
         is_file_not_empty(filepath_server) == false) {
-        return false;
+        return true;
     }
-    if (save_server_data(server, filepath_user, filepath_server) == false) {
+    if (load_server_data(server, filepath_user, filepath_server) == false) {
         return false;
     }
     return true;

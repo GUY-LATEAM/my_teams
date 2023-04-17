@@ -15,7 +15,7 @@ bool save_server_to_file(list_ptr_t *teams, const char *filename)
     if (clear_file_content(filename) == false) {
         return false;
     }
-    file = fopen(filename, "a");
+    file = fopen(filename, "a+");
     if (file == NULL) {
         perror("Error opening file for saving users");
         return false;

@@ -57,7 +57,7 @@
     void fill_tokens(char **tokens, char *str, const char separator,
     size_t count);
     bool duplication_string(char *line, char **str, char **tmp);
-    bool save_file_data(server_t *server, const char *filepath_user,
+    bool load_file_data(server_t *server, const char *filepath_user,
     const char *filepath_server);
 
 #endif /* !save_struck_H */
