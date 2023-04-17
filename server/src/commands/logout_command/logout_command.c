@@ -49,10 +49,6 @@ static int logout_broadcast(server_t *server, user_t *user)
 {
     char *message = NULL;
 
-    printf("%p %p\n", user->uuid, user->name);
-    printf("%s\n", user->uuid);
-    printf("%d\n", strlen(user->uuid));
-    printf("%d\n", strlen(user->name));
     message = malloc(sizeof(char) * (strlen(user->uuid) + \
     (strlen(user->name) + (strlen(GUY)) + 21)));
     if (message == NULL)

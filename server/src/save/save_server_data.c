@@ -28,7 +28,6 @@ const char *teams_filename)
     server->teams = list_create();
     users_loaded = load_users_from_file(server->all_users, users_filename);
     teams_loaded = load_server_from_file(server->teams, teams_filename);
-    printf("%d %d\n", users_loaded, teams_loaded);
     if (users_loaded == false && teams_loaded == false)
         return false;
     return true;
