@@ -44,11 +44,9 @@ char *get_cmd(char *input, int *nb_args)
     cmd_token = strtok(input, SEPARATORS);
     if (!cmd_token)
         return NULL;
-    printf("token :%s\n", cmd_token);
     for (int i = 0; CMD_TAB[i].cmd; i++) {
         if (strcasecmp(cmd_token, CMD_TAB[i].cmd) == 0) {
             *nb_args = CMD_TAB[i].nb_args;
-            printf("Found\n");
             return strdup(cmd_token);
         }
     }
