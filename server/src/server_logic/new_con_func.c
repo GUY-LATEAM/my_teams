@@ -20,4 +20,5 @@ void set_new_con_protocol_logic(server_t *serv)
     new_con->protocol_data = serv;
 
     set_network_client_methods_dialogue(new_con, &receive);
+    set_network_client_methods_connexion(new_con, NULL, on_disconnect_server);
 }

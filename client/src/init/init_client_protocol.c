@@ -27,6 +27,7 @@ int create_client_protocol(client_t *client, char *ip, int port)
     }
     set_network_client_methods_dialogue(cli, &receive_client);
     list_add_last(client->network_client->clients, cli);
+    set_network_client_methods_connexion(cli, NULL, on_disconnect_client);
     cli->user_data = NULL;
     cli->protocol_data = client;
     client->network_client->max_fd = cli->socket;

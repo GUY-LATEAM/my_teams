@@ -34,6 +34,10 @@
     void receive(void *user_data, void *protocol_data,
     circular_buffer_t *read_buffer, circular_buffer_t *write_buffer);
 
+    void on_disconnect_server(void *user_data,
+    void *protocol_data,
+    on_disconnect_error_t error_code);
+
     void set_new_con_protocol_logic(server_t *interface);
 
 #endif // SERVER_RECEIVE_HANDLER_H
