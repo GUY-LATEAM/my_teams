@@ -97,7 +97,7 @@ char *args, circular_buffer_t *write_buffer)
 command is malformed or invalid.");
         return EXIT_FAILURE;
     }
-    if (check_is_user_login(server, user_data, write_buffer) == EXIT_FAILURE) {
+    if (user_data != NULL) {
         write_success(write_buffer, "201", "Already connected");
         return EXIT_FAILURE;
     }

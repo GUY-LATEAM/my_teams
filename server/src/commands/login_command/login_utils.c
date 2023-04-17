@@ -15,7 +15,7 @@
 #include "protocol_logic.h"
 #include "commands.h"
 
-static bool is_user_login(server_t *server, const char *name)
+bool is_user_login(server_t *server, const char *name)
 {
     user_t *user = NULL;
 
