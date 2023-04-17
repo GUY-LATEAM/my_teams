@@ -10,6 +10,9 @@
     #include "circular_buffer.h"
     #include "my_teams_server.h"
 
+    #define CODE_404 "404"
+    #define CODE_200 "200"
+    #define SUBSCRIBED_BROADCAST "broadcast SUBSCRIBED"
     #define UNKNOW_COMMAND "ERROR 400 Unknown command"
 
     int help_command(void *user_data, void *protocol_data, char *args,
