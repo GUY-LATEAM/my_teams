@@ -49,6 +49,10 @@ static int logout_broadcast(server_t *server, user_t *user)
 {
     char *message = NULL;
 
+    printf("%p %p\n", user->uuid, user->name);
+    printf("%s\n", user->uuid);
+    printf("%d\n", strlen(user->uuid));
+    printf("%d\n", strlen(user->name));
     message = malloc(sizeof(char) * (strlen(user->uuid) + \
     (strlen(user->name) + (strlen(GUY)) + 21)));
     if (message == NULL)
@@ -85,9 +89,8 @@ __attribute__((unused)) char *args, circular_buffer_t *write_buffer)
 
     user = (user_t *) user_data;
     server = (server_t *) protocol_data;
-    if ((check_is_user_login(server, user, write_buffer) == EXIT_FAILURE) ||
-    (logout_command_annexe(server, user, write_buffer) == EXIT_FAILURE) ||
-    (logout_broadcast(server, user) == EXIT_FAILURE))
+    if ( (logout_broadcast(server, user) == EXIT_FAILURE) ||
+    (logout_command_annexe(server, user, write_buffer) == EXIT_FAILURE))
         return EXIT_FAILURE;
     return EXIT_SUCCESS;
 }
