@@ -15,5 +15,6 @@ void destroy_team(team_t *team)
         return;
     for (int i = 0; i < team->channels->len; i++)
         destroy_channel(get_list_i_data(team->channels, i));
+    free(team->channels);
     free(team);
 }

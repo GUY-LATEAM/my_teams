@@ -61,5 +61,9 @@
         circular_buffer_t *write_buffer);
     bool is_user_login(server_t *server, const char *name);
     conversation_t *check_is_conversation(user_t *user, char *uuid);
-network_client_t *find_circular_with_id(server_t *server, char *uuid);
+    network_client_t *find_circular_with_id(server_t *server, char *uuid);
+    int subscribed_argument(server_t *server,
+    char *uuid, circular_buffer_t *write_buffer);
+    int subscribed_no_argument(server_t *server, user_t *user,
+    circular_buffer_t *write_buffer);
 #endif //MY_TEAMS_COMMANDS_H

@@ -13,6 +13,7 @@
 #include "add_struct.h"
 #include "logging_server.h"
 #include "init_struct.h"
+#include "save_struck.h"
 #include "protocol_logic.h"
 #include "commands.h"
 
@@ -22,7 +23,7 @@ static int write_start(circular_buffer_t *write_buffer)
     bool code_bool = false;
 
     ok = write_circular_buffer(write_buffer, "OK ");
-    code_bool = write_circular_buffer(write_buffer, "200");
+    code_bool = write_circular_buffer(write_buffer, "200" );
     if (ok == false || code_bool == false)
         return EXIT_FAILURE;
     return EXIT_SUCCESS;
@@ -34,13 +35,15 @@ static int write_messages(conversation_t *conv, circular_buffer_t *write_buffer)
 
     for (int i = 0; i < conv->messages->len; i++) {
         message = get_list_i_data(conv->messages, i);
-        if (write_circular_buffer(write_buffer, message->content) == false)
-            return EXIT_FAILURE;
-        if (write_circular_buffer(write_buffer, ":") == false)
-            return EXIT_FAILURE;
+        write_circular_buffer(write_buffer, message->uuid);
+        write_circular_buffer(write_buffer, ":");
+        write_circular_buffer(write_buffer,
+        time_to_string(message->timestamp));
+        write_circular_buffer(write_buffer, ":");
+        write_circular_buffer(write_buffer, message->content);
+        write_circular_buffer(write_buffer, ":");
     }
-    if (write_circular_buffer(write_buffer, GUY) == false)
-        return EXIT_FAILURE;
+    write_circular_buffer(write_buffer, GUY);
     return EXIT_SUCCESS;
 }
 
