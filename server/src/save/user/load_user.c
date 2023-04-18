@@ -70,9 +70,12 @@ bool load_user_loop(list_ptr_t *users, FILE *file, const char sep)
         remove_newline(line);
         user = create_user_from_line(line, sep);
         if (user == NULL) {
+            free(line);
             return false;
         }
         if (list_add_last(users, user) != LIST_OK) {
+            free(user);
+            free(line);
             return false;
         }
     }

@@ -15,5 +15,6 @@ void destroy_thread(thread_t *thread)
         return;
     for (int i = 0; i < thread->replies->len; i++)
         destroy_reply(get_list_i_data(thread->replies, i));
+    free(thread->replies);
     free(thread);
 }

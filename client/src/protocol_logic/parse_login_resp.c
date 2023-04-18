@@ -25,4 +25,5 @@ __attribute__((unused)) char *args)
     if (check_unknown_cmd(status, code, users_args))
         return;
     printf("Success to login \n");
+    destroy_array(users_args);
 }

@@ -23,7 +23,7 @@ static const cmd_t CMD_TAB[] = {
     {SUBSCRIBED, "/subscribed", 1, subscribe_logic},
     {UNSUBSCRIBE, "/unsubscribe", 1, attribute_cmd},
     {USE, "/use", 3, &use_logic},
-    {CREATE, "/create", 0, create_logic},
+    {CREATE, "/create", 3, create_logic},
     {LIST, "/list", 0, list_logic},
     {INFO, "/info", 0, info_logic},
     {HELP, "/help", 0, attribute_cmd},

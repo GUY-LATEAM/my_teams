@@ -101,8 +101,14 @@ SRC 	+= 	add/add_conversation_to_user.c \
 
 SRC_COMMANDS :=	command_not_found/command_not_found.c	\
 				create_command/create_command.c	\
+				create_command/create_command_utils.c	\
+				create_command/send_broadcast_create_command.c	\
 				help_command/help_command.c		\
 				info_command/info_command.c		\
+				info_command/get_info_current_channel.c \
+				info_command/get_info_current_team.c \
+				info_command/get_info_current_thread.c \
+				info_command/get_info_users_loggedin.c \
 				list_command/list_command.c		\
 				login_command/login_command.c		\
 				login_command/login_utils.c		\
@@ -111,7 +117,9 @@ SRC_COMMANDS :=	command_not_found/command_not_found.c	\
 				send_command/send_command_utils.c	\
 				send_command/send_command.c		\
 				subscribe_command/subscribe_command.c	\
+				subscribed_command/subscribed_argument.c \
 				subscribed_command/subscribed_command.c	\
+				subscribed_command/subscribed_no_argument.c \
 				unsubscribe_command/unsubscribe_command.c	\
 				use_command/use_command.c		\
 				use_command/get_context.c		\

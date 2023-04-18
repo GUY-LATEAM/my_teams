@@ -67,9 +67,13 @@ static list_ptr_t *create_message_list(char **tab_message, const char sep)
     }
     for (int i = 0; tab_message[i] != NULL; i++) {
         message = create_message_from_line(tab_message[i], sep);
-        if ((message == NULL) ||
-        (list_add_last(messages, message) != LIST_OK)) {
+        if (message == NULL) {
             destroy_list(messages);
+            return NULL;
+        }
+        if (list_add_last(messages, message) != LIST_OK) {
+            destroy_list(messages);
+            free(message);
             return NULL;
         }
     }
