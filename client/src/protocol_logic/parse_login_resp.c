@@ -9,6 +9,7 @@
 #include "logging_client.h"
 #include "parse_logic.h"
 #include "libstr.h"
+#include <stdio.h>
 #include "my_teams_client.h"
 
 void parse_login(__attribute__((unused)) client_t *client,
