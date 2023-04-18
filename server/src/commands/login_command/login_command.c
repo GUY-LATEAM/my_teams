@@ -93,16 +93,16 @@ char *args, circular_buffer_t *write_buffer)
 
     if (user_data != NULL) {
         write_success(write_buffer, "201", "Already connected");
-        return EXIT_FAILURE;
+        return EXIT_SUCCESS;
     }
     server = (server_t *) protocol_data;
     name = strtok(args, "\"");
     if (name == NULL) {
         write_error(write_buffer, "400", "Bad Request: The received \
 command is malformed or invalid.");
-        return EXIT_FAILURE;
+        return EXIT_SUCCESS;
     }
     if (login_command_annexe(server, write_buffer, name) == EXIT_FAILURE)
-        return EXIT_FAILURE;
+        return EXIT_SUCCESS;
     return EXIT_SUCCESS;
 }

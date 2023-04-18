@@ -53,9 +53,9 @@ __attribute__((unused)) char *args, circular_buffer_t *write_buffer)
     if (uuid == NULL) {
         write_error(write_buffer, "400" , "Bad Request: The received command \
 is malformed or invalid.");
-        return EXIT_FAILURE;
+        return EXIT_SUCCESS;
     }
-    if (find_users(server, write_buffer, uuid) == EXIT_FAILURE)
+    if (find_users(EXIT_SUCCESS, write_buffer, uuid) == EXIT_FAILURE)
         return EXIT_FAILURE;
     return EXIT_SUCCESS;
 }
