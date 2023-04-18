@@ -30,6 +30,7 @@ void parse_create_reply(client_t *client, char *args)
     || check_unknown_channel_cmd(client, status, code, users_args)
     || check_unknown_thread_cmd(client, status, code, users_args))
         return;
-    client_print_reply_created(users_args[0], users_args[1], string_to_time(users_args[2]), users_args[3]);
+    client_print_reply_created(users_args[0], users_args[1],
+    string_to_time(users_args[2]), users_args[3]);
     destroy_array(users_args);
 }

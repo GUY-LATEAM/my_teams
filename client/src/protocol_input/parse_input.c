@@ -52,8 +52,7 @@ void parse_input(client_t *client, network_client_t *net_client, char *input)
         return;
     }
     write_circular_buffer(net_client->write_buffer, cmd + 1);
-    write_circular_buffer(net_client->write_buffer, SP);
-    write_circular_buffer(net_client->write_buffer, "\"");
+    write_circular_buffer(net_client->write_buffer, " \"");
     apply_logic_cmd(client, cmd, args, &nb_args);
     write_args(net_client, args, nb_args);
     write_circular_buffer(net_client->write_buffer, GUY);
