@@ -36,7 +36,7 @@ char **get_char_array_args(char *args)
         destroy_array(tmp);
         return NULL;
     }
-    result = str_to_word_array(tmp[1], ":");
+    result = str_to_word_array(tmp[0], ":");
     destroy_array(tmp);
     return result;
 }
