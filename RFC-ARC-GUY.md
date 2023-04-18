@@ -56,7 +56,6 @@ Commands sent by the client follow the format in ASCII:
 
 - **LOGIN**
 - **LOGOUT**
-- **USER**
 - **TEAMS**
 - **CHANNEL**
 - **THREAD**
@@ -74,7 +73,7 @@ Commands sent by the client follow the format in ASCII:
 | TEAMS     | "team_uuid:team_name:team_description"                            | team_uuid: Team's ID, team_name: Team's name, team_description: Team's description                                                             |
 | CHANNEL   | "channel_uuid:channel_name:channel_description"                   | channel_uuid: Channel's ID, channel_name: Channel's name, channel_description: Channel's description                                           |
 | REPLY     | "thread_uuid:user_uuid:thread_timestamp:thread_title:thread_body" | thread_uuid: Thread's ID, user_uuid: User's ID (thread), thread_timestamp: Timestamp, thread_title: Thread's title, thread_body: Thread's body |
-| SUBSCRIBE | 
+| SUBSCRIBE | "user_uuid":"team_uuid"                                           | user_uuid: User's ID, team_uuid: Team's ID                                                                                                     |
 
 #### 5.2 login
 **login** "username" -> The username the client will use.

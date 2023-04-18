@@ -14,6 +14,11 @@
     #define CODE_200 "200"
     #define SUBSCRIBED_BROADCAST "broadcast SUBSCRIBED"
     #define UNKNOW_COMMAND "ERROR 400 Unknown command"
+    #define MESSAGE_BRDCAST "broadcast MESSAGE \""
+    #define LOGOUT_BROADCAST "broadcast LOGOUT \""
+    #define LOGIN_BROADCAST "broadcast LOGIN \""
+    #define BROADCAST_MARK "\""
+    #define BROADCADT_COLON ":"
 
     int help_command(void *user_data, void *protocol_data, char *args,
         circular_buffer_t *write_buffer);
@@ -55,4 +60,6 @@
     int check_is_user_login(server_t *server, user_t *user,
         circular_buffer_t *write_buffer);
     bool is_user_login(server_t *server, const char *name);
+    conversation_t *check_is_conversation(user_t *user, char *uuid);
+network_client_t *find_circular_with_id(server_t *server, char *uuid);
 #endif //MY_TEAMS_COMMANDS_H

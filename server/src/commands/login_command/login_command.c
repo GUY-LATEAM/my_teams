@@ -51,8 +51,9 @@ user_t *user)
     if (write_success(write_buffer, "200", "The command \
 was successfully processed.") == false)
         return false;
-    message = malloc(sizeof(char) * (strlen(user->uuid) +\
-    strlen(user->name) + strlen(GUY) + 21));
+    message = malloc(sizeof(char) * (strlen(user->uuid) +
+    strlen(user->name) + strlen(LOGIN_BROADCAST) + strlen(BROADCAST_MARK) + \
+    strlen(BROADCADT_COLON) + strlen(GUY) + 1));
     if (message == NULL)
         return false;
     sprintf(message, "broadcast LOGIN \"%s:%s\"%s", user->uuid,
@@ -92,16 +93,16 @@ char *args, circular_buffer_t *write_buffer)
 
     if (user_data != NULL) {
         write_success(write_buffer, "201", "Already connected");
-        return EXIT_FAILURE;
+        return EXIT_SUCCESS;
     }
     server = (server_t *) protocol_data;
     name = strtok(args, "\"");
     if (name == NULL) {
         write_error(write_buffer, "400", "Bad Request: The received \
 command is malformed or invalid.");
-        return EXIT_FAILURE;
+        return EXIT_SUCCESS;
     }
     if (login_command_annexe(server, write_buffer, name) == EXIT_FAILURE)
-        return EXIT_FAILURE;
+        return EXIT_SUCCESS;
     return EXIT_SUCCESS;
 }
