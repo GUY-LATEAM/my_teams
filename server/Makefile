@@ -102,6 +102,7 @@ SRC 	+= 	add/add_conversation_to_user.c \
 SRC_COMMANDS :=	command_not_found/command_not_found.c	\
 				create_command/create_command.c	\
 				create_command/create_command_utils.c	\
+				create_command/send_broadcast_create_command.c	\
 				help_command/help_command.c		\
 				info_command/info_command.c		\
 				list_command/list_command.c		\

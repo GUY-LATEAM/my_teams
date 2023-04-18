@@ -6,8 +6,8 @@
 */
 
 #include <string.h>
+#include "commands.h"
 #include "libstr.h"
-#include "list_lib.h"
 #include "context_getter.h"
 #include "init_struct.h"
 
@@ -31,6 +31,7 @@ server_t *server, __attribute__((unused)) user_t *user, char **args)
     if (team == NULL) {
         return EXIT_FAILURE;
     }
+    send_broadcast_new_teams(server, team);
     return list_add_last(server->teams, team);
 }
 
@@ -60,12 +61,14 @@ int create_channel(server_t *server, user_t *user, char **args)
     }
     args_len = my_arrlen(args);
     if (args_len == 5)
-        channel = init_channel(user->uuid, args[args_len - 2], args[args_len - 1]);
+        channel =
+        init_channel(user->uuid, args[args_len - 2], args[args_len - 1]);
     else
         channel = init_channel(user->uuid, args[args_len - 1], "");
     if (channel == NULL) {
         return EXIT_FAILURE;
     }
+    send_broadcast_new_channel(server, team, channel);
     return list_add_last(team->channels, channel);
 }
 
@@ -86,12 +89,14 @@ int create_thread(server_t *server, user_t *user, char **args)
     }
     args_len = my_arrlen(args);
     if (args_len == 5)
-        thread = init_thread(user->uuid, args[args_len - 2], args[args_len - 1]);
+        thread =
+        init_thread(user->uuid, args[args_len - 2], args[args_len - 1]);
     else
         thread = init_thread(user->uuid, args[args_len - 1], "");
     if (thread == NULL) {
         return EXIT_FAILURE;
     }
+    send_broadcast_new_thread(server, team, thread, user);
     return list_add_last(channel->threads, thread);
 }
 
@@ -120,5 +125,7 @@ int create_reply(server_t *server, user_t *user, char **args)
     if (reply == NULL) {
         return EXIT_FAILURE;
     }
-    return list_add_last(thread->replies, reply);
+    list_add_last(thread->replies, reply);
+    send_broadcast_new_reply(server, team, thread, user);
+    return EXIT_SUCCESS;
 }

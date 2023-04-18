@@ -9,7 +9,8 @@
 #include "commands.h"
 #include "libstr.h"
 #include "add_struct.h"
-#include "circular_buffer.h"
+#include "protocol_logic.h"
+#include "create_command_utils.h"
 
 static char **get_context(char *raw_args)
 {
@@ -38,34 +39,29 @@ static bool is_a_good_context(char **context)
         return false;
     }
     for (int i = 0; context[i] != NULL; i++) {
-        if (strcmp(context[i], "KO") == 0){
+        if (strcmp(context[i], KO_UUID) == 0){
             return false;
         }
     }
     return true;
 }
 
-static int do_create_command(server_t *server, char **context)
+static int do_create_command(server_t *server, user_t *user, char **context)
 {
-//    static int (*create_command[])(server_t *, char **) = {
-//        create_team,
-//        create_channel,
-//        create_thread,
-//        create_reply
-//    };
     if (server == NULL || context == NULL) {
         return EXIT_FAILURE;
     }
-//    if (strcmp(context->team_uuid, "OK") == 0) {
-//        return create_team(server, context);
-//    }
-//    if (strcmp(context->channel_uuid, "OK") == 0) {
-//        return create_channel(server, context);
-//    }
-//    if (strcmp(context->thread_uuid, "OK") == 0) {
-//        return create_thread(server, context);
-//    }
-    return EXIT_FAILURE;
+    if (strcmp(context[0], UNDEFINED) == 0) {
+        return create_team(server, user, context);
+    }
+    if (strcmp(context[1], UNDEFINED) == 0) {
+        return create_channel(server, user, context);
+    }
+    if (strcmp(context[2], UNDEFINED) == 0) {
+        return create_thread(server, user, context);
+    } else {
+        return create_reply(server, user, context);
+    }
 }
 
 int create_command(void *user_data, __attribute__((unused)) void *protocol_data,
@@ -81,8 +77,8 @@ __attribute__((unused)) char *args, circular_buffer_t *write_buffer)
     context = get_context(args);
     if (is_a_good_context(context) == false) {
         write_error(write_buffer, "401", "The client needs to authenticate");
-    } else {
-        do_create_command(server, context);
+    } else if (do_create_command(server, user_data, context)) {
+//        broadcast_teams(server, user_data, broadcast_create);
     }
     return EXIT_SUCCESS;
 }

@@ -24,7 +24,7 @@ char *uuid)
 
     message_to_send = malloc(sizeof(char) * (strlen(message) + \
     strlen(uuid) + strlen(MESSAGE_BRDCAST) + strlen(GUY) + \
-    strlen(BROADCAST_MARK) + strlen(BROADCADT_COLON) + 1));
+    strlen(BROADCAST_MARK) + strlen(BROADCAST_COLON) + 1));
     if (message_to_send == NULL)
         return EXIT_FAILURE;
     sprintf(message_to_send, "broadcast MESSAGE \"%s:%s\"%s", uuid,
