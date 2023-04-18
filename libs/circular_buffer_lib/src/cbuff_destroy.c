@@ -12,40 +12,42 @@
 
 size_t read_circular_buffer(circular_buffer_t *cbuff, char *data)
 {
-    size_t i = 0;
-    char *end_pattern = NULL;
+    char *tmp_data = NULL;
+    size_t read_size = 0;
+    int i = 0;
 
-    if (is_circular_buffer_empty(cbuff))
-        return 0;
-    end_pattern = strstr(cbuff->buffer + cbuff->cursor_read,
-    cbuff->end_pattern);
-    if (end_pattern == NULL)
-        end_pattern = strstr(cbuff->buffer, cbuff->end_pattern);
-    end_pattern += strlen(cbuff->end_pattern);
-    while (cbuff->buffer + cbuff->cursor_read != end_pattern) {
-        data[i] = cbuff->buffer[cbuff->cursor_read];
-        cbuff->cursor_read = cbuff->cursor_read + 1;
-        i++;
-        if (cbuff->cursor_read == cbuff->size - 1)
-            cbuff->cursor_read = 0;
+    for (i = 0; i < cbuff->buffer->len; i++) {
+        tmp_data = get_list_i_data(cbuff->buffer, i);
+        strcat(data, tmp_data);
+        read_size += strlen(tmp_data);
+        if (strstr(tmp_data, cbuff->end_pattern) != NULL) {
+            i++;
+            break;
+        }
     }
-    return i;
+    for (int j = 0; j < i; j++) {
+        tmp_data = get_list_i_data(cbuff->buffer, 0);
+        remove_list_element(cbuff->buffer, 0);
+        free(tmp_data);
+    }
+    return read_size;
 }
 
 void destroy_circular_buffer(circular_buffer_t *cbuff)
 {
-    if (cbuff) {
-        if (cbuff->buffer)
-            free(cbuff->buffer);
-        if (cbuff->end_pattern)
-            free(cbuff->end_pattern);
-        free(cbuff);
+    char *tmp_data = NULL;
+
+    if (!cbuff)
+        return;
+    for (int i = 0; i < cbuff->buffer->len; i++) {
+        tmp_data = get_list_i_data(cbuff->buffer, i);
+        free(tmp_data);
     }
+    for (int i = 0; i < cbuff->buffer->len; i++) {
+        remove_list_element(cbuff->buffer, i);
+    }
+    free(cbuff->buffer);
+    free(cbuff->end_pattern);
+    free(cbuff);
 }
 
-void clear_circular_buffer(circular_buffer_t *cbuff)
-{
-    memset(cbuff->buffer, 0, cbuff->size);
-    cbuff->cursor_read = 0;
-    cbuff->cursor_write = 0;
-}
