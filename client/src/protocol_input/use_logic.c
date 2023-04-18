@@ -11,8 +11,8 @@
 #include "protocol_logic.h"
 #include "my_teams_client.h"
 
-void use_logic(client_t *client, enum cmd_e cmd ,char **args,
-__attribute__((unused)) int *nb_args)
+void use_logic(client_t *client, __attribute__((unused)) enum cmd_e cmd,
+char **args, __attribute__((unused)) int *nb_args)
 {
     int size_array = 0;
 
