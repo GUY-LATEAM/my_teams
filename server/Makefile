@@ -108,6 +108,7 @@ SRC_COMMANDS :=	command_not_found/command_not_found.c	\
 				login_command/login_utils.c		\
 				logout_command/logout_command.c	\
 				messages_command/messages_command.c	\
+				send_command/send_command_utils.c	\
 				send_command/send_command.c		\
 				subscribe_command/subscribe_command.c	\
 				subscribed_command/subscribed_command.c	\

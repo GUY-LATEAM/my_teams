@@ -73,6 +73,6 @@ __attribute__((unused)) char *args, circular_buffer_t *write_buffer)
         return EXIT_SUCCESS;
     }
     if (find_users(server, write_buffer) == EXIT_FAILURE)
-        return EXIT_FAILURE;
+        return EXIT_SUCCESS;
     return EXIT_SUCCESS;
 }

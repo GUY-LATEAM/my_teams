@@ -39,6 +39,8 @@ static int write_messages(conversation_t *conv, circular_buffer_t *write_buffer)
         if (write_circular_buffer(write_buffer, ":") == false)
             return EXIT_FAILURE;
     }
+    if (write_circular_buffer(write_buffer, GUY) == false)
+        return EXIT_FAILURE;
     return EXIT_SUCCESS;
 }
 
@@ -61,8 +63,9 @@ static int find_users(user_t *user, circular_buffer_t *write_buffer, char *uuid)
 
     for (int i = 0; i < user->conversations->len; i++) {
         conv = get_list_i_data(user->conversations, i);
-        if (if_find_user(conv, write_buffer, uuid) == EXIT_SUCCESS)
+        if (if_find_user(conv, write_buffer, uuid) == EXIT_SUCCESS) {
             return EXIT_SUCCESS;
+        }
     }
     return EXIT_SUCCESS;
 }
@@ -75,16 +78,17 @@ char *args, circular_buffer_t *write_buffer)
     user_t *user = NULL;
 
     server = (server_t *) protocol_data;
+    user = (user_t *) user_data;
     if (check_is_user_login(server,
-    (user_t *) user_data, write_buffer) == EXIT_FAILURE)
+    user, write_buffer) == EXIT_FAILURE)
         return EXIT_SUCCESS;
     uuid = strtok(args, " \"");
     if (uuid == NULL) {
         write_error(write_buffer, "400" , "Bad Request: The received command \
 is malformed or invalid.");
-        return EXIT_FAILURE;
+        return EXIT_SUCCESS;
     }
     if (find_users(user, write_buffer, uuid) == EXIT_FAILURE)
-        return EXIT_FAILURE;
+        return EXIT_SUCCESS;
     return EXIT_SUCCESS;
 }

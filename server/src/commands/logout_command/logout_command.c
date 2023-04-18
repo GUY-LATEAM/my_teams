@@ -88,6 +88,6 @@ __attribute__((unused)) char *args, circular_buffer_t *write_buffer)
     server = (server_t *) protocol_data;
     if ( (logout_broadcast(server, user) == EXIT_FAILURE) ||
     (logout_command_annexe(server, user, write_buffer) == EXIT_FAILURE))
-        return EXIT_FAILURE;
+        return EXIT_SUCCESS;
     return EXIT_SUCCESS;
 }
