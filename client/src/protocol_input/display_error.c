@@ -14,6 +14,6 @@ void display_error(char *cmd, char **args)
         return;
     }
     if (!args) {
-        printf("Invalid arguments\n");
+       printf("Invalid arguments\n");
     }
 }

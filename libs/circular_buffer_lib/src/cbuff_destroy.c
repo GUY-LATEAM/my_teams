@@ -20,7 +20,7 @@ size_t read_circular_buffer(circular_buffer_t *cbuff, char *data)
         tmp_data = get_list_i_data(cbuff->buffer, i);
         strcat(data, tmp_data);
         read_size += strlen(tmp_data);
-        if (strstr(tmp_data, cbuff->end_pattern) != NULL) {
+        if (strcmp(tmp_data, cbuff->end_pattern) == 0) {
             i++;
             break;
         }

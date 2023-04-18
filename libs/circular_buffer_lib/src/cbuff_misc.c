@@ -23,7 +23,7 @@ bool is_circular_buffer_completed(circular_buffer_t *cbuff)
 
     for (int i = 0; i < cbuff->buffer->len; i++) {
         data_tmp = get_list_i_data(cbuff->buffer, i);
-        if (strstr(data_tmp, cbuff->end_pattern) != NULL) {
+        if (strcmp(data_tmp, cbuff->end_pattern) == 0) {
             return true;
         }
     }

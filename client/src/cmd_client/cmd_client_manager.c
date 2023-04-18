@@ -78,6 +78,7 @@ int manage_cmd_client(char *data)
     char *cmd = NULL;
     char *args = NULL;
 
+    printf("Received notification\n");
     if (!is_broadcast_cmd(data)) {
         return EXIT_FAILURE;
     }

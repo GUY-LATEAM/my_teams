@@ -17,7 +17,8 @@ __attribute__((unused)) circular_buffer_t *write)
 {
     char data[BUFF_SIZE] = {0};
 
-    read_circular_buffer(read, data);
+    size_t sized = read_circular_buffer(read, data);
+    printf("Read data : %s, %d\n", data, sized);
     if (strstr(data, "OK") != NULL || strstr(data, "ERROR") != NULL) {
         manage_response(protocol_data, data);
     } else {
