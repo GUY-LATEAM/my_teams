@@ -5,9 +5,11 @@
 ** check_unknown_cmd
 */
 
+#include <string.h>
 #include <stdbool.h>
 
-static bool is_unknown_cmd(const char *status, const char *code, char **args)
+static bool is_unknown_cmd(const char *status, const char *code,
+__attribute__((unused))char **args)
 {
     if (strcmp(status, "ERROR") == 0 && strcmp(code, "400") == 0)
         return true;

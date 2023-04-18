@@ -11,6 +11,7 @@
 #include "list_lib.h"
 #include "libstr.h"
 #include "client_func.h"
+#include "broadcast_misc.h"
 #include "my_teams_client.h"
 #include "signal_management_client.h"
 

@@ -9,6 +9,7 @@
 #include "logging_client.h"
 #include "parse_logic.h"
 #include "list_lib.h"
+#include "broadcast_misc.h"
 #include "client_func.h"
 #include "libstr.h"
 #include "my_teams_client.h"

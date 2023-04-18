@@ -9,6 +9,7 @@
 #include "logging_client.h"
 #include "parse_logic.h"
 #include "libstr.h"
+#include "broadcast_misc.h"
 #include "my_teams_client.h"
 
 void parse_message(__attribute__((unused)) client_t *client, char *args)
