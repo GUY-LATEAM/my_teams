@@ -74,7 +74,7 @@ bool load_user_loop(list_ptr_t *users, FILE *file, const char sep)
             return false;
         }
         if (list_add_last(users, user) != LIST_OK) {
-            free (user);
+            free(user);
             free(line);
             return false;
         }
