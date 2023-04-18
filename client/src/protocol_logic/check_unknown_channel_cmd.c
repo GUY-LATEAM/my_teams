@@ -15,9 +15,10 @@ bool check_unknown_channel_cmd(const client_t *client,
 __attribute__((unused)) const char *status,
 __attribute__((unused)) const char *code, char **args)
 {
-    if (client->context->channel_valid) {
+    if (client->context->channel_valid != VALID_CTX) {
         client_error_unknown_channel(args[0]);
-        return true;
     }
+    if (client->context->channel_valid == INVALID_CTX)
+        return true;
     return false;
 }

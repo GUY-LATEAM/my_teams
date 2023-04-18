@@ -15,9 +15,10 @@ bool check_unknown_thread_cmd(const client_t *client,
 __attribute__((unused)) const char *status,
 __attribute__((unused)) const char *code, char **args)
 {
-    if (client->context->thread_valid) {
+    if (client->context->thread_valid != VALID_CTX) {
         client_error_unknown_thread(args[0]);
-        return true;
     }
+    if (client->context->thread_valid == INVALID_CTX)
+        return true;
     return false;
 }

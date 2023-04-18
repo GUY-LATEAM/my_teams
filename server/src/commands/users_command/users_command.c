@@ -13,6 +13,7 @@
 #include "add_struct.h"
 #include "logging_server.h"
 #include "init_struct.h"
+#include "libstr.h"
 #include "protocol_logic.h"
 #include "commands.h"
 
@@ -29,7 +30,7 @@ static int write_user_info(user_t *user, circular_buffer_t *write_buffer)
     colon = write_circular_buffer(write_buffer, ":");
     uuid = write_circular_buffer(write_buffer, user->uuid);
     colon2 = write_circular_buffer(write_buffer, ":");
-    nb_con = write_circular_buffer(write_buffer, user->nb_users);
+    nb_con = write_circular_buffer(write_buffer, "0");
     guy = write_circular_buffer(write_buffer, GUY);
     if (name == false || colon == false || uuid == false || colon2 == false ||
     nb_con == false || guy == false)

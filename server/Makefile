@@ -113,6 +113,7 @@ SRC_COMMANDS :=	command_not_found/command_not_found.c	\
 				subscribed_command/subscribed_command.c	\
 				unsubscribe_command/unsubscribe_command.c	\
 				use_command/use_command.c		\
+				use_command/get_context.c		\
 				user_command/user_command.c		\
 				users_command/users_command.c \
 				broadcast/broadcast_all_users.c \

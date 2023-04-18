@@ -47,12 +47,18 @@
         UNKNOWN
     };
 
+    enum context_state_e {
+        UNKNOWN_CTX,
+        VALID_CTX,
+        INVALID_CTX,
+    };
+
     typedef struct context_s {
-        bool team_valid;
+        enum context_state_e team_valid;
         char team_uuid[MAX_UUID_LENGTH + 1];
-        bool channel_valid;
+        enum context_state_e channel_valid;
         char channel_uuid[MAX_UUID_LENGTH + 1];
-        bool thread_valid;
+        enum context_state_e thread_valid;
         char thread_uuid[MAX_UUID_LENGTH + 1];
     } context_t;
 
