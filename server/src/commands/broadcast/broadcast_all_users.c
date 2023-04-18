@@ -14,11 +14,15 @@ bool broadcast_all_user(server_t *server, const char *message)
 {
     network_client_t *client = NULL;
 
+    printf("ptr server: %p\n", server);
+    printf("ptr network_server: %p\n", server->network_server);
+    printf("ptr clients: %p\n", server->network_server->clients);
     for (int i = 0; i < server->network_server->clients->len; i++) {
         client = get_list_i_data(server->network_server->clients, i);
-        if (client->user_data != NULL) {
+        if (client != NULL && client->user_data != NULL && client->write_buffer != NULL) {
             write_circular_buffer(client->write_buffer, message);
         }
     }
+    printf("after\n");
     return true;
 }

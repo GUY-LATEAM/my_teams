@@ -20,7 +20,7 @@ server_t *server, team_t *team, const char *broadcast_type, const char *args)
     if (server == NULL || team == NULL) {
         return;
     }
-    message_len = strlen(CREATE_BROADCAST SP BROADCAST_MARK) + strlen(args)
+    message_len = strlen(broadcast_type) + strlen(SP BROADCAST_MARK) + strlen(args)
     + strlen(BROADCAST_MARK);
     message = malloc(sizeof(char) * (message_len + 1));
     if (message == NULL) {
@@ -40,17 +40,17 @@ void send_broadcast_new_teams(server_t *server, team_t *team)
     if (server == NULL || team == NULL) {
         return;
     }
-    args_len = strlen(CREATE_BROADCAST SP BROADCAST_MARK) + strlen(team->uuid)
+    args_len = strlen(BROADCAST "TEAMS" SP BROADCAST_MARK) + strlen(team->uuid)
     + strlen(BROADCAST_COLON) + strlen(team->name) + strlen(BROADCAST_COLON)
-    + strlen(team->description) + strlen(BROADCAST_MARK);
+    + strlen(team->description) + strlen(BROADCAST_MARK) + strlen(GUY);
     args = malloc(sizeof(char) * (args_len + 1));
     if (args == NULL) {
         return;
     }
     memset(args, 0, args_len + 1);
-    sprintf(args, "%s:%s:%s", team->uuid, team->name, team->description);
+    sprintf(args, BROADCAST "TEAMS" SP BROADCAST_MARK "%s:%s:%s" BROADCAST_MARK GUY, team->uuid, team->name, team->description);
+    printf("args = %s\n", args);
     broadcast_all_user(server, args);
-    send_broadcast_create(server, team, "TEAMS", args);
 }
 
 void send_broadcast_new_channel(

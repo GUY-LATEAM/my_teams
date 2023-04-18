@@ -14,7 +14,6 @@
     #define CODE_200 "200"
     #define BROADCAST "broadcast "
     #define SUBSCRIBED_BROADCAST "broadcast SUBSCRIBED"
-    #define CREATE_BROADCAST "CREATE"
     #define UNKNOW_COMMAND "ERROR 400 Unknown command"
     #define MESSAGE_BRDCAST "broadcast MESSAGE \""
     #define LOGOUT_BROADCAST "broadcast LOGOUT \""
@@ -74,4 +73,5 @@
     char *uuid, circular_buffer_t *write_buffer);
     int subscribed_no_argument(server_t *server, user_t *user,
     circular_buffer_t *write_buffer);
+    char *get_subscribe_team_uuid(char *args);
 #endif //MY_TEAMS_COMMANDS_H

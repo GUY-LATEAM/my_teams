@@ -17,21 +17,24 @@ server_t *server, __attribute__((unused)) user_t *user, char **args)
     team_t *team = NULL;
     int args_len = 0;
 
-    if (team == NULL) {
+    if (server == NULL || args == NULL) {
         return EXIT_FAILURE;
     }
     args_len = my_arrlen(args);
     if (args_len != 4 && args_len != 5) {
         return EXIT_FAILURE;
     }
-    if (args_len == 5)
+    if (args_len == 5) {
         team = init_team(args[args_len - 2], args[args_len - 1]);
-    else
+    } else {
+        printf("in create team and else because length not equal to 5\n");
         team = init_team(args[args_len - 1], "");
+    }
     if (team == NULL) {
         return EXIT_FAILURE;
     }
     send_broadcast_new_teams(server, team);
+    printf("hehe\n");
     return list_add_last(server->teams, team);
 }
 

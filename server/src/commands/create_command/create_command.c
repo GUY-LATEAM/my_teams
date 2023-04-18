@@ -67,7 +67,7 @@ static int do_create_command(server_t *server, user_t *user, char **context)
 int create_command(void *user_data, __attribute__((unused)) void *protocol_data,
 __attribute__((unused)) char *args, circular_buffer_t *write_buffer)
 {
-    server_t *server = user_data;
+    server_t *server = protocol_data;
     char **context = NULL;
 
     if (user_data == NULL) {
@@ -77,8 +77,8 @@ __attribute__((unused)) char *args, circular_buffer_t *write_buffer)
     context = get_context(args);
     if (is_a_good_context(context) == false) {
         write_error(write_buffer, "401", "The client needs to authenticate");
-    } else if (do_create_command(server, user_data, context)) {
-//        broadcast_teams(server, user_data, broadcast_create);
+    } else {
+        return do_create_command(server, user_data, context);
     }
     return EXIT_SUCCESS;
 }
