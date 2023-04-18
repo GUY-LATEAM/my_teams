@@ -1,0 +1,124 @@
+/*
+** EPITECH PROJECT, 2023
+** server
+** File description:
+** create_command_utils
+*/
+
+#include <string.h>
+#include "libstr.h"
+#include "list_lib.h"
+#include "context_getter.h"
+#include "init_struct.h"
+
+int create_team(
+server_t *server, __attribute__((unused)) user_t *user, char **args)
+{
+    team_t *team = NULL;
+    int args_len = 0;
+
+    if (team == NULL) {
+        return EXIT_FAILURE;
+    }
+    args_len = my_arrlen(args);
+    if (args_len != 4 && args_len != 5) {
+        return EXIT_FAILURE;
+    }
+    if (args_len == 5)
+        team = init_team(args[args_len - 2], args[args_len - 1]);
+    else
+        team = init_team(args[args_len - 1], "");
+    if (team == NULL) {
+        return EXIT_FAILURE;
+    }
+    return list_add_last(server->teams, team);
+}
+
+static team_t *get_team_from_create(server_t *server, user_t *user, char **args)
+{
+    int args_len = 0;
+
+    if (server == NULL || args == NULL) {
+        return NULL;
+    }
+    args_len = my_arrlen(args);
+    if (args_len != 4 && args_len != 5) {
+        return NULL;
+    }
+    return get_team_by_uuid(server->teams, args[0]);
+}
+
+int create_channel(server_t *server, user_t *user, char **args)
+{
+    team_t *team = NULL;
+    channel_t *channel = NULL;
+    int args_len = 0;
+
+    team = get_team_from_create(server, user, args);
+    if (team == NULL) {
+        return EXIT_FAILURE;
+    }
+    args_len = my_arrlen(args);
+    if (args_len == 5)
+        channel = init_channel(user->uuid, args[args_len - 2], args[args_len - 1]);
+    else
+        channel = init_channel(user->uuid, args[args_len - 1], "");
+    if (channel == NULL) {
+        return EXIT_FAILURE;
+    }
+    return list_add_last(team->channels, channel);
+}
+
+int create_thread(server_t *server, user_t *user, char **args)
+{
+    team_t *team = NULL;
+    channel_t *channel = NULL;
+    thread_t *thread = NULL;
+    int args_len = 0;
+
+    team = get_team_from_create(server, user, args);
+    if (team == NULL) {
+        return EXIT_FAILURE;
+    }
+    channel = get_channel_by_uuid(team->channels, args[1]);
+    if (channel == NULL) {
+        return EXIT_FAILURE;
+    }
+    args_len = my_arrlen(args);
+    if (args_len == 5)
+        thread = init_thread(user->uuid, args[args_len - 2], args[args_len - 1]);
+    else
+        thread = init_thread(user->uuid, args[args_len - 1], "");
+    if (thread == NULL) {
+        return EXIT_FAILURE;
+    }
+    return list_add_last(channel->threads, thread);
+}
+
+int create_reply(server_t *server, user_t *user, char **args)
+{
+    team_t *team = NULL;
+    channel_t *channel = NULL;
+    thread_t *thread = NULL;
+    reply_t *reply = NULL;
+    int args_len = 0;
+
+    team = get_team_from_create(server, user, args);
+    if (team == NULL) {
+        return EXIT_FAILURE;
+    }
+    channel = get_channel_by_uuid(team->channels, args[1]);
+    if (channel == NULL) {
+        return EXIT_FAILURE;
+    }
+    thread = get_thread_by_uuid(channel->threads, args[2]);
+    if (thread == NULL) {
+        return EXIT_FAILURE;
+    }
+    args_len = my_arrlen(args);
+    reply = init_reply(user->uuid, args[args_len - 1]);
+    if (reply == NULL) {
+        return EXIT_FAILURE;
+    }
+    return list_add_last(thread->replies, reply);
+}
