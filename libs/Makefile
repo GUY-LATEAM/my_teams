@@ -90,7 +90,7 @@ CFLAGS = -Wall -Wextra -Wpedantic \
          -I./circular_buffer_lib/include/ \
          -I./list_lib/include/ \
          -I./network_lib/include/ \
-         -I./my_lib/include/ -g3
+         -I./my_lib/include/
 
 OBJ = $(SRC:.c=.o)
 
