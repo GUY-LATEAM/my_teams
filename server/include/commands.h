@@ -13,6 +13,9 @@
     #define CODE_404             "404"
     #define CODE_200             "200"
     #define BROADCAST            "broadcast "
+    #define CODE_404 "404"
+    #define CODE_200 "200"
+    #define UNSUBSCRIBED_BROADCAST "broadcast UNSUBSCRIBE"
     #define SUBSCRIBED_BROADCAST "broadcast SUBSCRIBED"
     #define UNKNOW_COMMAND       "ERROR 400 Unknown command"
     #define MESSAGE_BRDCAST      "broadcast MESSAGE \""
@@ -77,4 +80,29 @@
     int subscribed_no_argument(
     server_t *server, user_t *user, circular_buffer_t *write_buffer);
     char *get_subscribe_team_uuid(char *args);
-#endif // MY_TEAMS_COMMANDS_H
+    int subscribed_argument(server_t *server,
+    char *uuid, circular_buffer_t *write_buffer);
+    int subscribed_no_argument(server_t *server, user_t *user,
+    circular_buffer_t *write_buffer);
+
+
+    // info utils
+
+    void send_info_logged_in(server_t *serv, char **context,
+    circular_buffer_t *write);
+    void send_info_current_channel(server_t *serv, char **context,
+    circular_buffer_t *write);
+    void send_info_current_team(server_t *serv, char **context,
+    circular_buffer_t *write);
+    void send_info_current_thread(server_t *serv, char **context,
+    circular_buffer_t *write);
+    bool is_context_channel(char **context);
+    bool is_context_team(char **context);
+    bool is_context_thread(char **context);
+    bool is_context_loggedin_user(char **context);
+
+    team_t *get_team_by_context(char **context, server_t *serv);
+    channel_t *get_channel_by_context(char **context, team_t *team);
+    thread_t *get_thread_by_context(char **context, channel_t *channel);
+
+#endif //MY_TEAMS_COMMANDS_H
