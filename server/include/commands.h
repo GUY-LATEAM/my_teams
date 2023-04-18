@@ -66,4 +66,25 @@
     char *uuid, circular_buffer_t *write_buffer);
     int subscribed_no_argument(server_t *server, user_t *user,
     circular_buffer_t *write_buffer);
+
+
+    // info utils
+
+    void send_info_logged_in(server_t *serv, char **context,
+    circular_buffer_t *write);
+    void send_info_current_channel(server_t *serv, char **context,
+    circular_buffer_t *write);
+    void send_info_current_team(server_t *serv, char **context,
+    circular_buffer_t *write);
+    void send_info_current_thread(server_t *serv, char **context,
+    circular_buffer_t *write);
+    bool is_context_channel(char **context);
+    bool is_context_team(char **context);
+    bool is_context_thread(char **context);
+    bool is_context_loggedin_user(char **context);
+
+    team_t *get_team_by_context(char **context, server_t *serv);
+    channel_t *get_channel_by_context(char **context, team_t *team);
+    thread_t *get_thread_by_context(char **context, channel_t *channel);
+
 #endif //MY_TEAMS_COMMANDS_H

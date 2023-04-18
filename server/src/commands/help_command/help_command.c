@@ -30,8 +30,6 @@ int help_command(__attribute__((unused)) void *user_data,
 __attribute__((unused)) void *protocol_data, __attribute__((unused)) char *args,
 circular_buffer_t *write_buffer)
 {
-    printf("Write help\n");
     write_success(write_buffer, "200", help_message);
-    printf("Write help done\n");
     return EXIT_SUCCESS;
 }
