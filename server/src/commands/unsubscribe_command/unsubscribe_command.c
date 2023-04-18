@@ -46,8 +46,6 @@ void *user_data, void *protocol_data, team_t *team)
     free(message);
 }
 
-// Segv ? change team to not NULL
-
 int unsubscribe_command(void *user_data,
 void *protocol_data, char *args, circular_buffer_t *write_buffer)
 {
@@ -65,5 +63,5 @@ void *protocol_data, char *args, circular_buffer_t *write_buffer)
         write_success(write_buffer, CODE_200, "SUCCESS");
     } else {
         write_error(write_buffer, CODE_404, args);
-    } 
+    }
 }
