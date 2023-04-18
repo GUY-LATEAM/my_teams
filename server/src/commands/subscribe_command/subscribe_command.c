@@ -5,8 +5,8 @@
 ** subscribe_command
 */
 
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 #include "commands.h"
 #include "libstr.h"
 #include "logging_server.h"
@@ -85,7 +85,8 @@ void *user_data, void *protocol_data, team_t *team)
     free(message);
 }
 
-int subscribe_command(void *user_data, __attribute__((unused)) void *protocol_data, char *args,
+int subscribe_command(void *user_data,
+__attribute__((unused)) void *protocol_data, char *args,
 circular_buffer_t *write_buffer)
 {
     char *team_uuid = get_subscribe_team_uuid(args);
@@ -93,7 +94,8 @@ circular_buffer_t *write_buffer)
     if (subscribe_user(user_data, protocol_data, args) == EXIT_SUCCESS) {
         server_event_user_subscribed(
         ((user_t *) protocol_data)->uuid, team_uuid);
-        broadcast_subscribe_user(user_data, protocol_data, get_team_by_uuid(team_uuid, ((server_t *) user_data)->teams));
+        broadcast_subscribe_user(user_data, protocol_data,
+        get_team_by_uuid(team_uuid, ((server_t *) user_data)->teams));
         write_success(write_buffer, CODE_200, "SUCCESS");
     } else {
         write_error(write_buffer, CODE_404, args);

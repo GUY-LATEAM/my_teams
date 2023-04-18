@@ -81,22 +81,17 @@ int create_thread(server_t *server, user_t *user, char **args)
     int args_len = 0;
 
     team = get_team_from_create(server, user, args);
-    if (team == NULL) {
+    if (team == NULL)
         return EXIT_FAILURE;
-    }
     channel = get_channel_by_uuid(team->channels, args[1]);
-    if (channel == NULL) {
+    if (channel == NULL)
         return EXIT_FAILURE;
-    }
     args_len = my_arrlen(args);
     if (args_len == 5)
         thread =
         init_thread(user->uuid, args[args_len - 2], args[args_len - 1]);
     else
         thread = init_thread(user->uuid, args[args_len - 1], "");
-    if (thread == NULL) {
-        return EXIT_FAILURE;
-    }
     send_broadcast_new_thread(server, team, thread, user);
     return list_add_last(channel->threads, thread);
 }
@@ -107,25 +102,19 @@ int create_reply(server_t *server, user_t *user, char **args)
     channel_t *channel = NULL;
     thread_t *thread = NULL;
     reply_t *reply = NULL;
-    int args_len = 0;
 
     team = get_team_from_create(server, user, args);
-    if (team == NULL) {
+    if (team == NULL)
         return EXIT_FAILURE;
-    }
     channel = get_channel_by_uuid(team->channels, args[1]);
-    if (channel == NULL) {
+    if (channel == NULL)
         return EXIT_FAILURE;
-    }
     thread = get_thread_by_uuid(channel->threads, args[2]);
-    if (thread == NULL) {
+    if (thread == NULL)
         return EXIT_FAILURE;
-    }
-    args_len = my_arrlen(args);
-    reply = init_reply(user->uuid, args[args_len - 1]);
-    if (reply == NULL) {
+    reply = init_reply(user->uuid, args[my_arrlen(args) - 1]);
+    if (reply == NULL)
         return EXIT_FAILURE;
-    }
     list_add_last(thread->replies, reply);
     send_broadcast_new_reply(server, team, thread, user);
     return EXIT_SUCCESS;
