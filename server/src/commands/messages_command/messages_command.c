@@ -23,7 +23,7 @@ static int write_start(circular_buffer_t *write_buffer)
     bool code_bool = false;
 
     ok = write_circular_buffer(write_buffer, "OK ");
-    code_bool = write_circular_buffer(write_buffer, "200");
+    code_bool = write_circular_buffer(write_buffer, "200" );
     if (ok == false || code_bool == false)
         return EXIT_FAILURE;
     return EXIT_SUCCESS;
