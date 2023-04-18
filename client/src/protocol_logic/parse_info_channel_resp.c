@@ -20,10 +20,13 @@ void parse_info_channel(client_t *client, char *args)
     char *code = NULL;
     char **users_args = NULL;
 
-    if (parse_resp(&status, &code, &users_args, args) == false)
+    if (parse_resp(&status, &code, &users_args, args) == false
+    || users_args == NULL)
         return;
     if (check_unauthorized_cmd(status, code, users_args)
-        || check_unknown_team_cmd(client, status, code, users_args))
+    || check_unknown_team_cmd(client, status, code, users_args)
+    || check_unknown_channel_cmd(client, status, code, users_args)
+    || check_unknown_thread_cmd(client, status, code, users_args))
         return;
     if (my_arrlen(users_args) % 3 != 0)
         return;

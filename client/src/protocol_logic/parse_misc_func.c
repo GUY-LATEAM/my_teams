@@ -31,24 +31,23 @@ static char *get_code(char *response)
 static char **get_argument_parse(char *args)
 {
     char **tab = NULL;
-    char **users_args = NULL;
+    char *guy_ptr = NULL;
 
     if (!args)
         return (NULL);
-    tab = str_to_word_array(args, "\"");
-    if (!tab)
-        return (NULL);
-    if (my_arrlen(tab) < 2)
-        return (NULL);
-    users_args = str_to_word_array(tab[1], ";");
-    if (!users_args)
-        return (NULL);
-    return (users_args);
+    tab = str_to_word_array(args, "\":");
+    for (int i = 0; tab[i]; i++) {
+        guy_ptr = strstr(tab[i], GUY);
+        if (guy_ptr != NULL)
+            tab[i][guy_ptr - tab[i]] = '\0';
+    }
+    return (tab);
 }
 
 bool parse_resp(char **status, char **code, char ***users_args, char *args)
 {
     *status = get_status(args);
+
     if (!*status)
         return false;
     args = args + strlen(*status) + 1;
@@ -57,7 +56,5 @@ bool parse_resp(char **status, char **code, char ***users_args, char *args)
         return false;
     args = args + strlen(*code) + 1;
     *users_args = get_argument_parse(args);
-    if (!*users_args)
-        return false;
     return true;
 }

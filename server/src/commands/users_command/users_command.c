@@ -13,6 +13,7 @@
 #include "add_struct.h"
 #include "logging_server.h"
 #include "init_struct.h"
+#include "libstr.h"
 #include "protocol_logic.h"
 #include "libstr.h"
 #include "commands.h"
