@@ -110,6 +110,8 @@ SRC_COMMANDS :=	command_not_found/command_not_found.c	\
 				info_command/get_info_current_thread.c \
 				info_command/get_info_users_loggedin.c \
 				list_command/list_command.c		\
+				list_command/list_command_utils.c \
+				list_command/send_broadcast_list_command.c \
 				login_command/login_command.c		\
 				login_command/login_utils.c		\
 				logout_command/logout_command.c	\
