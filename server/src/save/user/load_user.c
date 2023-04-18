@@ -6,6 +6,7 @@
 */
 
 #include "save_struck.h"
+#include "my_teams_server.h"
 
 static bool copy_user_info(user_t *user, char **user_info)
 {
