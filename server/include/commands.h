@@ -12,6 +12,7 @@
 
     #define CODE_404 "404"
     #define CODE_200 "200"
+    #define UNSUBSCRIBED_BROADCAST "broadcast UNSUBSCRIBE"
     #define SUBSCRIBED_BROADCAST "broadcast SUBSCRIBED"
     #define UNKNOW_COMMAND "ERROR 400 Unknown command"
     #define MESSAGE_BRDCAST "broadcast MESSAGE \""
@@ -51,7 +52,7 @@
     int command_not_found(void *user_data, void *protocol_data, char *args,
         circular_buffer_t *write_buffer);
     user_t *find_user(server_t *server, char *uuid);
-    bool broadcast_teams(server_t *server, user_t *user, const char *message);
+    bool broadcast_teams(server_t *server, user_t *team, const char *message);
     bool broadcast_all_user(server_t *server, const char *message);
     int write_error(circular_buffer_t *write_buffer, const char *code,
         const char *message);
