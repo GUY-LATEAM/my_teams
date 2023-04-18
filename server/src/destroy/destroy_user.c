@@ -15,5 +15,6 @@ void destroy_user(user_t *user)
         return;
     for (int i = 0; i < user->conversations->len; i++)
         destroy_conversation(get_list_i_data(user->conversations, i));
+    free(user->conversations);
     free(user);
 }
