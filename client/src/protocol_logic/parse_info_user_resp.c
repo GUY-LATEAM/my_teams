@@ -28,7 +28,7 @@ void parse_info_user(client_t *client, char *args)
         return;
     if ((my_arrlen(users_args) - 1) % 3 != 0)
         return;
-    for (int i = 0; i < (my_arrlen(users_args) - 1); i+=3)
+    for (int i = 0; i < (my_arrlen(users_args) - 1); i += 3)
         client_print_user(users_args[i], users_args[i + 1],
         atoi(users_args[i + 2]));
     destroy_array(users_args);
