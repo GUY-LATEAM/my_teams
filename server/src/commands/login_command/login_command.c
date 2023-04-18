@@ -53,7 +53,7 @@ was successfully processed.") == false)
         return false;
     message = malloc(sizeof(char) * (strlen(user->uuid) +
     strlen(user->name) + strlen(LOGIN_BROADCAST) + strlen(BROADCAST_MARK) + \
-    strlen(BROADCADT_COLON) + strlen(GUY) + 1));
+    strlen(BROADCAST_COLON) + strlen(GUY) + 1));
     if (message == NULL)
         return false;
     sprintf(message, "broadcast LOGIN \"%s:%s\"%s", user->uuid,

@@ -11,6 +11,8 @@ int my_arrlen(char **array)
 {
     int i = 0;
 
+    if (array == NULL)
+        return 0;
     for (; array[i] != NULL; i++);
     return i;
 }
