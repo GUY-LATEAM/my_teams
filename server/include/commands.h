@@ -14,6 +14,7 @@
     #define CODE_200 "200"
     #define SUBSCRIBED_BROADCAST "broadcast SUBSCRIBED"
     #define UNKNOW_COMMAND "ERROR 400 Unknown command"
+    #define MESSAGE_BRDCAST "broadcast MESSAGE \""
     #define LOGOUT_BROADCAST "broadcast LOGOUT \""
     #define LOGIN_BROADCAST "broadcast LOGIN \""
     #define BROADCAST_MARK "\""
