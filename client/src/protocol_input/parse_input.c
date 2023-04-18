@@ -25,7 +25,6 @@ void write_args(network_client_t *client, char **args, int nb_args_max)
     if (nb_args_max == 0 || args == NULL)
         return;
     nb_args = my_arrlen(args);
-    write_circular_buffer(client->write_buffer, "\"");
     for (int i = 0; i < nb_args_max; i++) {
         if (i < nb_args) {
         write_circular_buffer(client->write_buffer, args[i]);
@@ -54,6 +53,7 @@ void parse_input(client_t *client, network_client_t *net_client, char *input)
     }
     write_circular_buffer(net_client->write_buffer, cmd + 1);
     write_circular_buffer(net_client->write_buffer, SP);
+    write_circular_buffer(net_client->write_buffer, "\"");
     apply_logic_cmd(client, cmd, args, &nb_args);
     write_args(net_client, args, nb_args);
     write_circular_buffer(net_client->write_buffer, GUY);

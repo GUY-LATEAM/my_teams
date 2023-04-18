@@ -12,13 +12,12 @@
 static void write_context_buffer(circular_buffer_t *write,
 char *team, char *channel, char *thread)
 {
-    write_circular_buffer(write, "\"");
     write_circular_buffer(write, team);
     write_circular_buffer(write, ":");
     write_circular_buffer(write, channel);
     write_circular_buffer(write, ":");
     write_circular_buffer(write, thread);
-    write_circular_buffer(write, "\"");
+    write_circular_buffer(write, ":");
 }
 
 static void add_context_to_args_ext(client_t *client,
