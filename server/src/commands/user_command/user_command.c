@@ -27,7 +27,7 @@ char *uuid)
 }
 
 static int find_users(server_t *server, circular_buffer_t *write_buffer,
-char uuid)
+char *uuid)
 {
     user_t *user = NULL;
 
@@ -47,7 +47,7 @@ __attribute__((unused)) char *args, circular_buffer_t *write_buffer)
 
     server = (server_t *) protocol_data;
     if (check_is_user_login(server,
-    (user_t *) user_data, write_buffer) == false)
+    (user_t *) user_data, write_buffer) == EXIT_FAILURE)
         return EXIT_SUCCESS;
     uuid = strtok(args, " \"");
     if (uuid == NULL) {
