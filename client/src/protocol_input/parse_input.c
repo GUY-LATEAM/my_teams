@@ -27,7 +27,6 @@ void write_args(network_client_t *client, char **args, int nb_args_max)
     nb_args = my_arrlen(args);
     for (int i = 0; i < nb_args_max; i++) {
         if (i < nb_args) {
-            printf("arg : %s\n", args[i]);
         write_circular_buffer(client->write_buffer, args[i]);
         }
         if (i != nb_args_max - 1)
