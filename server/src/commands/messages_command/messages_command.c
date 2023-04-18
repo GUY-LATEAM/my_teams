@@ -41,7 +41,8 @@ static int write_messages(conversation_t *conv, circular_buffer_t *write_buffer)
     return EXIT_SUCCESS;
 }
 
-static int if_find_user(conversation_t *conv, circular_buffer_t *write_buffer, char *uuid)
+static int if_find_user(conversation_t *conv, circular_buffer_t *write_buffer,
+char *uuid)
 {
     if (strcmp(conv->uuid_create, uuid) == 0) {
         if (write_start(write_buffer) == EXIT_FAILURE)
