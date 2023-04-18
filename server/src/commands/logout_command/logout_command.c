@@ -37,7 +37,7 @@ static int logout_broadcast(server_t *server, user_t *user)
 
     message = malloc(sizeof(char) * (strlen(user->uuid) + \
     (strlen(user->name) + (strlen(GUY)) + strlen(LOGOUT_BROADCAST) + \
-    strlen(BROADCAST_MARK) + strlen(BROADCADT_COLON) + 1)));
+    strlen(BROADCAST_MARK) + strlen(BROADCAST_COLON) + 1)));
     if (message == NULL)
         return EXIT_FAILURE;
     if (sprintf(message, "broadcast LOGOUT \"%s:%s\"%s", user->uuid,
@@ -71,6 +71,10 @@ __attribute__((unused)) char *args, circular_buffer_t *write_buffer)
 
     user = (user_t *) user_data;
     server = (server_t *) protocol_data;
+    if (user == NULL) {
+        write_success(write_buffer, "200", "Goodbye");
+        return EXIT_SUCCESS;
+    }
     server_event_user_logged_out(user->uuid);
     user->nb_users--;
     if ( (logout_broadcast(server, user) == EXIT_FAILURE) ||

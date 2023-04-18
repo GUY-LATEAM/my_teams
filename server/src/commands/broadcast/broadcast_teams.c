@@ -6,26 +6,13 @@
 */
 
 #include <string.h>
+#include "commands.h"
+#include "list_lib.h"
 #include "my_teams_server.h"
 #include "network_structures.h"
-#include "list_lib.h"
-#include "commands.h"
 
-static bool is_user_subcribed_to_team(user_t *user, team_t *team)
-{
-    char *subscribed_user = NULL;
-
-    for (int i = 0; i < team->subscribed_users->len; i++) {
-        subscribed_user = get_list_i_data(team->subscribed_users, i);
-        if (strcmp(subscribed_user, user->uuid) == 0) {
-            return true;
-        }
-    }
-    return false;
-}
-
-static void applided_broadcast_team(server_t *server, user_t *user,
-const char *message)
+static void applided_broadcast_team(
+server_t *server, user_t *user, const char *message)
 {
     network_client_t *client = NULL;
 
@@ -37,43 +24,34 @@ const char *message)
     }
 }
 
-static bool find_broadcast_team(server_t *server, team_t *team,
-const char *message)
+static void send_broadcast_to_team(
+server_t *server, char *user_uuid, const char *message)
 {
-    char *client_sub_uuid = NULL;
+    network_client_t *client = NULL;
     user_t *user = NULL;
 
+    for (int j = 0; j < server->network_server->clients->len; j++) {
+        client = get_list_i_data(server->network_server->clients, j);
+        if (client->user_data == NULL) {
+            continue;
+        }
+        user = client->user_data;
+        if (strcmp(user->uuid, user_uuid) == 0) {
+            applided_broadcast_team(server, user, message);
+        }
+    }
+}
+
+int broadcast_teams(server_t *server, team_t *team, const char *message)
+{
+    char *user_uuid = NULL;
+
     for (int i = 0; i < team->subscribed_users->len; i++) {
-        client_sub_uuid = get_list_i_data(team->subscribed_users, i);
-        user = find_user(server, client_sub_uuid);
-        if (user == NULL) {
-            return false;
+        user_uuid = get_list_i_data(team->subscribed_users, i);
+        if (user_uuid == NULL) {
+            return EXIT_FAILURE;
         }
-        applided_broadcast_team(server, user, message);
+        send_broadcast_to_team(server, user_uuid, message);
     }
-    return true;
-}
-
-static bool if_find_team(server_t *server, team_t *team, user_t *user,
-const char *message)
-{
-    if (is_user_subcribed_to_team(user, team)) {
-        if (find_broadcast_team(server, team, message) == false) {
-            return false;
-        }
-    }
-    return true;
-}
-
-bool broadcast_teams(server_t *server, user_t *user, const char *message)
-{
-    team_t *team = NULL;
-
-    for (int i = 0; i < server->teams->len; i++) {
-        team = get_list_i_data(server->teams, i);
-        if (if_find_team(server, team, user, message) == false) {
-            return false;
-        }
-    }
-    return true;
+    return EXIT_SUCCESS;
 }

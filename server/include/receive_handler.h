@@ -7,8 +7,6 @@
 
 #ifndef SERVER_RECEIVE_HANDLER_H
     #define SERVER_RECEIVE_HANDLER_H
-    #include "network_structures.h"
-
     #define FUNCTIONS_LIST &help_command,\
         &login_command,\
         &logout_command,\
@@ -23,6 +21,8 @@
         &create_command,\
         &list_command,\
         &info_command
+
+    #include "network_structures.h"
 
     typedef struct command_s command_t;
 
