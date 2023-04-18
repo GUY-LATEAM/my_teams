@@ -7,49 +7,32 @@
 
 #include <string.h>
 #include "protocol_logic.h"
-
-char **get_args(int nb_args)
-{
-    char **args = NULL;
-    char *arg_token = NULL;
-
-    if (nb_args == 0)
-        return NULL;
-    args = malloc(sizeof(char *) * (nb_args + 1));
-    if (!args)
-        return NULL;
-    for (int i = 0; i < nb_args; i++) {
-        arg_token = strtok(NULL, SEPARATORS);
-        if (!arg_token) {
-            free_parse_info(NULL, args);
-            return NULL;
-        }
-        args[i] = strdup(arg_token);
-    }
-    args[nb_args] = NULL;
-    return args;
-}
+#include "libstr.h"
 
 void free_parse_info(char *cmd, char **args)
 {
     if (cmd)
         free(cmd);
     if (args) {
-        for (int i = 0; args[i]; i++)
-            free(args[i]);
-        free(args);
+        destroy_array(args);
     }
 }
 
-void write_args(network_client_t *client, char **args, int nb_args)
+void write_args(network_client_t *client, char **args, int nb_args_max)
 {
-    for (int i = 0; i < nb_args; i++) {
-        write_circular_buffer(client->write_buffer, "\"");
+    int nb_args = 0;
+
+    if (nb_args_max == 0 || args == NULL)
+        return;
+    nb_args = my_arrlen(args);
+    for (int i = 0; i < nb_args_max; i++) {
+        if (i < nb_args) {
         write_circular_buffer(client->write_buffer, args[i]);
-        write_circular_buffer(client->write_buffer, "\"");
-        if (i != nb_args - 1)
-            write_circular_buffer(client->write_buffer, SP);
+        }
+        if (i != nb_args_max - 1)
+            write_circular_buffer(client->write_buffer, ":");
     }
+    write_circular_buffer(client->write_buffer, "\"");
 }
 
 void parse_input(client_t *client, network_client_t *net_client, char *input)
@@ -59,15 +42,18 @@ void parse_input(client_t *client, network_client_t *net_client, char *input)
     int nb_args = 0;
 
     cmd = get_cmd(input, &nb_args);
-    args = get_args(nb_args);
+    if (cmd == NULL)
+        return;
+    input += strlen(cmd) + 1;
+    args = str_to_word_array(input, "\" \n");
     if (!net_client || !cmd || !args) {
         display_error(cmd, args);
         free_parse_info(cmd, args);
         return;
     }
-    apply_logic_cmd(client, cmd, args, &nb_args);
     write_circular_buffer(net_client->write_buffer, cmd + 1);
-    write_circular_buffer(net_client->write_buffer, SP);
+    write_circular_buffer(net_client->write_buffer, " \"");
+    apply_logic_cmd(client, cmd, args, &nb_args);
     write_args(net_client, args, nb_args);
     write_circular_buffer(net_client->write_buffer, GUY);
     free_parse_info(cmd, args);

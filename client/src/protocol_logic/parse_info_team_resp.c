@@ -20,13 +20,19 @@ void parse_info_team(__attribute__((unused)) client_t *client, char *args)
     char *code = NULL;
     char **users_args = NULL;
 
-    if (parse_resp(&status, &code, &users_args, args) == false)
+    if (parse_resp(&status, &code, &users_args, args) == false
+    || users_args == NULL)
         return;
-    if (check_unauthorized_cmd(status, code, users_args))
+    if (check_unknown_cmd(status, code, users_args)
+    || check_unauthorized_cmd(status, code, users_args)
+    || check_unknown_team_cmd(client, status, code, users_args)
+    || check_unknown_channel_cmd(client, status, code, users_args)
+    || check_unknown_thread_cmd(client, status, code, users_args))
         return;
     if (my_arrlen(users_args) % 3 != 0)
         return;
     for (int i = 0; users_args[i]; i += 3)
-        client_print_team(users_args[i], users_args[i + 1], users_args[i + 2]);
+        client_print_team(users_args[i], users_args[i + 1],
+        users_args[i + 2]);
     destroy_array(users_args);
 }

@@ -108,11 +108,13 @@ SRC_COMMANDS :=	command_not_found/command_not_found.c	\
 				login_command/login_utils.c		\
 				logout_command/logout_command.c	\
 				messages_command/messages_command.c	\
+				send_command/send_command_utils.c	\
 				send_command/send_command.c		\
 				subscribe_command/subscribe_command.c	\
 				subscribed_command/subscribed_command.c	\
 				unsubscribe_command/unsubscribe_command.c	\
 				use_command/use_command.c		\
+				use_command/get_context.c		\
 				user_command/user_command.c		\
 				users_command/users_command.c \
 				broadcast/broadcast_all_users.c \
@@ -121,7 +123,8 @@ SRC_COMMANDS :=	command_not_found/command_not_found.c	\
 				find_user.c
 SRC_COMMANDS	:=	$(addprefix commands/, $(SRC_COMMANDS))
 
-SRC_RECEIVE	:=	receive_handler.c
+SRC_RECEIVE	:=	receive_handler.c \
+				disconnect_func.c
 SRC_RECEIVE	:=	$(addprefix receive/, $(SRC_RECEIVE))
 
 SRC 	+=	$(SRC_RECEIVE) $(SRC_COMMANDS)

@@ -13,5 +13,7 @@
 
 void receive_client(void *user_data, void *protocol_data,
                     circular_buffer_t *read, circular_buffer_t *write);
+void on_disconnect_client(void *user_data, void *protocol_data,
+on_disconnect_error_t error_code);
 
 #endif //PROTOCOL_LOGIC_H
