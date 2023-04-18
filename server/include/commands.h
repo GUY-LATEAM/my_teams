@@ -70,4 +70,8 @@
     void send_broadcast_new_thread(server_t *server, team_t *team, thread_t *thread, user_t *user);
     void send_broadcast_new_channel(server_t *server, team_t *team, channel_t *channel);
     void send_broadcast_new_teams(server_t *server, team_t *team);
+    int subscribed_argument(server_t *server,
+    char *uuid, circular_buffer_t *write_buffer);
+    int subscribed_no_argument(server_t *server, user_t *user,
+    circular_buffer_t *write_buffer);
 #endif //MY_TEAMS_COMMANDS_H

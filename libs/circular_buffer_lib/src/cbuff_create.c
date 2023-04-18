@@ -10,6 +10,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include "list_lib.h"
+#include "libstr.h"
 #include "circular_buffer.h"
 
 circular_buffer_t *create_circular_buffer(size_t size, const char *pattern)
@@ -27,13 +28,23 @@ circular_buffer_t *create_circular_buffer(size_t size, const char *pattern)
 
 bool write_circular_buffer(circular_buffer_t *cbuff, const char *data)
 {
-    char *dup_data = NULL;
-    int len_data = 0;
+    int i = 0;
+    char *tmp_data = NULL;
+    char *ptr = NULL;
 
-    len_data = strlen(data);
-    dup_data = malloc(sizeof(char) * (len_data + 1));
-    strcpy(dup_data, data);
-    dup_data[len_data] = '\0';
-    list_add_last(cbuff->buffer, dup_data);
+    tmp_data = malloc(sizeof(char) * 2);
+    memset(tmp_data, 0, 2);
+    while (data[i] != '\0') {
+        ptr = strstr(data + i, cbuff->end_pattern);
+        if (data + i - ptr == 0) {
+            list_add_last(cbuff->buffer, strdup(cbuff->end_pattern));
+            i += strlen(cbuff->end_pattern);
+            continue;
+        }
+        tmp_data[0] = data[i];
+        list_add_last(cbuff->buffer, strdup(tmp_data));
+        i++;
+    }
+    free(tmp_data);
     return true;
 }
