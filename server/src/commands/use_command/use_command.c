@@ -57,13 +57,13 @@ bool *bad_context)
 {
     team_t *team = NULL;
 
-    if (args == NULL) {
-        strcpy(context, "UN:UN:UN");
+    if (args[0] == NULL) {
+        strcat(context, "UN:UN:UN");
         return;
     } else {
         team = get_team_by_uuid(server->teams, args[0]);
         if (team == NULL) {
-            strcpy(context, "KO:KO:KO");
+            strcat(context, "KO:KO:KO");
             *bad_context = true;
             return;
         } else {

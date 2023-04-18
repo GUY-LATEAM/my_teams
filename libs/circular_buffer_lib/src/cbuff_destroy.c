@@ -50,4 +50,3 @@ void destroy_circular_buffer(circular_buffer_t *cbuff)
     free(cbuff->end_pattern);
     free(cbuff);
 }
-

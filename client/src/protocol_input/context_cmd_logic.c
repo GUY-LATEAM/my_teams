@@ -24,12 +24,16 @@ char *team, char *channel, char *thread)
 static void add_context_to_args_ext(client_t *client,
 char **channel, char **thread)
 {
-    if (client->context->channel_valid != INVALID_CTX)
+    if (client->context->channel_valid == VALID_CTX)
         *channel = client->context->channel_uuid;
+    else if (client->context->channel_valid == UNKNOWN_CTX)
+        *channel = "UN";
     else
         *channel = "KO";
-    if ( client->context->thread_valid != INVALID_CTX)
-        *thread = client->context->team_uuid;
+    if (client->context->thread_valid == VALID_CTX)
+        *thread = client->context->thread_uuid;
+    else if (client->context->thread_valid == UNKNOWN_CTX)
+        *thread = "UN";
     else
         *thread = "KO";
 }
@@ -46,8 +50,10 @@ __attribute__((unused)) int *nb_args)
     cli = get_list_i_data(client->network_client->clients, 0);
     if (!cli)
         return;
-    if (client->context->team_valid != INVALID_CTX)
+    if (client->context->team_valid == VALID_CTX)
         team = client->context->team_uuid;
+    else if (client->context->team_valid == UNKNOWN_CTX)
+        team = "UN";
     else
         team = "KO";
     add_context_to_args_ext(client, &channel, &thread);
