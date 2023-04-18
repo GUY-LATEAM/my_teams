@@ -31,6 +31,7 @@ static int write_start(circular_buffer_t *write_buffer)
 static int write_messages(conversation_t *conv, circular_buffer_t *write_buffer)
 {
     message_t *message = NULL;
+
     for (int i = 0; i < conv->messages->len; i++) {
         message = get_list_i_data(conv->messages, i);
         if (write_circular_buffer(write_buffer, message->content) == false)
