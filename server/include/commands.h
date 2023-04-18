@@ -14,6 +14,7 @@
     #define CODE_200 "200"
     #define SUBSCRIBED_BROADCAST "broadcast SUBSCRIBED"
     #define UNKNOW_COMMAND "ERROR 400 Unknown command"
+    #define MESSAGE_BRDCAST "broadcast MESSAGE \""
 
     int help_command(void *user_data, void *protocol_data, char *args,
         circular_buffer_t *write_buffer);
