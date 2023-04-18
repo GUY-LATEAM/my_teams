@@ -79,14 +79,14 @@ circular_buffer_t *write_buffer)
     if (tab == NULL) {
         write_error(write_buffer, "500", "Internal Server Error: An \
 error occurred on the server side while processing the command.");
-        return EXIT_SUCCESS;
+        return EXIT_FAILURE;
     }
     if (add_message_struct(server, (user_t *)user_data,
     tab[1], tab[0]) == EXIT_FAILURE) {
         write_error(write_buffer, "404", "Not Found: The user does not \
 exist.");
         free(tab);
-        return EXIT_SUCCESS;
+        return EXIT_FAILURE;
     }
     free(tab);
     return EXIT_SUCCESS;
