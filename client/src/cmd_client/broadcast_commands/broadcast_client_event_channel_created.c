@@ -20,7 +20,6 @@ int broadcast_client_event_channel_created(char *raw_args)
         return EXIT_FAILURE;
     }
     args_len = my_arrlen(args);
-    printf("args_len: %d\n", args_len);
     if (args_len != 2 && args_len != 3)
         return EXIT_FAILURE;
     if (args_len == 2)

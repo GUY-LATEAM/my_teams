@@ -85,7 +85,7 @@ void *user_data, void *protocol_data, team_t *team)
     free(message);
 }
 
-int subscribe_command(void *user_data, void *protocol_data, char *args,
+int subscribe_command(void *user_data, __attribute__((unused)) void *protocol_data, char *args,
 circular_buffer_t *write_buffer)
 {
     char *team_uuid = get_subscribe_team_uuid(args);

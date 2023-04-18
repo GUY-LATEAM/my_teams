@@ -27,14 +27,12 @@ server_t *server, __attribute__((unused)) user_t *user, char **args)
     if (args_len == 5) {
         team = init_team(args[args_len - 2], args[args_len - 1]);
     } else {
-        printf("in create team and else because length not equal to 5\n");
         team = init_team(args[args_len - 1], "");
     }
     if (team == NULL) {
         return EXIT_FAILURE;
     }
     send_broadcast_new_teams(server, team);
-    printf("hehe\n");
     return list_add_last(server->teams, team);
 }
 

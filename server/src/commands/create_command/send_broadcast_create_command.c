@@ -49,7 +49,6 @@ void send_broadcast_new_teams(server_t *server, team_t *team)
     }
     memset(args, 0, args_len + 1);
     sprintf(args, BROADCAST "TEAMS" SP BROADCAST_MARK "%s:%s:%s" BROADCAST_MARK GUY, team->uuid, team->name, team->description);
-    printf("args = %s\n", args);
     broadcast_all_user(server, args);
 }
 
