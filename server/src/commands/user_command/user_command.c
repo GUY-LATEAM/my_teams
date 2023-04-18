@@ -40,7 +40,7 @@ char *uuid)
 }
 
 int user_command(__attribute__((unused)) void *user_data, void *protocol_data,
-__attribute__((unused)) char *args, circular_buffer_t *write_buffer)
+char *args, circular_buffer_t *write_buffer)
 {
     server_t *server = NULL;
     char *uuid = NULL;
@@ -56,6 +56,6 @@ is malformed or invalid.");
         return EXIT_SUCCESS;
     }
     if (find_users(EXIT_SUCCESS, write_buffer, uuid) == EXIT_FAILURE)
-        return EXIT_FAILURE;
+        return EXIT_SUCCESS;
     return EXIT_SUCCESS;
 }

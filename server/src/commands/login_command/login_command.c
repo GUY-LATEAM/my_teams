@@ -75,6 +75,7 @@ circular_buffer_t *write_buffer, char *name)
         list_add_last(server->all_users, user);
         server_event_user_created(user->uuid,user->name);
     }
+    user->nb_users++;
     server_event_user_logged_in(user->uuid);
     if ((link_user_to_client(server, user, write_buffer) == false) ||
     (login_broadcast(server, write_buffer, user) == false)) {
