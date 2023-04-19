@@ -104,5 +104,12 @@
     team_t *get_team_by_context(char **context, server_t *serv);
     channel_t *get_channel_by_context(char **context, team_t *team);
     thread_t *get_thread_by_context(char **context, channel_t *channel);
+    int find_write(network_client_t *client,
+        user_t *user, char **tab);
+    int broadcast_message(circular_buffer_t *write, char *message,
+        char *uuid);
+    int add_in_list(network_client_t *client, user_t *user, char **tab);
+    int send_message_if(network_client_t *client, user_t *user, char **tab,
+        int *check_bool);
 
 #endif //MY_TEAMS_COMMANDS_H
