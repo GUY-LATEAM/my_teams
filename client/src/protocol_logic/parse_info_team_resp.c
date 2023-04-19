@@ -25,9 +25,7 @@ void parse_info_team(__attribute__((unused)) client_t *client, char *args)
         return;
     if (check_unknown_cmd(status, code, users_args)
     || check_unauthorized_cmd(status, code, users_args)
-    || check_unknown_team_cmd(client, status, code, users_args)
-    || check_unknown_channel_cmd(client, status, code, users_args)
-    || check_unknown_thread_cmd(client, status, code, users_args))
+    || check_unknown_team_cmd(client, status, code, users_args))
         return;
     if ((my_arrlen(users_args) - 1) % 3 != 0)
         return;
