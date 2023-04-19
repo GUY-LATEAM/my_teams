@@ -12,7 +12,8 @@
 #include "save_struck.h"
 
 static void loop_response_list_channel(
-server_t *server, team_t *team, list_ptr_t *channel_list, int i)
+__attribute__((unused)) server_t *server,
+team_t *team, list_ptr_t *channel_list, int i)
 {
     channel_t *channel = NULL;
     size_t args_len = 0;

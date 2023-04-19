@@ -27,7 +27,8 @@ char **args, circular_buffer_t *write_buffer)
     return EXIT_SUCCESS;
 }
 
-static team_t *get_team_from_list(server_t *server, user_t *user, char **args)
+static team_t *get_team_from_list(server_t *server, __attribute__((unused))
+user_t *user, char **args)
 {
     int args_len = 0;
 
@@ -45,7 +46,6 @@ int list_channel(
 server_t *server, user_t *user, char **args, circular_buffer_t *write_buffer)
 {
     team_t *team = NULL;
-    int args_len = 0;
 
     team = get_team_from_list(server, user, args);
     if (team == NULL) {
@@ -60,7 +60,6 @@ server_t *server, user_t *user, char **args, circular_buffer_t *write_buffer)
 {
     team_t *team = NULL;
     channel_t *channel = NULL;
-    int args_len = 0;
 
     team = get_team_from_list(server, user, args);
     if (team == NULL)
