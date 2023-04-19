@@ -8,7 +8,6 @@
 #include <string.h>
 #include "check_args_client.h"
 #include "my_teams_client.h"
-#include "my_teams_server.h"
 #include "client_loop.h"
 
 int main(int ac, char **av)
