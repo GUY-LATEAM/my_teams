@@ -13,6 +13,7 @@
     #include "list_lib.h" // Pour la lib list
     #include "network_structures.h"
 
+    #define EXIT_EPITECH 84
     #define MAX_NAME_LENGTH 32
     #define MAX_UUID_LENGTH 36
     #define MAX_DESCRIPTION_LENGTH 255
