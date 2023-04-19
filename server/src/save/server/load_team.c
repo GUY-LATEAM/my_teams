@@ -89,8 +89,12 @@ bool load_teams_loop(list_ptr_t *teams, FILE *file, const char sep)
     while ((read = getline(&line, &len, file)) != -1) {
         remove_newline(line);
         team = create_team_from_line(line, sep);
-        if (team == NULL || list_add_last(teams, team) != LIST_OK) {
+        if (team == NULL) {
+            continue;
+        }
+        if (list_add_last(teams, team) != LIST_OK) {
             free(line);
+            free(team);
             return false;
         }
     }
