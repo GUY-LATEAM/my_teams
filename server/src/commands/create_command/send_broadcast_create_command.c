@@ -20,14 +20,14 @@ server_t *server, team_t *team, const char *broadcast_type, const char *args)
     if (server == NULL || team == NULL) {
         return;
     }
-    message_len = strlen(broadcast_type) + strlen(SP BROADCAST_MARK)
-    + strlen(args) + strlen(BROADCAST_MARK);
+    message_len = strlen(BROADCAST) + strlen(broadcast_type)
+    + strlen(SP BROADCAST_MARK) + strlen(args) + strlen(BROADCAST_MARK GUY);
     message = malloc(sizeof(char) * (message_len + 1));
     if (message == NULL) {
         return;
     }
     memset(message, 0, message_len + 1);
-    sprintf(message, BROADCAST "%s" SP BROADCAST_MARK "%s" BROADCAST_MARK,
+    sprintf(message, BROADCAST "%s" SP BROADCAST_MARK "%s" BROADCAST_MARK GUY,
     broadcast_type, args);
     broadcast_teams(server, team, message);
 }
@@ -65,7 +65,7 @@ server_t *server, team_t *team, channel_t *channel)
     }
     args_len = strlen(channel->uuid) + strlen(BROADCAST_COLON)
     + strlen(channel->name) + strlen(BROADCAST_COLON)
-    + strlen(channel->description) + 2;
+    + strlen(channel->description);
     args = malloc(sizeof(char) * (args_len + 1));
     if (args == NULL) {
         return;

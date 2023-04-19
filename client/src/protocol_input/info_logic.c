@@ -11,7 +11,7 @@
 #include "protocol_logic.h"
 
 void info_logic(client_t *client, __attribute__((unused)) enum cmd_e cmd
-,char **args, int *nb_args)
+,char **args)
 {
     if (!client->context->team_valid && !client->context->channel_valid
     && !client->context->thread_valid)
@@ -25,5 +25,5 @@ void info_logic(client_t *client, __attribute__((unused)) enum cmd_e cmd
     if (client->context->team_valid && client->context->channel_valid
     && client->context->thread_valid)
         client->requested_cmd = INFO_THREAD;
-    add_context_to_args(client, args, nb_args);
+    add_context_to_args(client, args);
 }

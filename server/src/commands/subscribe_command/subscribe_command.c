@@ -37,9 +37,9 @@ static int subscribe_user(void *user_data, void *protocol_data, char *args)
         destroy_array(tmp);
         return EXIT_FAILURE;
     }
-    team = get_team_by_uuid(tmp[0], ((server_t *) user_data)->teams);
+    team = get_team_by_uuid(tmp[0], ((server_t *) protocol_data)->teams);
     if (!team
-    || list_add_last(team->subscribed_users, ((user_t *) protocol_data)->uuid)
+    || list_add_last(team->subscribed_users, ((user_t *) user_data)->uuid)
     != EXIT_SUCCESS) {
         destroy_array(tmp);
         return EXIT_FAILURE;
@@ -81,21 +81,20 @@ void *user_data, void *protocol_data, team_t *team)
         return;
     sprintf(message, SUBSCRIBED_BROADCAST SP "\"%s:%s\"" GUY,
     ((user_t *) user_data)->uuid, team->uuid);
-    broadcast_teams(user_data, team, message);
+    broadcast_teams(protocol_data, team, message);
     free(message);
 }
 
-int subscribe_command(void *user_data,
-__attribute__((unused)) void *protocol_data, char *args,
+int subscribe_command(void *user_data, void *protocol_data, char *args,
 circular_buffer_t *write_buffer)
 {
     char *team_uuid = get_subscribe_team_uuid(args);
 
     if (subscribe_user(user_data, protocol_data, args) == EXIT_SUCCESS) {
         server_event_user_subscribed(
-        ((user_t *) protocol_data)->uuid, team_uuid);
+        ((user_t *) user_data)->uuid, team_uuid);
         broadcast_subscribe_user(user_data, protocol_data,
-        get_team_by_uuid(team_uuid, ((server_t *) user_data)->teams));
+        get_team_by_uuid(team_uuid, ((server_t *) protocol_data)->teams));
         write_success(write_buffer, CODE_200, "SUCCESS");
     } else {
         write_error(write_buffer, CODE_404, args);

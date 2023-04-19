@@ -6,6 +6,7 @@
 */
 
 #include <stdio.h>
+#include <string.h>
 #include "libstr.h"
 #include "broadcast_misc.h"
 
@@ -59,11 +60,10 @@ broadcast_thread_created_t *get_broadcast_thread_created(char *args)
     broadcast_thread_created_t *result = NULL;
     char **tmp = NULL;
 
-    if (args == NULL) {
+    if (args == NULL)
         return NULL;
-    }
     tmp = get_char_array_args(args);
-    if (tmp == NULL || my_arrlen(tmp) != 5) {
+    if (tmp == NULL || (my_arrlen(tmp) != 5 && my_arrlen(tmp) != 4)) {
         destroy_array(tmp);
         free(result);
         return NULL;
@@ -73,7 +73,7 @@ broadcast_thread_created_t *get_broadcast_thread_created(char *args)
     result->user_uuid = tmp[1];
     result->thread_timestamp = string_to_time(tmp[2]);
     result->thread_title = tmp[3];
-    result->thread_body = tmp[4];
+    result->thread_body = (my_arrlen(tmp) == 4) ? strdup("") : tmp[4];
     free(tmp);
     return result;
 }

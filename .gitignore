@@ -60,8 +60,8 @@ dkms.conf
 report/
 .idea/
 
-my_teams_cli
-my_teams_server
+myteams_cli
+myteams_server
 
 # Codding style check
 
@@ -69,3 +69,4 @@ my_teams_server
 .clang-format
 
 *.txt
+vgcore.*

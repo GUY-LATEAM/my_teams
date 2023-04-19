@@ -20,9 +20,9 @@ void parse_help(__attribute__((unused)) client_t *client, char *args)
     char *code = NULL;
     char **users_args = NULL;
 
-    if (check_unknown_cmd(status, code, users_args)
-    || parse_resp(&status, &code, &users_args, args) == false
-    || users_args == NULL)
+    if (parse_resp(&status, &code, &users_args, args) == false
+    || users_args == NULL
+    || check_unknown_cmd(status, code, users_args))
         return;
     printf("%s\n", users_args[0]);
     destroy_array(users_args);

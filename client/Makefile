@@ -39,7 +39,7 @@ endef
 
 # ---------------------------------------------------------------------
 
-COMPILATION = my_teams_cli
+COMPILATION = myteams_cli
 
 SRC 	:=	main.c \
 			checks/check_args_client.c \
@@ -101,6 +101,7 @@ SRC_BROADCAST_COMMANDS	:=	broadcast_client_event_logged_in.c \
 							broadcast_client_event_logged_out.c \
 							broadcast_client_event_private_message_received.c \
 							broadcast_client_print_subscribed.c \
+							broadcast_client_print_unsubscribed.c \
 							broadcast_client_event_channel_created.c \
 							broadcast_client_event_team_created.c \
 							broadcast_client_event_thread_reply_received.c \
