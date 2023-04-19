@@ -17,9 +17,10 @@
     typedef struct cmd_s {
         enum cmd_e id;
         char *cmd;
-        int nb_args;
+        int nb_args_min;
+        int nb_args_max;
         void (*logic)(client_t *client, enum cmd_e id,
-        char **args, int *nb_args);
+        char **args);
     } cmd_t;
 
     typedef struct cmd_code_s {
@@ -38,22 +39,18 @@
 
     void manage_input(client_t *client);
 
-    void apply_logic_cmd(client_t *client, char *cmd, char **args,
-    int *nb_args);
-    char *get_cmd(char *input, int *nb_args);
-    void add_context_to_args(client_t *client, char **args, int *nb_args);
+    void apply_logic_cmd(client_t *client, char *cmd, char **args);
+    char *get_cmd(char *input, int *nbr_args);
+    bool is_number_args_valid(char **args, char *cmd);
+    void add_context_to_args(client_t *client, char **args);
 
     // Cmd logic
 
-    void use_logic(client_t *client, enum cmd_e, char **args, int *nb_args);
-    void info_logic(client_t *client, enum cmd_e cmd ,char **args,
-    int *nb_args);
-    void list_logic(client_t *client, enum cmd_e cmd ,char **args,
-    int *nb_args);
-    void create_logic(client_t *client, enum cmd_e cmd ,char **args,
-    int *nb_args);
-    void subscribe_logic(client_t *client, enum cmd_e cmd ,char **args,
-    int *nb_args);
+    void use_logic(client_t *client, enum cmd_e, char **args);
+    void info_logic(client_t *client, enum cmd_e cmd, char **args);
+    void list_logic(client_t *client, enum cmd_e cmd, char **args);
+    void create_logic(client_t *client, enum cmd_e cmd, char **args);
+    void subscribe_logic(client_t *client, enum cmd_e cmd, char **args);
 
 
     void display_error(char *cmd, char **args);

@@ -76,7 +76,7 @@ __attribute__((unused)) char *args, circular_buffer_t *write_buffer)
     }
     context = get_context(args);
     if (is_a_good_context(context) == false) {
-        write_error(write_buffer, "401", "The client needs to authenticate");
+        write_error(write_buffer, "404", "Bad context");
     } else {
         return do_create_command(server, user_data, context);
     }
