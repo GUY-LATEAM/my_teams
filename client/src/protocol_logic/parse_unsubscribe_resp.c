@@ -22,6 +22,7 @@ void parse_unsubscribe(client_t *client, char *args)
         return;
     if (check_unknown_cmd(status, code, users_args)
     || check_unauthorized_cmd(status, code, users_args)
+    || check_bad_cmd(status, code, users_args)
     || check_unknown_team_cmd(client, status, code, users_args))
         return;
     client_print_unsubscribed(users_args[0], users_args[1]);

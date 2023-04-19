@@ -62,5 +62,7 @@
     bool check_unknown_user_cmd(const char *status, const char *code,
     char **args);
     bool check_unknown_cmd(const char *status, const char *code, char **args);
+    bool check_bad_cmd(const char *status, const char *code,
+    char **args);
 
 #endif /* !PARSE_LOGIC_H_ */
