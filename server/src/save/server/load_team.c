@@ -6,6 +6,7 @@
 */
 
 #include "save_struck.h"
+#include "libstr.h"
 
 static bool create_team_annexe(team_t *team, char **splitted, const char sep)
 {
@@ -14,6 +15,10 @@ static bool create_team_annexe(team_t *team, char **splitted, const char sep)
     tmp = create_user_list_from_line(splitted[4], sep);
     if (tmp == NULL) {
         return false;
+    }
+    if (my_arrlen(splitted) < 5) {
+        team->channels = list_create();
+        return true;
     }
     team->channels = create_channel_list_from_line(splitted[5], sep);
     if (team->channels == NULL) {
@@ -84,8 +89,12 @@ bool load_teams_loop(list_ptr_t *teams, FILE *file, const char sep)
     while ((read = getline(&line, &len, file)) != -1) {
         remove_newline(line);
         team = create_team_from_line(line, sep);
-        if (team == NULL || list_add_last(teams, team) != LIST_OK) {
+        if (team == NULL) {
+            continue;
+        }
+        if (list_add_last(teams, team) != LIST_OK) {
             free(line);
+            free(team);
             return false;
         }
     }

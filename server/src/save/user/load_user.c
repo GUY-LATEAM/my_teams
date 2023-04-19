@@ -11,7 +11,8 @@
 
 static bool copy_user_info(user_t *user, char **user_info)
 {
-    if (user_info == NULL || user_info[0] == NULL || user_info[1] == NULL) {
+    if (user_info == NULL || user_info[0] == NULL || user_info[1] == NULL ||
+    user_info[2] == NULL) {
         return false;
     }
     strcpy(user->uuid, user_info[0]);
@@ -70,8 +71,7 @@ bool load_user_loop(list_ptr_t *users, FILE *file, const char sep)
         remove_newline(line);
         user = create_user_from_line(line, sep);
         if (user == NULL) {
-            free(line);
-            return false;
+            continue;
         }
         server_event_user_loaded(user->uuid, user->name);
         if (list_add_last(users, user) != LIST_OK) {
