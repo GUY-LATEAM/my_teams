@@ -17,7 +17,7 @@
 #include "protocol_logic.h"
 #include "commands.h"
 
-static int broadcast_message(circular_buffer_t *write, char *message,
+int broadcast_message(circular_buffer_t *write, char *message,
 char *uuid)
 {
     char *message_to_send = NULL;
@@ -35,27 +35,18 @@ char *uuid)
     return EXIT_SUCCESS;
 }
 
-static int add_message_struct(server_t *server, user_t *user, char *message,
-char *uuid)
+static int add_message_struct(server_t *server, user_t *user, char **tab)
 {
-    message_t *message_struct = NULL;
     network_client_t *client = NULL;
-    conversation_t *conversation = NULL;
+    int check_bool = 0;
 
-    client = find_circular_with_id(server, uuid);
-    if (client == NULL)
-        return EXIT_FAILURE;
-    message_struct = init_message(message);
-    if (message_struct == NULL)
-        return EXIT_FAILURE;
-    conversation = check_is_conversation((user_t *)client->user_data, uuid);
-    if (conversation == NULL)
-        conversation = init_conversation(user->uuid);
-    if (list_add_last(conversation->messages, message_struct) != LIST_OK ||
-    broadcast_message(client->write_buffer, message,
-    user->uuid) == EXIT_FAILURE || list_add_last(((user_t *)client->user_data)\
-    ->conversations, conversation) != LIST_OK)
-        return EXIT_FAILURE;
+    for (int i = 0; i < server->network_server->clients->len; i++) {
+        client = get_list_i_data(server->network_server->clients, i);
+        if (client == NULL)
+            continue;
+        if (send_message_if(client, user, tab, &check_bool) == EXIT_FAILURE)
+            return EXIT_FAILURE;
+    }
     return EXIT_SUCCESS;
 }
 
@@ -82,7 +73,7 @@ error occurred on the server side while processing the command.");
         return EXIT_FAILURE;
     }
     if (add_message_struct(server, (user_t *)user_data,
-    tab[1], tab[0]) == EXIT_FAILURE) {
+    tab) == EXIT_FAILURE) {
         write_error(write_buffer, "404", "Not Found: The user does not \
 exist.");
         free(tab);
