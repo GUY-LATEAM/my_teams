@@ -56,6 +56,8 @@ char *uuid)
     user->uuid) == EXIT_FAILURE || list_add_last(((user_t *)client->user_data)\
     ->conversations, conversation) != LIST_OK)
         return EXIT_FAILURE;
+    pritnf("\n\n");
+    server_event_private_message_sended(user->uuid, uuid, message);
     return EXIT_SUCCESS;
 }
 
