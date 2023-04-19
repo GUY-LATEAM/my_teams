@@ -39,7 +39,7 @@ endef
 
 # ---------------------------------------------------------------------
 
-COMPILATION = my_teams_cli
+COMPILATION = myteams_cli
 
 SRC 	:=	main.c \
 			checks/check_args_client.c \
