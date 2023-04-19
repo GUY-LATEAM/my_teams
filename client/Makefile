@@ -95,6 +95,7 @@ SRC 	:=	main.c \
 			protocol_logic/check_unknown_channel_cmd.c \
 			protocol_logic/check_unknown_thread_cmd.c \
 			protocol_logic/check_unknown_cmd.c \
+			protocol_logic/check_bad_cmd.c 		\
 			protocol_logic/disconnect_func.c \
 
 SRC_BROADCAST_COMMANDS	:=	broadcast_client_event_logged_in.c \
