@@ -25,9 +25,7 @@ void parse_message(__attribute__((unused)) client_t *client, char *args)
     || check_unauthorized_cmd(status, code, users_args)
     || check_unknown_user_cmd(status, code, users_args))
         return;
-    printf("size %d to %s\n", my_arrlen(users_args), args);
     for (int i = 0; users_args[i]; i++)
-        printf("arg : %s\n", users_args[i]);
     if ((my_arrlen(users_args) - 1) % 3 != 0)
         return;
     for (int i = 0; users_args[i + 1]; i += 3)

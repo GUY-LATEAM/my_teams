@@ -16,7 +16,6 @@ int broadcast_client_print_unsubscribed(char *raw_args)
         return EXIT_FAILURE;
     }
     args = get_char_array_args(raw_args);
-    printf("size :%d", my_arrlen(args));
     if (args == NULL || my_arrlen(args) != 2) {
         return EXIT_FAILURE;
     }
