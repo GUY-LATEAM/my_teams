@@ -20,18 +20,13 @@ static int print_subscribed_users(team_t *team, circular_buffer_t *write_buffer)
 {
     char *uuid_user = NULL;
 
-
-    if (write_circular_buffer(write_buffer, "OK 200 ") == EXIT_FAILURE)
-        return EXIT_FAILURE;
+    write_circular_buffer(write_buffer, "OK 200 ");
     for (int j = 0; j < team->subscribed_users->len; j++) {
         uuid_user = get_list_i_data(team->subscribed_users, j);
-        if (write_circular_buffer(write_buffer, uuid_user) == EXIT_FAILURE)
-            return EXIT_FAILURE;
-        if (write_circular_buffer(write_buffer, ":") == EXIT_FAILURE)
-            return EXIT_FAILURE;
+        write_circular_buffer(write_buffer, uuid_user);
+        write_circular_buffer(write_buffer, ":");
     }
-    if (write_circular_buffer(write_buffer, GUY) == EXIT_FAILURE)
-        return EXIT_FAILURE;
+    write_circular_buffer(write_buffer, GUY);
     return EXIT_FAILURE;
 }
 
