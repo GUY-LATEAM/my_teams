@@ -5,13 +5,16 @@
 ** unsubscribe_command
 */
 
+#include <string.h>
+#include <stdio.h>
+#include "context_getter.h"
 #include "my_teams_server.h"
 #include "logging_server.h"
 #include "commands.h"
 #include "protocol_logic.h"
 #include "circular_buffer.h"
 
-static int unsubscribe_user(user_t *client, server_t *serv,
+static int unsubscribe_user(user_t *client,
 team_t *team)
 {
     char *tmp_uuid = NULL;
@@ -49,19 +52,24 @@ void *user_data, void *protocol_data, team_t *team)
 int unsubscribe_command(void *user_data,
 void *protocol_data, char *args, circular_buffer_t *write_buffer)
 {
+    server_t *serv = NULL;
     team_t *team = NULL;
+    char *uuid = NULL;
 
     if (check_is_user_login(protocol_data,
     user_data, write_buffer) == EXIT_FAILURE)
         return EXIT_SUCCESS;
-    team = NULL;
-    if (unsubscribe_user(user_data, protocol_data, team)
+    serv = protocol_data;
+    uuid = strtok(args, ":"SP);
+    team = get_team_by_uuid(serv->teams, uuid);
+    if (unsubscribe_user(user_data, protocol_data)
     == EXIT_SUCCESS) {
         server_event_user_unsubscribed(team->uuid,
         ((user_t *) user_data)->uuid);
-        broadcast_unsubscribe_user(user_data, protocol_data, team->uuid);
+        broadcast_unsubscribe_user(user_data, protocol_data, team);
         write_success(write_buffer, CODE_200, "SUCCESS");
     } else {
         write_error(write_buffer, CODE_404, args);
     }
+    return EXIT_SUCCESS;
 }

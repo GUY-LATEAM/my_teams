@@ -6,6 +6,7 @@
 */
 
 #include <stdio.h>
+#include "protocol_logic.h"
 
 void display_error(char *cmd, char **args)
 {
@@ -16,4 +17,5 @@ void display_error(char *cmd, char **args)
     if (!args) {
         printf("Invalid arguments\n");
     }
+    free_parse_info(cmd, args);
 }

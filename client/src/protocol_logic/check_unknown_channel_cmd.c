@@ -16,7 +16,7 @@ __attribute__((unused)) const char *status,
 __attribute__((unused)) const char *code, char **args)
 {
     if (client->context->channel_valid != VALID_CTX) {
-        client_error_unknown_channel(args[0]);
+        client_error_unknown_channel(client->context->channel_uuid);
     }
     if (client->context->channel_valid == INVALID_CTX)
         return true;

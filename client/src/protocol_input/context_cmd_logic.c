@@ -38,8 +38,7 @@ char **channel, char **thread)
 }
 
 void add_context_to_args(client_t *client,
-__attribute__((unused)) char **args,
-__attribute__((unused)) int *nb_args)
+__attribute__((unused)) char **args)
 {
     char *team = NULL;
     char *channel = NULL;

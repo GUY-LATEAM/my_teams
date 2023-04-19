@@ -21,13 +21,13 @@ server_t *server, team_t *team, const char *broadcast_type, const char *args)
         return;
     }
     message_len = strlen(broadcast_type) + strlen(SP BROADCAST_MARK)
-    + strlen(args) + strlen(BROADCAST_MARK);
+    + strlen(args) + strlen(BROADCAST_MARK) + strlen(GUY);
     message = malloc(sizeof(char) * (message_len + 1));
     if (message == NULL) {
         return;
     }
     memset(message, 0, message_len + 1);
-    sprintf(message, BROADCAST "%s" SP BROADCAST_MARK "%s" BROADCAST_MARK,
+    sprintf(message, BROADCAST "%s" SP BROADCAST_MARK "%s" BROADCAST_MARK GUY,
     broadcast_type, args);
     broadcast_teams(server, team, message);
 }

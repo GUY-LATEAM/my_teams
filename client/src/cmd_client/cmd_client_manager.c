@@ -15,6 +15,7 @@ static const char *broadcast_cmds[] = {
     "LOGOUT",
     "MESSAGE",
     "SUBSCRIBED",
+    "UNSUBSCRIBED",
     "CHANNEL",
     "TEAMS",
     "THREAD",
