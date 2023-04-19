@@ -68,4 +68,5 @@ my_teams_server
 *.log
 .clang-format
 
+*.txt
 vgcore.*
