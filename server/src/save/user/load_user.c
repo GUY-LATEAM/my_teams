@@ -64,10 +64,9 @@ bool load_user_loop(list_ptr_t *users, FILE *file, const char sep)
 {
     char *line = NULL;
     size_t len = 0;
-    ssize_t read = 0;
     user_t *user = NULL;
 
-    while ((read = getline(&line, &len, file)) != -1) {
+    while ((getline(&line, &len, file)) != -1) {
         remove_newline(line);
         user = create_user_from_line(line, sep);
         if (user == NULL) {
