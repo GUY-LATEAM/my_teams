@@ -38,10 +38,9 @@ static int write_team(team_t *team, circular_buffer_t *write_buffer)
 static int if_loop_team(team_t *team, user_t *user, char *uuid_user,
 circular_buffer_t *write_buffer)
 {
-    if (uuid_user == user->uuid) {
+    if (strcmp(uuid_user, user->uuid) == 0)
         if (write_team(team, write_buffer) == false)
             return EXIT_FAILURE;
-    }
     return EXIT_SUCCESS;
 }
 
