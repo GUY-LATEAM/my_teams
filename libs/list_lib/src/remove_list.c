@@ -26,26 +26,20 @@ int remove_list_element(list_ptr_t *list_ptr, int i)
     return LIST_OK;
 }
 
-int free_list_no_data(list_ptr_t *list_ptr)
+int free_list_no_data(list_ptr_t *listptr)
 {
-    list_t *tmp = NULL;
+    int len = listptr->len;
 
-    if (list_ptr == NULL) {
-        return LIST_ERR_INPUT;
-    }
-    tmp = list_ptr->first;
-    if (tmp == NULL) {
-        return LIST_ERR_INPUT;
-    }
-    for (int i = 0; i < list_ptr->len; i++) {
-        tmp = tmp->next;
-        if (tmp == NULL) {
-            return LIST_ERR_INPUT;
+    for (; len > 0; len -= 1) {
+        if (len == 1) {
+            free(listptr->last);
+        } else {
+            listptr->last = listptr->last->prev;
+            free(listptr->last->next);
         }
-        free(tmp->prev);
     }
-    free(list_ptr);
-    return LIST_OK;
+    free(listptr);
+    return EXIT_SUCCESS;
 }
 
 int destroy_list(list_ptr_t *listptr)
