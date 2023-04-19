@@ -25,10 +25,11 @@ void parse_message(__attribute__((unused)) client_t *client, char *args)
     || check_unauthorized_cmd(status, code, users_args)
     || check_unknown_user_cmd(status, code, users_args))
         return;
+    for (int i = 0; users_args[i]; i++)
     if ((my_arrlen(users_args) - 1) % 3 != 0)
         return;
     for (int i = 0; users_args[i + 1]; i += 3)
-        client_private_message_print_messages(users_args[i * 3],
-        string_to_time(users_args[2]), users_args[i * 3 + 2]);
+        client_private_message_print_messages(users_args[i],
+        string_to_time(users_args[i + 1]), users_args[i + 2]);
     destroy_array(users_args);
 }
