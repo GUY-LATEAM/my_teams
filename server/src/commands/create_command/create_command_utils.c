@@ -36,7 +36,8 @@ server_t *server, __attribute__((unused)) user_t *user, char **args)
     return list_add_last(server->teams, team);
 }
 
-static team_t *get_team_from_create(server_t *server, user_t *user, char **args)
+static team_t *get_team_from_create(server_t *server,
+__attribute__((unused)) user_t *user, char **args)
 {
     int args_len = 0;
 
