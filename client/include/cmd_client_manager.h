@@ -12,6 +12,7 @@
         &broadcast_client_event_logged_out,\
         &broadcast_client_event_private_message_received,\
         &broadcast_client_print_subscribed,\
+        &broadcast_client_print_unsubscribed,\
         &broadcast_client_event_channel_created,\
         &broadcast_client_event_team_created,\
         &broadcast_client_event_thread_created,\
@@ -28,5 +29,6 @@
     int broadcast_client_event_team_created(char *);
     int broadcast_client_event_thread_created(char *);
     int broadcast_client_event_thread_reply_received(char *);
+    int broadcast_client_print_unsubscribed(char *raw_args);
     int manage_cmd_client(char *data);
 #endif /* CMD_CLIENT_MANAGER_H */

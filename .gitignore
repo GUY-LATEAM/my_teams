@@ -69,3 +69,4 @@ my_teams_server
 .clang-format
 
 *.txt
+vgcore.*
