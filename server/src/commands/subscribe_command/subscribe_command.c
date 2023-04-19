@@ -95,7 +95,11 @@ circular_buffer_t *write_buffer)
         ((user_t *) user_data)->uuid, team_uuid);
         broadcast_subscribe_user(user_data, protocol_data,
         get_team_by_uuid(team_uuid, ((server_t *) protocol_data)->teams));
-        write_success(write_buffer, CODE_200, "SUCCESS");
+        write_circular_buffer(write_buffer, "OK 200 ");
+        write_circular_buffer(write_buffer, ((user_t *) user_data)->uuid);
+        write_circular_buffer(write_buffer, ":");
+        write_circular_buffer(write_buffer, team_uuid);
+        write_circular_buffer(write_buffer, GUY);
     } else {
         write_error(write_buffer, CODE_404, args);
     }
