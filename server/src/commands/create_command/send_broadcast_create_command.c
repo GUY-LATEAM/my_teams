@@ -20,8 +20,8 @@ server_t *server, team_t *team, const char *broadcast_type, const char *args)
     if (server == NULL || team == NULL) {
         return;
     }
-    message_len = strlen(BROADCAST) + strlen(broadcast_type) + strlen(SP BROADCAST_MARK)
-    + strlen(args) + strlen(BROADCAST_MARK GUY);
+    message_len = strlen(BROADCAST) + strlen(broadcast_type)
+    + strlen(SP BROADCAST_MARK) + strlen(args) + strlen(BROADCAST_MARK GUY);
     message = malloc(sizeof(char) * (message_len + 1));
     if (message == NULL) {
         return;
