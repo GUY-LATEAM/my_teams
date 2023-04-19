@@ -26,11 +26,13 @@ int add_in_list(network_client_t *client, user_t *user, char **tab)
     if (message_struct == NULL)
         return EXIT_FAILURE;
     conversation = check_is_conversation((user_t *)client->user_data, tab[0]);
-    if (conversation == NULL)
+    if (conversation == NULL) {
         conversation = init_conversation(user->uuid);
-    if (list_add_last(conversation->messages, message_struct) != LIST_OK ||
-        list_add_last(((user_t *)client->user_data)\
-    ->conversations, conversation) != LIST_OK)
+        if (list_add_last(((user_t *)client->user_data)\
+            ->conversations, conversation) != LIST_OK)
+            return EXIT_FAILURE;
+    }
+    if (list_add_last(conversation->messages, message_struct) != LIST_OK)
         return EXIT_FAILURE;
     return EXIT_SUCCESS;
 }
