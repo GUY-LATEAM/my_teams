@@ -79,7 +79,6 @@ static char *resolve_reponse_context(server_t *server, char **args)
     char context[9] = {0};
     bool bad_context = false;
 
-    printf("len : %d", my_arrlen(args));
     resolve_context_team(server, args, context, &bad_context);
     if (bad_context)
         strcat(buffer_resp, "ERROR 404 ");
