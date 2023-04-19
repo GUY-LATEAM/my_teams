@@ -17,6 +17,7 @@ static bool copy_user_info(user_t *user, char **user_info)
     }
     strcpy(user->uuid, user_info[0]);
     strcpy(user->name, user_info[1]);
+    user->nb_users = 0;
     user->timestamp = string_to_time(user_info[2]);
 
     return user->timestamp != -1;

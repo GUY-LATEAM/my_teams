@@ -23,14 +23,16 @@ static int write_team(team_t *team, circular_buffer_t *write_buffer)
     bool name = false;
     bool colon2 = false;
     bool description = false;
+    bool colon3 = false;
 
     uuid = write_circular_buffer(write_buffer, team->uuid);
     colon = write_circular_buffer(write_buffer, ":");
     name = write_circular_buffer(write_buffer, team->name);
     colon2 = write_circular_buffer(write_buffer, ":");
     description = write_circular_buffer(write_buffer, team->description);
+    colon3 = write_circular_buffer(write_buffer, ":");
     if (uuid == false || colon == false || name == false || colon2 == false ||
-    description == false)
+    description == false || colon3 == false)
         return false;
     return true;
 }

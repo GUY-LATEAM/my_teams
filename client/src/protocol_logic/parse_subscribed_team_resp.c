@@ -11,7 +11,8 @@
 #include "libstr.h"
 #include "my_teams_client.h"
 
-void parse_subscribed_team(client_t *client, char *args)
+void parse_subscribed_team(__attribute__((unused)) client_t *client,
+char *args)
 {
     char *status = NULL;
     char *code = NULL;
@@ -21,9 +22,12 @@ void parse_subscribed_team(client_t *client, char *args)
     || users_args == NULL)
         return;
     if (check_unknown_cmd(status, code, users_args)
-    || check_unauthorized_cmd(status, code, users_args)
-    || check_unknown_team_cmd(client, status, code, users_args))
+    || check_unauthorized_cmd(status, code, users_args))
         return;
-    client_print_teams(users_args[0], users_args[1], users_args[2]);
+    if ((my_arrlen(users_args) - 1) % 3 != 0)
+        return;
+    for (int i = 0; users_args[i + 1]; i += 3)
+        client_print_teams(users_args[i], users_args[i + 1],
+        users_args[i + 2]);
     destroy_array(users_args);
 }
