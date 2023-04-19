@@ -15,6 +15,6 @@ void destroy_channel(channel_t *channel)
         return;
     for (int i = 0; i < channel->threads->len; i++)
         destroy_thread(get_list_i_data(channel->threads, i));
-    free(channel->threads);
+    free_list_no_data(channel->threads);
     free(channel);
 }
