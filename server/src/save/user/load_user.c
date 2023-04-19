@@ -7,6 +7,7 @@
 
 #include "save_struck.h"
 #include "my_teams_server.h"
+#include "logging_server.h"
 
 static bool copy_user_info(user_t *user, char **user_info)
 {
@@ -73,6 +74,7 @@ bool load_user_loop(list_ptr_t *users, FILE *file, const char sep)
             free(line);
             return false;
         }
+        server_event_user_loaded(user->uuid, user->name);
         if (list_add_last(users, user) != LIST_OK) {
             free(user);
             free(line);
