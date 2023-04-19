@@ -14,7 +14,7 @@
 #include "my_teams_client.h"
 #include "signal_management_client.h"
 
-void parse_info_user(client_t *client, char *args)
+void parse_info_user(__attribute__((unused)) client_t *client, char *args)
 {
     char *status = NULL;
     char *code = NULL;

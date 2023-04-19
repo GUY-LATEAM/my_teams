@@ -82,7 +82,6 @@ int manage_cmd_client(char *data)
     if (!is_broadcast_cmd(data)) {
         return EXIT_FAILURE;
     }
-    printf("Broadcasting \n");
     cmd = get_broadcast_cmd(data);
     args = get_broadcast_args(data);
     return handle_broadcast_cmd(cmd, args);
