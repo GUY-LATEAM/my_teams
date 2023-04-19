@@ -16,7 +16,7 @@ __attribute__((unused)) const char *status,
 __attribute__((unused)) const char *code, char **args)
 {
     if (client->context->thread_valid != VALID_CTX) {
-        client_error_unknown_thread(args[0]);
+        client_error_unknown_thread(client->context->thread_uuid);
     }
     if (client->context->thread_valid == INVALID_CTX)
         return true;

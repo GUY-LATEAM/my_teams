@@ -16,7 +16,7 @@ __attribute__((unused)) const char *status,
 __attribute__((unused)) const char *code, char **args)
 {
     if (client->context->team_valid != VALID_CTX) {
-        client_error_unknown_team(args[0]);
+        client_error_unknown_team(client->context->team_uuid);
     }
     if (client->context->team_valid == INVALID_CTX)
         return true;
