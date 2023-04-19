@@ -13,6 +13,7 @@
     #define CODE_404             "404"
     #define CODE_200             "200"
     #define BROADCAST            "broadcast "
+    #define RESPONSE             "OK "
     #define CODE_404 "404"
     #define CODE_200 "200"
     #define UNSUBSCRIBED_BROADCAST "broadcast UNSUBSCRIBE"
@@ -85,6 +86,28 @@
     int subscribed_no_argument(server_t *server, user_t *user,
     circular_buffer_t *write_buffer);
 
+    // list command
+    int list_team(server_t *server, __attribute__((unused)) user_t *user,
+    char **args, circular_buffer_t *write_buffer);
+    int list_channel(server_t *server, user_t *user, char **args,
+    circular_buffer_t *write_buffer);
+    int list_thread(server_t *server, user_t *user,
+    char **args, circular_buffer_t *write_buffer);
+    int list_reply(server_t *server,
+    user_t *user, char **args, circular_buffer_t *write_buffer);
+
+    // send response lits command
+    void send_response_list_teams(
+    server_t *server, circular_buffer_t *write_buffer);
+    void send_response_list_channel(
+    server_t *server, team_t *team, circular_buffer_t *write_buffer);
+    void send_response_list_thread(
+    server_t *server, channel_t *team, circular_buffer_t *write_buffer);
+    void send_response_list_reply(server_t *server, thread_t *thread,
+    circular_buffer_t *write_buffer);
+    void send_broadcast_list(
+    circular_buffer_t *write_buffer, list_ptr_t *args_list);
+
 
     // info utils
 
@@ -104,5 +127,12 @@
     team_t *get_team_by_context(char **context, server_t *serv);
     channel_t *get_channel_by_context(char **context, team_t *team);
     thread_t *get_thread_by_context(char **context, channel_t *channel);
+    int find_write(network_client_t *client,
+        user_t *user, char **tab);
+    int broadcast_message(circular_buffer_t *write, char *message,
+        char *uuid);
+    int add_in_list(network_client_t *client, user_t *user, char **tab);
+    int send_message_if(network_client_t *client, user_t *user, char **tab,
+        int *check_bool);
 
 #endif //MY_TEAMS_COMMANDS_H

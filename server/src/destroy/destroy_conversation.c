@@ -15,6 +15,6 @@ void destroy_conversation(conversation_t *conversation)
         return;
     for (int i = 0; i < conversation->messages->len; i++)
         destroy_message(get_list_i_data(conversation->messages, i));
-    free(conversation->messages);
+    free_list_no_data(conversation->messages);
     free(conversation);
 }

@@ -17,17 +17,50 @@
 #include "protocol_logic.h"
 #include "commands.h"
 
-network_client_t *find_circular_with_id(server_t *server, char *uuid)
+int add_in_list(network_client_t *client, user_t *user, char **tab)
 {
-    network_client_t *client = NULL;
+    message_t *message_struct = NULL;
+    conversation_t *conversation = NULL;
 
-    for (int i = 0; i < server->network_server->clients->len; i++) {
-        client = get_list_i_data(server->network_server->clients, i);
-        if (strcmp(((user_t *)client->user_data)->uuid, uuid) == 0) {
-            return client;
-        }
+    message_struct = init_message(tab[1]);
+    if (message_struct == NULL)
+        return EXIT_FAILURE;
+    conversation = check_is_conversation((user_t *)client->user_data, tab[0]);
+    if (conversation == NULL) {
+        conversation = init_conversation(user->uuid);
+        if (list_add_last(((user_t *)client->user_data)\
+            ->conversations, conversation) != LIST_OK)
+            return EXIT_FAILURE;
     }
-    return NULL;
+    if (list_add_last(conversation->messages, message_struct) != LIST_OK)
+        return EXIT_FAILURE;
+    return EXIT_SUCCESS;
+}
+
+int send_message_if(network_client_t *client, user_t *user, char **tab,
+int *check_bool)
+{
+    if (strcmp(((user_t *)client->user_data)->uuid, tab[0]) == 0) {
+        if (*check_bool == 0) {
+                add_in_list(client, user, tab);
+                *check_bool = 1;
+        }
+        if (broadcast_message(client->write_buffer, tab[1],
+            user->uuid) == EXIT_FAILURE)
+                return EXIT_FAILURE;
+    }
+    return EXIT_SUCCESS;
+}
+
+int find_write(network_client_t *client,
+user_t *user, char **tab)
+{
+    if (strcmp(((user_t *)client->user_data)->uuid, tab[0]) == 0) {
+        if (broadcast_message(client->write_buffer, tab[1],
+        user->uuid) == EXIT_FAILURE)
+            return EXIT_FAILURE;
+    }
+    return EXIT_SUCCESS;
 }
 
 conversation_t *check_is_conversation(user_t *user, char *uuid)

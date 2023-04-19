@@ -13,7 +13,7 @@
 
 bool check_unknown_team_cmd(const client_t *client,
 __attribute__((unused)) const char *status,
-__attribute__((unused)) const char *code, char **args)
+__attribute__((unused)) const char *code, __attribute__((unused)) char **args)
 {
     if (client->context->team_valid != VALID_CTX) {
         client_error_unknown_team(client->context->team_uuid);

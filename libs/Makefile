@@ -110,3 +110,6 @@ fclean: clean
 	rm -f $(LIB_NAME)
 
 re: fclean all
+
+debug: CFLAGS += -g
+debug: re

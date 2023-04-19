@@ -32,7 +32,7 @@ void parse_info_thread(client_t *client, char *args)
         return;
     if ((my_arrlen(users_args) - 1) % 4 != 0)
         return;
-    for (int i = 0; users_args[i]; i += 4)
+    for (int i = 0; users_args[i + 1]; i += 4)
         client_print_thread(users_args[i], users_args[i + 1],
         string_to_time(users_args[i + 2]),
         users_args[i + 3], users_args[i + 4]);

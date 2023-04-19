@@ -13,7 +13,8 @@
 
 bool check_unknown_channel_cmd(const client_t *client,
 __attribute__((unused)) const char *status,
-__attribute__((unused)) const char *code, char **args)
+__attribute__((unused)) const char *code,
+__attribute__((unused))char **args)
 {
     if (client->context->channel_valid != VALID_CTX) {
         client_error_unknown_channel(client->context->channel_uuid);
