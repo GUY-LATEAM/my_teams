@@ -39,7 +39,7 @@ endef
 
 # ---------------------------------------------------------------------
 
-COMPILATION = my_teams_server
+COMPILATION = myteams_server
 
 SRC 	:=	main.c
 SRC 	+= 	add/add_conversation_to_user.c \

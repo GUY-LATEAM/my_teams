@@ -13,11 +13,11 @@ all: make_library server client
 
 server:
 	@make -s -C server $(RULE)
-	@cp server/my_teams_server .
+	@cp server/myteams_server .
 
 client:
 	@make -s -C client $(RULE)
-	@cp client/my_teams_cli .
+	@cp client/myteams_cli .
 
 clean: make_library clean_server clean_client
 
@@ -30,8 +30,8 @@ clean_client:
 fclean: make_library clean
 	@make -s -C server fclean
 	@make -s -C client fclean
-	@rm -f my_teams_server
-	@rm -f my_teams_cli
+	@rm -f myteams_server
+	@rm -f myteams_cli
 
 re: fclean all
 
@@ -39,21 +39,21 @@ debug: make_library debug_server debug_client
 
 debug_server:
 	@make -s -C server debug
-	@cp server/my_teams_server .
+	@cp server/myteams_server .
 
 debug_client:
 	@make -s -C client debug
-	@cp client/my_teams_cli .
+	@cp client/myteams_cli .
 
 noice: noice_server noice_client
 
 noice_server:
 	@make -s -C server noice
-	@cp server/my_teams_server .
+	@cp server/myteams_server .
 
 noice_client:
 	@make -s -C client noice
-	@cp client/my_teams_cli .
+	@cp client/myteams_cli .
 
 
 make_library:
