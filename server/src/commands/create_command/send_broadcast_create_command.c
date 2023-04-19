@@ -51,6 +51,7 @@ void send_broadcast_new_teams(server_t *server, team_t *team)
     sprintf(args,
     BROADCAST "TEAMS" SP BROADCAST_MARK "%s:%s:%s" BROADCAST_MARK GUY,
     team->uuid, team->name, team->description);
+    printf("ca paseeeeeeeeeeeeeeeeee\n");
     broadcast_all_user(server, args);
 }
 

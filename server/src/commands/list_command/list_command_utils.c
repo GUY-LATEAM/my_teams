@@ -10,9 +10,9 @@
 #include "libstr.h"
 #include "context_getter.h"
 #include "init_struct.h"
-g
-int list_team(
-server_t *server, __attribute__((unused)) user_t *user, char **args)
+
+int list_team(server_t *server, __attribute__((unused)) user_t *user,
+char **args, circular_buffer_t *write_buffer)
 {
     int args_len = 0;
 
@@ -23,7 +23,7 @@ server_t *server, __attribute__((unused)) user_t *user, char **args)
     if (args_len != 3) {
         return EXIT_FAILURE;
     }
-    send_response_list_teams(server);
+    send_response_list_teams(server, write_buffer);
     return EXIT_SUCCESS;
 }
 
@@ -41,7 +41,8 @@ static team_t *get_team_from_list(server_t *server, user_t *user, char **args)
     return get_team_by_uuid(server->teams, args[0]);
 }
 
-int list_channel(server_t *server, user_t *user, char **args)
+int list_channel(
+server_t *server, user_t *user, char **args, circular_buffer_t *write_buffer)
 {
     team_t *team = NULL;
     int args_len = 0;
@@ -50,11 +51,12 @@ int list_channel(server_t *server, user_t *user, char **args)
     if (team == NULL) {
         return EXIT_FAILURE;
     }
-    send_response_list_channel(server, team);
+    send_response_list_channel(server, team, write_buffer);
     return EXIT_SUCCESS;
 }
 
-int list_thread(server_t *server, user_t *user, char **args)
+int list_thread(
+server_t *server, user_t *user, char **args, circular_buffer_t *write_buffer)
 {
     team_t *team = NULL;
     channel_t *channel = NULL;
@@ -66,11 +68,12 @@ int list_thread(server_t *server, user_t *user, char **args)
     channel = get_channel_by_uuid(team->channels, args[1]);
     if (channel == NULL)
         return EXIT_FAILURE;
-    send_response_list_thread(server, team, user);
+    send_response_list_thread(server, channel, write_buffer);
     return EXIT_SUCCESS;
 }
 
-int list_reply(server_t *server, user_t *user, char **args)
+int list_reply(
+server_t *server, user_t *user, char **args, circular_buffer_t *write_buffer)
 {
     team_t *team = NULL;
     channel_t *channel = NULL;
@@ -85,6 +88,6 @@ int list_reply(server_t *server, user_t *user, char **args)
     thread = get_thread_by_uuid(channel->threads, args[2]);
     if (thread == NULL)
         return EXIT_FAILURE;
-    send_response_list_reply(server, team, thread, user);
+    send_response_list_reply(server, thread, write_buffer);
     return EXIT_SUCCESS;
 }

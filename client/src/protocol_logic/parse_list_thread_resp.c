@@ -30,11 +30,11 @@ void parse_list_threads(client_t *client, char *args)
     || check_unknown_channel_cmd(client, status, code, users_args)
     || check_unknown_thread_cmd(client, status, code, users_args))
         return;
-    if (my_arrlen(users_args) % 5 != 0)
+    if ((my_arrlen(users_args) - 1) % 5 != 0)
         return;
-    for (int i = 0; users_args[i]; i += 5)
+    for (int i = 0; users_args[i + 1] != NULL ; i += 5)
         client_print_thread(users_args[i], users_args[i + 1],
-        string_to_time(users_args[ i +2]), users_args[i + 3],
-        users_args[i + 4]);
+                            string_to_time(users_args[i + 2]),
+                            users_args[i + 3], users_args[i + 4]);
     destroy_array(users_args);
 }

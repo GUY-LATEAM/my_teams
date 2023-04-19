@@ -13,6 +13,7 @@
     #define CODE_404             "404"
     #define CODE_200             "200"
     #define BROADCAST            "broadcast "
+    #define RESPONSE             "OK "
     #define CODE_404 "404"
     #define CODE_200 "200"
     #define UNSUBSCRIBED_BROADCAST "broadcast UNSUBSCRIBE"
@@ -86,20 +87,26 @@
     circular_buffer_t *write_buffer);
 
     // list command
-    int list_team(
-    server_t *server, __attribute__((unused)) user_t *user, char **args);
-    int list_channel(server_t *server, user_t *user, char **args);
-    int list_thread(server_t *server, user_t *user, char **args);
-    int list_reply(server_t *server, user_t *user, char **args);
+    int list_team(server_t *server, __attribute__((unused)) user_t *user,
+    char **args, circular_buffer_t *write_buffer);
+    int list_channel(server_t *server, user_t *user, char **args,
+    circular_buffer_t *write_buffer);
+    int list_thread(server_t *server, user_t *user,
+    char **args, circular_buffer_t *write_buffer);
+    int list_reply(server_t *server,
+    user_t *user, char **args, circular_buffer_t *write_buffer);
 
     // send response lits command
-    void send_response_list_teams(server_t *server);
+    void send_response_list_teams(
+    server_t *server, circular_buffer_t *write_buffer);
     void send_response_list_channel(
-    server_t *server, team_t *team);
+    server_t *server, team_t *team, circular_buffer_t *write_buffer);
     void send_response_list_thread(
-    server_t *server, team_t *team, user_t *user);
-    void send_response_list_reply(
-    server_t *server, team_t *team, thread_t *thread, user_t *user);
+    server_t *server, channel_t *team, circular_buffer_t *write_buffer);
+    void send_response_list_reply(server_t *server, thread_t *thread,
+    circular_buffer_t *write_buffer);
+    void send_broadcast_list(
+    circular_buffer_t *write_buffer, list_ptr_t *args_list);
 
 
     // info utils
