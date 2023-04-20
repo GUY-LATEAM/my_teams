@@ -32,7 +32,7 @@ void parse_list_reply(client_t *client, char *args)
         return;
     for (int i = 0; users_args[i + 1]; i += 4) {
         client_thread_print_replies(users_args[i], users_args[i + 1],
-            string_to_time(users_args[i + 2]), users_args[i + 3]);
+        string_to_time(users_args[i + 2]), users_args[i + 3]);
     }
     destroy_array(users_args);
 }

@@ -24,6 +24,7 @@ void parse_help(__attribute__((unused)) client_t *client, char *args)
     || users_args == NULL
     || check_unknown_cmd(status, code, users_args))
         return;
-    printf("%s\n", users_args[0]);
+    for (int i = 0; users_args[i]; i++)
+        printf("%s\n", users_args[i]);
     destroy_array(users_args);
 }

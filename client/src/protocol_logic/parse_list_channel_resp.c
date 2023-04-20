@@ -30,7 +30,7 @@ void parse_list_channel(client_t *client, char *args)
     if ((my_arrlen(users_args) - 1) % 3 != 0)
         return;
     for (int i = 0; users_args[i + 1]; i += 3)
-        client_print_channel(users_args[i], users_args[i + 1],
+        client_team_print_channels(users_args[i], users_args[i + 1],
         users_args[i + 2]);
     destroy_array(users_args);
 }
