@@ -21,15 +21,18 @@ char *context, bool *bad_context)
     if (my_arrlen(args) <= 2) {
         strcat(context, "UN");
         return;
-    } else {
-        thread = get_thread_by_uuid(channel->threads, args[2]);
-        if (thread == NULL) {
-            strcat(context, "KO");
-            *bad_context = true;
-            return;
-        }
-        strcat(context, "OK");
     }
+    if (channel == NULL) {
+        strcat(context, "KO");
+        *bad_context = true;
+        return;
+    }
+    thread = get_thread_by_uuid(channel->threads, args[2]);
+    if (thread == NULL) {
+        strcat(context, "KO");
+        *bad_context = true;
+    } else
+        strcat(context, "OK");
 }
 
 static void resolve_context_channel(team_t *team, char **args, char *context,
@@ -40,16 +43,19 @@ bool *bad_context)
     if (my_arrlen(args) <= 1) {
         strcat(context, "UN:UN");
         return;
+    }
+    if (team == NULL) {
+        strcat(context, "KO:");
+        *bad_context = true;
     } else {
         channel = get_channel_by_uuid(team->channels, args[1]);
-        if (channel == NULL) {
-            strcat(context, "KO:KO");
-            *bad_context = true;
-            return;
-        }
+    if (channel == NULL) {
+        strcat(context, "KO:");
+        *bad_context = true;
+    } else
         strcat(context, "OK:");
-        resolve_context_thread(channel, args, context, bad_context);
     }
+    resolve_context_thread(channel, args, context, bad_context);
 }
 
 static void resolve_context_team(server_t *server, char **args, char *context,
@@ -63,13 +69,12 @@ bool *bad_context)
     } else {
         team = get_team_by_uuid(server->teams, args[0]);
         if (team == NULL) {
-            strcat(context, "KO:KO:KO");
+            strcat(context, "KO:");
             *bad_context = true;
-            return;
         } else {
             strcat(context, "OK:");
-            resolve_context_channel(team, args, context, bad_context);
         }
+        resolve_context_channel(team, args, context, bad_context);
     }
 }
 

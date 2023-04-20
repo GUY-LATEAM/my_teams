@@ -13,8 +13,12 @@
 
 bool check_unknown_team_cmd(const client_t *client,
 __attribute__((unused)) const char *status,
-__attribute__((unused)) const char *code, __attribute__((unused)) char **args)
+const char *code, __attribute__((unused)) char **args)
 {
+    if (strcmp(code, "404") == 0) {
+        client_error_unknown_team(client->context->team_uuid);
+        return true;
+    }
     if (client->context->team_valid != VALID_CTX) {
         client_error_unknown_team(client->context->team_uuid);
     }

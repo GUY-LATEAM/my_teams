@@ -13,6 +13,7 @@
 #include "client_func.h"
 #include "broadcast_misc.h"
 #include "my_teams_client.h"
+#include "check_unknown_func.h"
 #include "signal_management_client.h"
 
 void parse_list_threads(client_t *client, char *args)
@@ -26,8 +27,7 @@ void parse_list_threads(client_t *client, char *args)
         return;
     if (check_unknown_cmd(status, code, users_args)
     || check_unauthorized_cmd(status, code, users_args)
-    || check_unknown_team_cmd(client, status, code, users_args)
-    || check_unknown_channel_cmd(client, status, code, users_args))
+    || check_unknown_channel(client, status, code, users_args))
         return;
     if ((my_arrlen(users_args) - 1) % 5 != 0)
         return;
