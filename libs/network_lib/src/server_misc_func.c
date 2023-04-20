@@ -5,11 +5,12 @@
 ** server_misc_func
 */
 
+#include <stdio.h>
 #include "list_lib.h"
 #include "socket_management_func.h"
 #include "server_func.h"
-#include <stdio.h>
 #include "client_func.h"
+#include "select_func.h"
 
 int server_receive_new_con(network_server_t *server, int buff_size,
     const char *pattern)
@@ -30,6 +31,7 @@ void server_loop_client(network_server_t *server)
         if (do_socket_read(client, &server->read_fds)
             == DISCONNECTED) {
             remove_list_element(server->clients, i);
+            find_new_max_fd(&server->max_fd, server->clients, server->socket);
             continue;
         }
         do_socket_write(client, &server->write_fds);
