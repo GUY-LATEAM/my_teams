@@ -14,7 +14,8 @@
     #define CODE_200             "200"
     #define BROADCAST            "broadcast "
     #define RESPONSE             "OK "
-    #define ALREADY_EXIST -42
+    #define ALREADY_EXIST       -42
+    #define FORBIDDEN           -401
 
     #define UNSUBSCRIBED_BROADCAST "broadcast UNSUBSCRIBE"
     #define SUBSCRIBED_BROADCAST "broadcast SUBSCRIBED"

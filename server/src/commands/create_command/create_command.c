@@ -83,5 +83,7 @@ __attribute__((unused)) char *args, circular_buffer_t *write_buffer)
     }
     if (result == ALREADY_EXIST)
         write_error(write_buffer, "409", "Already Exist");
+    if (result == FORBIDDEN)
+        write_error(write_buffer, "401", "Forbidden");
     return EXIT_SUCCESS;
 }
