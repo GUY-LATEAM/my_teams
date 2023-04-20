@@ -48,23 +48,6 @@ static int subscribe_user(void *user_data, void *protocol_data, char *args)
     return EXIT_SUCCESS;
 }
 
-char *get_subscribe_team_uuid(char *args)
-{
-    char **tmp = NULL;
-    char *uuid = NULL;
-
-    tmp = str_to_word_array(args, "\"");
-    if (!tmp)
-        return NULL;
-    if (my_arrlen(tmp) != 1) {
-        destroy_array(tmp);
-        return NULL;
-    }
-    uuid = strdup(tmp[0]);
-    destroy_array(tmp);
-    return uuid;
-}
-
 static void broadcast_subscribe_user(
 void *user_data, void *protocol_data, team_t *team)
 {
@@ -85,27 +68,34 @@ void *user_data, void *protocol_data, team_t *team)
     free(message);
 }
 
+static void write_subscribe_response(user_t *user_data, char *team_uuid,
+    circular_buffer_t *write_buffer)
+{
+    write_circular_buffer(write_buffer, "OK 200 ");
+    write_circular_buffer(write_buffer, user_data->uuid);
+    write_circular_buffer(write_buffer, ":");
+    write_circular_buffer(write_buffer, team_uuid);
+    write_circular_buffer(write_buffer, GUY);
+}
+
 int subscribe_command(void *user_data, void *protocol_data, char *args,
 circular_buffer_t *write_buffer)
 {
     char *team_uuid = get_subscribe_team_uuid(args);
 
     if (check_is_user_login(protocol_data,
-    user_data, write_buffer) == EXIT_FAILURE)
-        return EXIT_SUCCESS;
+    user_data, write_buffer) == EXIT_FAILURE ||
+        is_already_subscribed(((user_t *) user_data)->uuid,
+        team_uuid, ((server_t *) protocol_data)->teams))
+        return EXIT_FAILURE;
     if (subscribe_user(user_data, protocol_data, args) == EXIT_SUCCESS) {
         server_event_user_subscribed(
         ((user_t *) user_data)->uuid, team_uuid);
         broadcast_subscribe_user(user_data, protocol_data,
         get_team_by_uuid(team_uuid, ((server_t *) protocol_data)->teams));
-        write_circular_buffer(write_buffer, "OK 200 ");
-        write_circular_buffer(write_buffer, ((user_t *) user_data)->uuid);
-        write_circular_buffer(write_buffer, ":");
-        write_circular_buffer(write_buffer, team_uuid);
-        write_circular_buffer(write_buffer, GUY);
-    } else {
+        write_subscribe_response(user_data, team_uuid, write_buffer);
+    } else
         write_error(write_buffer, CODE_404, args);
-    }
     free(team_uuid);
     return EXIT_SUCCESS;
 }
