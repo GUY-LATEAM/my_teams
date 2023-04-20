@@ -12,6 +12,8 @@ static bool copy_channel_info(channel_t *channel, char **channel_info)
     if (channel_info == NULL || channel_info[0] == NULL ||
     channel_info[1] == NULL || channel_info[2] == NULL ||
     channel_info[3] == NULL || channel_info[4] == NULL) {
+        printf("HERE\n");
+        printf("%s %s %s %s %s\n", channel_info[0], channel_info[1], channel_info[2], channel_info[3], channel_info[4]);
         return false;
     }
     strcpy(channel->uuid, channel_info[0]);
@@ -36,6 +38,7 @@ static channel_t *create_channel(char **tab_info, const char sep)
     }
     channel->threads = create_thread_list_from_line(tab_info[5], sep);
     if (channel->threads == NULL) {
+        printf("chan\n");
         free(channel);
         return NULL;
     }
@@ -53,6 +56,7 @@ static channel_t *create_channel_from_line(char *line, const char sep)
     }
     channel = create_channel(splitted, sep + 1);
     if (channel == NULL) {
+        printf("Error: create_channel_from_line failed\n");
         free_tokens(splitted);
         return NULL;
     }
@@ -90,6 +94,7 @@ list_ptr_t *create_channel_list_from_line(char *line, const char sep)
     }
     channels = create_channel_list(splitted, sep + 1);
     if (channels == NULL) {
+        printf("Error: create_channel_list_from_line failed\n");
         free_tokens(splitted);
         return NULL;
     }

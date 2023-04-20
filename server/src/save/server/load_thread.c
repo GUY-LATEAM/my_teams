@@ -12,6 +12,7 @@ static bool copy_thread_info(thread_t *thread, char **thread_info)
     if (thread_info == NULL || thread_info[0] == NULL ||
         thread_info[1] == NULL || thread_info[2] == NULL ||
         thread_info[3] == NULL || thread_info[4] == NULL) {
+            printf("%s %s %s %s %s\n", thread_info[0], thread_info[1], thread_info[2], thread_info[3], thread_info[4]);
         return false;
     }
     strcpy(thread->uuid, thread_info[0]);
@@ -83,15 +84,13 @@ list_ptr_t *create_thread_list_from_line(char *line, const char sep)
     char **splitted = NULL;
     list_ptr_t *threads = NULL;
 
-    if (line == NULL) {
-        return NULL;
-    }
     splitted = str_split(line, sep);
     if (splitted == NULL) {
         return list_create();
     }
     threads = create_thread_list(splitted, sep + 1);
     if (threads == NULL) {
+        printf("Mathou\n");
         free_tokens(splitted);
         return NULL;
     }
