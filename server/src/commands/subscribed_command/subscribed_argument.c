@@ -74,5 +74,6 @@ char *uuid, circular_buffer_t *write_buffer)
         == EXIT_FAILURE)
             return EXIT_SUCCESS;
     }
+    write_error(write_buffer, "404", "Can't find team");
     return EXIT_SUCCESS;
 }

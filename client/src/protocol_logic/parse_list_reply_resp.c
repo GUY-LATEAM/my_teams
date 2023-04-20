@@ -12,6 +12,7 @@
 #include "client_func.h"
 #include "broadcast_misc.h"
 #include "libstr.h"
+#include "check_unknown_func.h"
 #include "my_teams_client.h"
 #include "signal_management_client.h"
 
@@ -26,9 +27,7 @@ void parse_list_reply(client_t *client, char *args)
         return;
     if (check_unknown_cmd(status, code, users_args)
     || check_unauthorized_cmd(status, code, users_args)
-    || check_unknown_team_cmd(client, status, code, users_args)
-    || check_unknown_channel_cmd(client, status, code, users_args)
-    || check_unknown_thread_cmd(client, status, code, users_args))
+    || check_unknown_thread(client, status, code, users_args))
     if (my_arrlen(users_args) - 1 % 4 != 0)
         return;
     for (int i = 0; users_args[i + 1]; i += 4) {

@@ -12,6 +12,7 @@
 #include "libstr.h"
 #include "client_func.h"
 #include "my_teams_client.h"
+#include "check_unknown_func.h"
 #include "signal_management_client.h"
 
 void parse_info_channel(client_t *client, char *args)
@@ -23,9 +24,10 @@ void parse_info_channel(client_t *client, char *args)
     if (parse_resp(&status, &code, &users_args, args) == false
     || users_args == NULL)
         return;
+    printf("wtf\n");
     if (check_unknown_cmd(status, code, users_args)
     || check_unauthorized_cmd(status, code, users_args)
-    || check_unknown_team_cmd(client, status, code, users_args))
+    || check_unknown_channel(client, status, code, users_args))
         return;
     if ((my_arrlen(users_args) - 1) % 3 != 0)
         return;

@@ -20,8 +20,13 @@ static int write_user_info(user_t *user, circular_buffer_t *write_buffer,
 char *uuid, int *bool_check)
 {
     if (strcmp(user->uuid, uuid) == 0) {
-        if (write_success(write_buffer, "200" , uuid) == EXIT_FAILURE)
-            return EXIT_FAILURE;
+        write_circular_buffer(write_buffer, "OK 200 ");
+        write_circular_buffer(write_buffer, user->uuid);
+        write_circular_buffer(write_buffer, ":");
+        write_circular_buffer(write_buffer, user->name);
+        write_circular_buffer(write_buffer, ":");
+        write_circular_buffer(write_buffer, user->nb_users > 1 ? "1" : "0");
+        write_circular_buffer(write_buffer, GUY);
         *bool_check = 1;
     }
     return EXIT_SUCCESS;
@@ -61,8 +66,7 @@ is malformed or invalid.");
         return EXIT_SUCCESS;
     }
     if (find_users(server, write_buffer, uuid) == EXIT_FAILURE) {
-        write_error(write_buffer, "404" , "tsetestesThe requested resource was \
-not found (e.g., a user, team, channel, or thread).");
+        write_error(write_buffer, "404" , uuid);
     }
     return EXIT_SUCCESS;
 }
