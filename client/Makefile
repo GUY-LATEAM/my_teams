@@ -96,6 +96,7 @@ SRC 	:=	main.c \
 			protocol_logic/check_unknown_channel_cmd.c \
 			protocol_logic/check_unknown_thread_cmd.c \
 			protocol_logic/check_unknown_cmd.c \
+			protocol_logic/check_bad_team_uuid.c	\
 			protocol_logic/check_bad_cmd.c 		\
 			protocol_logic/disconnect_func.c \
 
