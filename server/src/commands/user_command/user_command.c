@@ -17,11 +17,12 @@
 #include "commands.h"
 
 static int write_user_info(user_t *user, circular_buffer_t *write_buffer,
-char *uuid)
+char *uuid, int *bool_check)
 {
     if (strcmp(user->uuid, uuid) == 0) {
         if (write_success(write_buffer, "200" , uuid) == EXIT_FAILURE)
             return EXIT_FAILURE;
+        *bool_check = 1;
     }
     return EXIT_SUCCESS;
 }
@@ -30,12 +31,16 @@ static int find_users(server_t *server, circular_buffer_t *write_buffer,
 char *uuid)
 {
     user_t *user = NULL;
+    int bool_check = 0;
 
     for (int i = 0; i < server->all_users->len; i++) {
         user = get_list_i_data(server->all_users, i);
-        if (write_user_info(user, write_buffer, uuid) == EXIT_FAILURE)
+        if (write_user_info(user, write_buffer, uuid,
+        &bool_check) == EXIT_FAILURE)
             return EXIT_FAILURE;
     }
+    if (bool_check == 0)
+        return EXIT_FAILURE;
     return EXIT_SUCCESS;
 }
 
@@ -55,7 +60,9 @@ char *args, circular_buffer_t *write_buffer)
 is malformed or invalid.");
         return EXIT_SUCCESS;
     }
-    if (find_users(EXIT_SUCCESS, write_buffer, uuid) == EXIT_FAILURE)
-        return EXIT_SUCCESS;
+    if (find_users(server, write_buffer, uuid) == EXIT_FAILURE) {
+        write_error(write_buffer, "404" , "tsetestesThe requested resource was \
+not found (e.g., a user, team, channel, or thread).");
+    }
     return EXIT_SUCCESS;
 }
