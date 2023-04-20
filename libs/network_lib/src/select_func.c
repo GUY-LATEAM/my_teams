@@ -17,14 +17,21 @@ void update_max_fd(int *max_fd, int new_socket)
         *max_fd = new_socket;
 }
 
-void find_new_max_fd(int *max_fd, list_ptr_t *clients)
+void find_new_max_fd(int *max_fd, list_ptr_t *clients,
+int socket_serv)
 {
     network_client_t *client = NULL;
+    int new_max = 0;
 
     for (int i = 0; i < clients->len; i++) {
         client = get_list_i_data(clients, i);
-        update_max_fd(max_fd, client->socket);
+        if (new_max < client->socket)
+            new_max = client->socket;
     }
+    if (new_max < socket_serv)
+        *max_fd = socket_serv;
+    else
+        *max_fd = new_max;
 }
 
 int select_socket(int max_fd, fd_set *read_fds,

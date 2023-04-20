@@ -46,7 +46,7 @@ fd_set *except_fds, network_server_t *server)
         client->on_disconnect(client->user_data,
         client->protocol_data, SOCKET_ERROR);
         destroy_network_client(client);
-        find_new_max_fd(&server->max_fd, server->clients);
+        find_new_max_fd(&server->max_fd, server->clients, server->socket);
         return SOCKET_ERROR;
     }
     return NO_ERROR;
