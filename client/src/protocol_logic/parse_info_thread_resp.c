@@ -13,6 +13,7 @@
 #include "broadcast_misc.h"
 #include "client_func.h"
 #include "my_teams_client.h"
+#include "check_unknown_func.h"
 #include "signal_management_client.h"
 
 void parse_info_thread(client_t *client, char *args)

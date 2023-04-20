@@ -24,7 +24,6 @@ void parse_info_channel(client_t *client, char *args)
     if (parse_resp(&status, &code, &users_args, args) == false
     || users_args == NULL)
         return;
-    printf("wtf\n");
     if (check_unknown_cmd(status, code, users_args)
     || check_unauthorized_cmd(status, code, users_args)
     || check_unknown_channel(client, status, code, users_args))
