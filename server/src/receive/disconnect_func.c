@@ -28,7 +28,6 @@ static void broad_cast_logout(user_t *user, server_t *serv)
     if (sprintf(
         message, "broadcast LOGOUT \"%s:%s\"%s", user->uuid, user->name, GUY)
     < 0)
-    printf("WTF\n");
     broadcast_all_user(serv, message);
     free(message);
 }
