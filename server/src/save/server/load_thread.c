@@ -83,9 +83,6 @@ list_ptr_t *create_thread_list_from_line(char *line, const char sep)
     char **splitted = NULL;
     list_ptr_t *threads = NULL;
 
-    if (line == NULL) {
-        return NULL;
-    }
     splitted = str_split(line, sep);
     if (splitted == NULL) {
         return list_create();
