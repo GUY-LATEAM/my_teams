@@ -39,6 +39,8 @@ static team_t *get_team_from_create(
 server_t *server, __attribute__((unused)) user_t *user, char **args)
 {
     int args_len = 0;
+    team_t *team = NULL;
+    char *user_uuid = NULL;
 
     if (server == NULL || args == NULL) {
         return NULL;
@@ -47,7 +49,14 @@ server_t *server, __attribute__((unused)) user_t *user, char **args)
     if (args_len != 5) {
         return NULL;
     }
-    return get_team_by_uuid(server->teams, args[0]);
+    team = get_team_by_uuid(server->teams, args[0]);
+    for (int i = 0; i < team->subscribed_users->len; i++) {
+        user_uuid = get_list_i_data(team->subscribed_users, i);
+        if (strcmp(user_uuid, user->uuid) == 0) {
+            return team;
+        }
+    }
+    return NULL;
 }
 
 int create_channel(server_t *server, user_t *user, char **args)
@@ -58,7 +67,7 @@ int create_channel(server_t *server, user_t *user, char **args)
 
     team = get_team_from_create(server, user, args);
     if (team == NULL) {
-        return EXIT_FAILURE;
+        return FORBIDDEN;
     }
     args_len = my_arrlen(args);
     if (is_channel_already_exist(team->channels, args[args_len - 2])) {
@@ -81,7 +90,7 @@ int create_thread(server_t *server, user_t *user, char **args)
     int args_len = 0;
 
     if ((team = get_team_from_create(server, user, args)) == NULL)
-        return EXIT_FAILURE;
+        return FORBIDDEN;
     channel = get_channel_by_uuid(team->channels, args[1]);
     if (channel == NULL)
         return EXIT_FAILURE;
@@ -107,7 +116,7 @@ int create_reply(server_t *server, user_t *user, char **args)
     if (my_arrlen(args) != 4)
         return EXIT_FAILURE;
     if ((team = get_team_by_uuid(server->teams, args[0])) == NULL)
-        return EXIT_FAILURE;
+        return FORBIDDEN;
     channel = get_channel_by_uuid(team->channels, args[1]);
     if (channel == NULL)
         return EXIT_FAILURE;
