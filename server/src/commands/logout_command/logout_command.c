@@ -62,8 +62,8 @@ static int logout_broadcast(server_t *server, user_t *user)
     return EXIT_SUCCESS;
 }
 
-static int logout_command_annexe(
-server_t *server, __attribute__((unused)) user_t *user, circular_buffer_t *write_buffer)
+static int logout_command_annexe(server_t *server,
+__attribute__((unused)) user_t *user, circular_buffer_t *write_buffer)
 {
     if ((find_user_in_network(server, write_buffer) == false)) {
         write_error(write_buffer, "500",
