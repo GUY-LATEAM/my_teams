@@ -64,5 +64,8 @@
     bool check_unknown_cmd(const char *status, const char *code, char **args);
     bool check_bad_cmd(const char *status, const char *code,
     char **args);
+    bool check_bad_team_uuid(const client_t *client,
+    __attribute__((unused)) const char *status,
+    const char *code, __attribute__((unused)) char **args);
 
 #endif /* !PARSE_LOGIC_H_ */

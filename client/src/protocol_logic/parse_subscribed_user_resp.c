@@ -23,7 +23,7 @@ char *args)
         return;
     if (check_unknown_cmd(status, code, users_args)
     || check_unauthorized_cmd(status, code, users_args)
-    || check_unknown_team_cmd(client, status, code, users_args))
+    || check_bad_team_uuid(client, status, code, users_args))
         return;
     if ((my_arrlen(users_args) - 1) % 3 != 0)
         return;
