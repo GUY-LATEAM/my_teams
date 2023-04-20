@@ -14,17 +14,14 @@ static bool create_team_annexe(team_t *team, char **splitted, const char sep)
 
     tmp = create_user_list_from_line(splitted[4], sep);
     if (tmp == NULL) {
-        printf("HEre\n");
         return false;
     }
     if (my_arrlen(splitted) < 5) {
-        printf("HEre2\n");
         team->channels = list_create();
         return true;
     }
     team->channels = create_channel_list_from_line(splitted[5], sep);
     if (team->channels == NULL) {
-        printf("HEre3\n");
         destroy_list(tmp);
         return false;
     }
@@ -54,12 +51,10 @@ static team_t *create_team(char **splitted, const char sep)
         return NULL;
     }
     if (copy_team_info(team, splitted) == false) {
-        printf("copy_team_info failed\n");
         free(team);
         return NULL;
     }
     if (create_team_annexe(team, splitted, sep) == false) {
-        printf("create_team_annexe failed\n");
         free(team);
         return NULL;
     }
