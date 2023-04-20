@@ -9,8 +9,8 @@
 #include "commands.h"
 #include "libstr.h"
 #include "add_struct.h"
-#include "protocol_logic.h"
 #include "create_command_utils.h"
+#include "protocol_logic.h"
 
 static char **get_context(char *raw_args)
 {
@@ -39,7 +39,7 @@ static bool is_a_good_context(char **context)
         return false;
     }
     for (int i = 0; context[i] != NULL; i++) {
-        if (strcmp(context[i], KO_UUID) == 0){
+        if (strcmp(context[i], KO_UUID) == 0) {
             return false;
         }
     }
@@ -77,8 +77,8 @@ __attribute__((unused)) char *args, circular_buffer_t *write_buffer)
     context = get_context(args);
     if (is_a_good_context(context) == false) {
         write_error(write_buffer, "404", "Bad context");
-    } else {
-        return do_create_command(server, user_data, context);
+    } else if (do_create_command(server, user_data, context) != EXIT_SUCCESS) {
+        write_error(write_buffer, "409", "Already Exist");
     }
     return EXIT_SUCCESS;
 }

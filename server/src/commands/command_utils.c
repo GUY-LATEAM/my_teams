@@ -15,6 +15,48 @@
 #include "protocol_logic.h"
 #include "commands.h"
 
+bool is_thread_already_exist(list_ptr_t *threads, char *name)
+{
+    thread_t *thread = NULL;
+
+    for (int i = 0; i < threads->len; i++) {
+        thread = get_list_i_data(threads, i);
+        if (thread == NULL)
+            continue;
+        if (strcmp(thread->title, name) == 0)
+            return true;
+    }
+    return false;
+}
+
+bool is_channel_already_exist(list_ptr_t *channels, char *name)
+{
+    channel_t *channel = NULL;
+
+    for (int i = 0; i < channels->len; i++) {
+        channel = get_list_i_data(channels, i);
+        if (channel == NULL)
+            continue;
+        if (strcmp(channel->name, name) == 0)
+            return true;
+    }
+    return false;
+}
+
+bool is_team_already_exist(list_ptr_t *teams, char *name)
+{
+    team_t *team = NULL;
+
+    for (int i = 0; i < teams->len; i++) {
+        team = get_list_i_data(teams, i);
+        if (team == NULL)
+            continue;
+        if (strcmp(team->name, name) == 0)
+            return true;
+    }
+    return false;
+}
+
 int write_error(circular_buffer_t *write_buffer, const char *code,
 const char *message)
 {

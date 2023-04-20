@@ -124,6 +124,10 @@
     bool is_context_thread(char **context);
     bool is_context_loggedin_user(char **context);
 
+    bool is_thread_already_exist(list_ptr_t *threads, char *name);
+    bool is_channel_already_exist(list_ptr_t *channels, char *name);
+    bool is_team_already_exist(list_ptr_t *teams, char *name);
+
     team_t *get_team_by_context(char **context, server_t *serv);
     channel_t *get_channel_by_context(char **context, team_t *team);
     thread_t *get_thread_by_context(char **context, channel_t *channel);
