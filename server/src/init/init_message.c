@@ -11,7 +11,7 @@
 #include <uuid/uuid.h>
 #include "my_teams_server.h"
 
-message_t *init_message(char *content)
+message_t *init_message(char *content, char *create_uuid)
 {
     message_t *msg = NULL;
     uuid_t uuid = {0};
@@ -23,6 +23,8 @@ message_t *init_message(char *content)
     strncpy(msg->content, content, MAX_BODY_LENGTH);
     uuid_generate(uuid);
     uuid_unparse(uuid, msg->uuid);
+    strncpy(msg->uuid_create, create_uuid, MAX_UUID_LENGTH);
+    msg->uuid_create[MAX_UUID_LENGTH] = '\0';
     msg->content[MAX_BODY_LENGTH] = '\0';
     msg->timestamp = time(NULL);
     return msg;

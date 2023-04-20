@@ -34,6 +34,7 @@
     } conversation_t;
 
     typedef struct message_s {
+        char uuid_create[MAX_UUID_LENGTH + 1];
         char content[MAX_BODY_LENGTH + 1];
         char uuid[MAX_UUID_LENGTH + 1]; // uid du message
         time_t timestamp;

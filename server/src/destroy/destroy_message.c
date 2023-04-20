@@ -8,9 +8,10 @@
 #include "list_lib.h"
 #include "my_teams_server.h"
 
-void destroy_message(message_t *message)
+void destroy_message(message_t *message, char *uuid)
 {
     if (!message)
         return;
-    free(message);
+    if (message->uuid_create == uuid)
+        free(message);
 }
