@@ -69,6 +69,7 @@ __attribute__((unused)) char *args, circular_buffer_t *write_buffer)
 {
     server_t *server = protocol_data;
     char **context = NULL;
+    int result = EXIT_SUCCESS;
 
     if (user_data == NULL) {
         write_error(write_buffer, "401", "The client needs to authenticate");
@@ -77,8 +78,10 @@ __attribute__((unused)) char *args, circular_buffer_t *write_buffer)
     context = get_context(args);
     if (is_a_good_context(context) == false) {
         write_error(write_buffer, "404", "Bad context");
-    } else if (do_create_command(server, user_data, context) != EXIT_SUCCESS) {
-        write_error(write_buffer, "409", "Already Exist");
+    } else {
+        result = do_create_command(server, user_data, context);
     }
+    if (result == ALREADY_EXIST)
+        write_error(write_buffer, "409", "Already Exist");
     return EXIT_SUCCESS;
 }

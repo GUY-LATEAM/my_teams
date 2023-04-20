@@ -21,10 +21,10 @@ server_t *server, __attribute__((unused)) user_t *user, char **args)
         return EXIT_FAILURE;
     }
     args_len = my_arrlen(args);
-    if (args_len != 5
-    || is_team_already_exist(server->teams, args[args_len - 2])) {
+    if (args_len != 5)
         return EXIT_FAILURE;
-    }
+    if (is_team_already_exist(server->teams, args[args_len - 2]))
+        return ALREADY_EXIST;
     team = init_team(args[args_len - 2], args[args_len - 1]);
     if (team == NULL) {
         return EXIT_FAILURE;
@@ -60,7 +60,7 @@ int create_channel(server_t *server, user_t *user, char **args)
     }
     args_len = my_arrlen(args);
     if (is_channel_already_exist(team->channels, args[args_len - 2])) {
-        return EXIT_FAILURE;
+        return ALREADY_EXIST;
     }
     channel = init_channel(user->uuid, args[args_len - 2], args[args_len - 1]);
     if (channel == NULL) {
@@ -85,7 +85,7 @@ int create_thread(server_t *server, user_t *user, char **args)
         return EXIT_FAILURE;
     args_len = my_arrlen(args);
     if (is_thread_already_exist(channel->threads, args[args_len - 2]))
-        return EXIT_FAILURE;
+        return ALREADY_EXIST;
     thread = init_thread(user->uuid, args[args_len - 2], args[args_len - 1]);
     send_broadcast_new_thread(server, team, thread, user);
     return list_add_last(channel->threads, thread);

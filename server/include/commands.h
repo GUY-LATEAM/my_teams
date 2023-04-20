@@ -14,8 +14,8 @@
     #define CODE_200             "200"
     #define BROADCAST            "broadcast "
     #define RESPONSE             "OK "
-    #define CODE_404 "404"
-    #define CODE_200 "200"
+    #define ALREADY_EXIST -42
+
     #define UNSUBSCRIBED_BROADCAST "broadcast UNSUBSCRIBE"
     #define SUBSCRIBED_BROADCAST "broadcast SUBSCRIBED"
     #define UNKNOW_COMMAND       "ERROR 400 Unknown command"

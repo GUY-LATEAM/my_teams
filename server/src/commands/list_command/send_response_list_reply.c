@@ -20,7 +20,7 @@ thread_t *thread, list_ptr_t *reply_list, int i)
     char *args = NULL;
 
     reply = get_list_i_data(thread->replies, i);
-    timestamp = time_to_string(thread->timestamp);
+    timestamp = time_to_string(reply->timestamp);
     if (reply == NULL || timestamp == NULL)
         return;
     args_len = strlen(thread->uuid) + strlen(BROADCAST_COLON)
