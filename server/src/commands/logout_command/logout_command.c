@@ -40,7 +40,7 @@ server_t *server, circular_buffer_t *write_buffer)
     if (client == NULL)
         return false;
     client->user_data = NULL;
-    return false;
+    return true;
 }
 
 static int logout_broadcast(server_t *server, user_t *user)
