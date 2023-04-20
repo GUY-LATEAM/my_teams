@@ -15,8 +15,8 @@ static bool save_message(message_t *message, FILE *file, const char sep)
     if (timestamp_str == NULL) {
         return false;
     }
-    if (fprintf(file, "%s%c%s%c%s", message->uuid, sep, message->content, sep,
-    timestamp_str) < 0) {
+    if (fprintf(file, "%s%c%s%c%s%c%s", message->uuid, sep,
+    message->content, sep, message->uuid_create, sep, timestamp_str) < 0) {
         free(timestamp_str);
         return false;
     }

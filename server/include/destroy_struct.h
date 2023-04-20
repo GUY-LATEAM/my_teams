@@ -15,8 +15,8 @@
     void destroy_channel(channel_t *channel);
     void destroy_team(team_t *team);
 
-    void destroy_message(message_t *message);
-    void destroy_conversation(conversation_t *conversation);
+    void destroy_message(message_t *message, char *uuid);
+    void destroy_conversation(conversation_t *conversation, char *uuid);
     void destroy_user(user_t *user);
 
     void destroy_server(server_t *server);

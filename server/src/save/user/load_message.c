@@ -11,12 +11,13 @@ static bool copy_message_info(message_t *message, char **message_info)
 {
     if (message == NULL || message_info == NULL ||
     message_info[0] == NULL || message_info[1] == NULL ||
-    message_info[2] == NULL) {
+    message_info[2] == NULL || message_info[3] == NULL) {
         return false;
     }
     strcpy(message->uuid, message_info[0]);
     strcpy(message->content, message_info[1]);
-    message->timestamp = string_to_time(message_info[2]);
+    strcpy(message->uuid_create, message_info[2]);
+    message->timestamp = string_to_time(message_info[3]);
     if (message->timestamp == -1) {
         return false;
     }
