@@ -25,16 +25,16 @@ static int write_user_info(user_t *user, circular_buffer_t *write_buffer)
     bool uuid = false;
     bool colon2 = false;
     bool nb_con = false;
-    bool guy = false;
+    bool collon3 = false;
 
     name = write_circular_buffer(write_buffer, user->name);
     colon = write_circular_buffer(write_buffer, ":");
     uuid = write_circular_buffer(write_buffer, user->uuid);
     colon2 = write_circular_buffer(write_buffer, ":");
     nb_con = write_circular_buffer(write_buffer, int_to_string(user->nb_users));
-    guy = write_circular_buffer(write_buffer, GUY);
+    collon3 = write_circular_buffer(write_buffer, ":");
     if (name == false || colon == false || uuid == false || colon2 == false ||
-    nb_con == false || guy == false)
+    nb_con == false || collon3 == false)
         return EXIT_FAILURE;
     return EXIT_SUCCESS;
 }
@@ -58,6 +58,10 @@ static int find_users(server_t *server, circular_buffer_t *write_buffer)
         user = get_list_i_data(server->all_users, i);
         if (write_user_info(user, write_buffer) == EXIT_FAILURE)
             return EXIT_FAILURE;
+        if (i == server->all_users->len - 1) {
+            write_circular_buffer(write_buffer, GUY);
+            return EXIT_FAILURE;
+        }
     }
     return EXIT_SUCCESS;
 }

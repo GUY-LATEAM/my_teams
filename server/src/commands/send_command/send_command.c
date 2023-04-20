@@ -40,6 +40,8 @@ static int add_message_struct(server_t *server, user_t *user, char **tab)
     network_client_t *client = NULL;
     int check_bool = 0;
 
+    if (tab[0] == NULL)
+        return EXIT_FAILURE;
     for (int i = 0; i < server->network_server->clients->len; i++) {
         client = get_list_i_data(server->network_server->clients, i);
         if (client == NULL)
@@ -47,6 +49,8 @@ static int add_message_struct(server_t *server, user_t *user, char **tab)
         if (send_message_if(client, user, tab, &check_bool) == EXIT_FAILURE)
             return EXIT_FAILURE;
     }
+    if (check_bool == 0)
+        return EXIT_FAILURE;
     return EXIT_SUCCESS;
 }
 

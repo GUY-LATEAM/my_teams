@@ -48,7 +48,7 @@ static int write_messages(conversation_t *conv, circular_buffer_t *write_buffer)
 }
 
 static int if_find_user(conversation_t *conv, circular_buffer_t *write_buffer,
-char *uuid)
+char *uuid, int *bool_check)
 {
     if (strcmp(conv->uuid_create, uuid) == 0) {
         if (write_start(write_buffer) == EXIT_FAILURE)
@@ -56,6 +56,7 @@ char *uuid)
         if (write_messages(conv, write_buffer) == EXIT_FAILURE)
             return EXIT_FAILURE;
         return EXIT_SUCCESS;
+        *bool_check = 1;
     }
     return EXIT_FAILURE;
 }
@@ -63,12 +64,18 @@ char *uuid)
 static int find_users(user_t *user, circular_buffer_t *write_buffer, char *uuid)
 {
     conversation_t *conv = NULL;
+    int bool_check = 0;
 
     for (int i = 0; i < user->conversations->len; i++) {
         conv = get_list_i_data(user->conversations, i);
-        if (if_find_user(conv, write_buffer, uuid) == EXIT_SUCCESS) {
+        if (if_find_user(conv, write_buffer,
+        uuid, &bool_check) == EXIT_SUCCESS) {
             return EXIT_SUCCESS;
         }
+    }
+    if (bool_check == 0) {
+        write_error(write_buffer, "404" , "Not Found: The requested resource \
+was not found (e.g., a user, team, channel, or thread).");
     }
     return EXIT_SUCCESS;
 }

@@ -48,7 +48,7 @@ static char **custom_str_word_array(char *args)
     size = my_strlen(args);
     while (i != size) {
         if (args[i] == '"') {
-            token = strtok(args + i, "\"");
+            token = strtok(args + i, "\"\n");
             list_add_last(list, token);
             i += strlen(token);
         }
