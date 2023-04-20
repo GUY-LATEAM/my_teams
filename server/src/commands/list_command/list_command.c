@@ -77,7 +77,7 @@ circular_buffer_t *write_buffer)
     }
     context = get_context(args);
     if (is_a_good_context(context) == false) {
-        write_error(write_buffer, "401", "The client needs to authenticate");
+        write_error(write_buffer, "404", "Path not found");
     } else {
         return do_list_command(server, user_data, context, write_buffer);
     }
