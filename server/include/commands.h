@@ -14,8 +14,8 @@
     #define CODE_200             "200"
     #define BROADCAST            "broadcast "
     #define RESPONSE             "OK "
-    #define CODE_404 "404"
-    #define CODE_200 "200"
+    #define ALREADY_EXIST -42
+
     #define UNSUBSCRIBED_BROADCAST "broadcast UNSUBSCRIBE"
     #define SUBSCRIBED_BROADCAST "broadcast SUBSCRIBED"
     #define UNKNOW_COMMAND       "ERROR 400 Unknown command"
@@ -123,6 +123,10 @@
     bool is_context_team(char **context);
     bool is_context_thread(char **context);
     bool is_context_loggedin_user(char **context);
+
+    bool is_thread_already_exist(list_ptr_t *threads, char *name);
+    bool is_channel_already_exist(list_ptr_t *channels, char *name);
+    bool is_team_already_exist(list_ptr_t *teams, char *name);
 
     team_t *get_team_by_context(char **context, server_t *serv);
     channel_t *get_channel_by_context(char **context, team_t *team);
