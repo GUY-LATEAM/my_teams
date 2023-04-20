@@ -31,7 +31,8 @@ static int write_user_info(user_t *user, circular_buffer_t *write_buffer)
     colon = write_circular_buffer(write_buffer, ":");
     uuid = write_circular_buffer(write_buffer, user->uuid);
     colon2 = write_circular_buffer(write_buffer, ":");
-    nb_con = write_circular_buffer(write_buffer, int_to_string(user->nb_users));
+    nb_con = write_circular_buffer(write_buffer,
+    user->nb_users > 0 ? "1" : "0");
     collon3 = write_circular_buffer(write_buffer, ":");
     if (name == false || colon == false || uuid == false || colon2 == false ||
     nb_con == false || collon3 == false)
