@@ -14,7 +14,8 @@ void destroy_user(user_t *user)
     if (!user)
         return;
     for (int i = 0; i < user->conversations->len; i++)
-        destroy_conversation(get_list_i_data(user->conversations, i));
+        destroy_conversation(get_list_i_data(user->conversations, i),
+        user->uuid);
     free_list_no_data(user->conversations);
     free(user);
 }

@@ -17,23 +17,33 @@
 #include "protocol_logic.h"
 #include "commands.h"
 
+static int add_message_in_conv(user_t *user, message_t *message, char *uuid)
+{
+    conversation_t *conversation = NULL;
+
+    conversation = check_is_conversation(user, uuid);
+    if (conversation == NULL) {
+        conversation = init_conversation(uuid);
+        if (list_add_last(user->conversations, conversation) != LIST_OK)
+            return EXIT_FAILURE;
+    }
+    if (list_add_last(conversation->messages, message) != LIST_OK)
+        return EXIT_FAILURE;
+    return EXIT_SUCCESS;
+}
+
 int add_in_list(network_client_t *client, user_t *user, char **tab)
 {
     message_t *message_struct = NULL;
-    conversation_t *conversation = NULL;
 
-    message_struct = init_message(tab[1]);
+    message_struct = init_message(tab[1], user->uuid);
     if (message_struct == NULL)
         return EXIT_FAILURE;
-    conversation = check_is_conversation((user_t *)client->user_data, tab[0]);
-    if (conversation == NULL) {
-        conversation = init_conversation(user->uuid);
-        if (list_add_last(((user_t *)client->user_data)\
-            ->conversations, conversation) != LIST_OK)
+    if ((add_message_in_conv(user, message_struct, tab[0]) == EXIT_FAILURE) ||
+        add_message_in_conv(((user_t *)client->user_data), message_struct,
+        user->uuid) == EXIT_FAILURE)
             return EXIT_FAILURE;
-    }
-    if (list_add_last(conversation->messages, message_struct) != LIST_OK)
-        return EXIT_FAILURE;
+    server_event_private_message_sended(user->uuid, tab[0], tab[1]);
     return EXIT_SUCCESS;
 }
 

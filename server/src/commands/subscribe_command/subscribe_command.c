@@ -90,6 +90,9 @@ circular_buffer_t *write_buffer)
 {
     char *team_uuid = get_subscribe_team_uuid(args);
 
+    if (check_is_user_login(protocol_data,
+    user_data, write_buffer) == EXIT_FAILURE)
+        return EXIT_SUCCESS;
     if (subscribe_user(user_data, protocol_data, args) == EXIT_SUCCESS) {
         server_event_user_subscribed(
         ((user_t *) user_data)->uuid, team_uuid);
